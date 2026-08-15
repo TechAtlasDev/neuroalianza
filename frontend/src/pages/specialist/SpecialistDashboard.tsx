@@ -83,7 +83,7 @@ export function SpecialistDashboard() {
       <section
         className="text-white px-4 pt-7 pb-12 relative overflow-hidden bg-cover bg-bottom bg-no-repeat"
         style={{
-          backgroundImage: `url('https://res.cloudinary.com/de1xmnmeq/image/upload/v1786777435/pastel-mountains-vector-art-05xdup4f0zu2tvqa_km0pbp.jpg')`,
+          backgroundImage: `url('https://res.cloudinary.com/de1xmnmeq/image/upload/v1786781319/212485521-color-azul-rojo-oscuro-degradado-para-fondos-de-pantalla-o-fondos-de-escritorio_kzf24q.jpg')`,
         }}
       >
         {/* Capa Gradiente de arriba hacia abajo (Transparente a Negro 60%) */}
