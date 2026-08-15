@@ -76,13 +76,16 @@ export function AppointmentsTrackingPage() {
 
   return (
     <div className="-mx-4 -mt-4 flex flex-col">
-      {/* 1. Hero Superior con Imagen Pastel Mountains Alineada Abajo */}
+      {/* 1. Hero Superior con Imagen y Capa Gradiente */}
       <section
         className="text-white px-4 pt-7 pb-12 relative overflow-hidden bg-cover bg-bottom bg-no-repeat"
         style={{
           backgroundImage: `url('https://res.cloudinary.com/de1xmnmeq/image/upload/v1786777435/pastel-mountains-vector-art-05xdup4f0zu2tvqa_km0pbp.jpg')`,
         }}
       >
+        {/* Capa Gradiente de arriba hacia abajo (Transparente a Negro 60%) */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/60 pointer-events-none" />
+
         {/* Barra Superior Espaciadora */}
         <div className="flex items-center justify-between relative z-10 h-20">
         </div>

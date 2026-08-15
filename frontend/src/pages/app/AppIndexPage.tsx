@@ -65,13 +65,16 @@ export function AppIndexPage() {
 
   return (
     <div className="-mx-4 -mt-4 flex flex-col">
-      {/* 1. Hero Superior con Imagen de Fondo Limpia (Sin capas ni láminas) */}
+      {/* 1. Hero Superior con Imagen y Capa Gradiente */}
       <section
         className="text-primary-foreground px-4 pt-7 pb-12 relative overflow-hidden bg-cover bg-center bg-no-repeat"
         style={{
           backgroundImage: `url('https://res.cloudinary.com/de1xmnmeq/image/upload/v1786776308/paisaje-monta%C3%B1oso-low-poly-al-amanecer-con-degradados-pastel-en-los-picos-fondo-de-pantalla-para-m%C3%B3vil-experimenta-la-serena-378149134_pfiikg.webp')`,
         }}
       >
+        {/* Capa Gradiente de arriba hacia abajo (Transparente a Negro 60%) */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/60 pointer-events-none" />
+
         {/* Barra Superior con Logo y Selector de Idioma */}
         <div className="flex items-center justify-between relative z-10">
           <Link to="/" className="flex items-center gap-2.5 group">
