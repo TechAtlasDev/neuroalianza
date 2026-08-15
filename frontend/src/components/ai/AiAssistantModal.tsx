@@ -47,7 +47,7 @@ export function AiAssistantModal({ isOpen, onClose }: AiAssistantModalProps) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/60 backdrop-blur-sm animate-in fade-in">
-      <div className="w-full max-w-md bg-card border border-border rounded-t-3xl sm:rounded-3xl shadow-2xl flex flex-col max-h-[85vh] sm:max-h-[600px] overflow-hidden">
+      <div className="w-full max-w-md bg-card border border-border rounded-t-3xl sm:rounded-3xl shadow-2xl flex flex-col max-h-[85vh] sm:max-h-[80vh] overflow-hidden">
         {/* Header del Asistente */}
         <div className="p-3.5 bg-gradient-to-r from-primary/20 via-primary/10 to-card border-b border-border flex items-center justify-between">
           <div className="flex items-center gap-2.5">
@@ -56,14 +56,14 @@ export function AiAssistantModal({ isOpen, onClose }: AiAssistantModalProps) {
             </div>
             <div>
               <div className="flex items-center gap-1.5">
-                <h3 className="text-xs font-bold font-heading text-foreground">
+                <h3 className="text-md font-bold font-heading text-foreground">
                   Copiloto Clínico IA
                 </h3>
-                <Badge className="bg-amber-400 text-amber-950 text-[9px] font-bold px-1 py-0">
+                <Badge className="bg-amber-400 text-amber-950 text-md font-bold px-1 py-0">
                   CRED-IA
                 </Badge>
               </div>
-              <p className="text-[10px] text-muted-foreground">
+              <p className="text-md text-muted-foreground">
                 Asistencia en tiempo real basada en protocolos INSN-SB
               </p>
             </div>
@@ -80,7 +80,7 @@ export function AiAssistantModal({ isOpen, onClose }: AiAssistantModalProps) {
         </div>
 
         {/* Mensajes */}
-        <div className="flex-1 p-3.5 space-y-3 overflow-y-auto bg-background/50 text-xs">
+        <div className="flex-1 p-3.5 space-y-3 overflow-y-auto bg-background/50 text-md">
           {messages.map((m, idx) => (
             <div
               key={idx}
@@ -92,11 +92,10 @@ export function AiAssistantModal({ isOpen, onClose }: AiAssistantModalProps) {
                 </div>
               )}
               <div
-                className={`p-3 rounded-2xl max-w-[85%] leading-relaxed ${
-                  m.sender === "user"
-                    ? "bg-primary text-primary-foreground rounded-br-none"
-                    : "bg-card border border-border/80 text-foreground rounded-bl-none shadow-sm"
-                }`}
+                className={`p-3 rounded-2xl max-w-[85%] leading-relaxed ${m.sender === "user"
+                  ? "bg-primary text-primary-foreground rounded-br-none"
+                  : "bg-card border border-border/80 text-foreground rounded-bl-none shadow-sm"
+                  }`}
               >
                 {m.text}
               </div>
@@ -117,7 +116,7 @@ export function AiAssistantModal({ isOpen, onClose }: AiAssistantModalProps) {
               onClick={() => {
                 setInputValue(quick)
               }}
-              className="text-[10px] text-muted-foreground hover:text-primary bg-muted/60 hover:bg-primary/10 px-2 py-1 rounded-full whitespace-nowrap border border-border/50 transition-colors"
+              className="text-md text-muted-foreground hover:text-primary bg-muted/60 hover:bg-primary/10 px-2 py-1 rounded-full whitespace-nowrap border border-border/50 transition-colors"
             >
               {quick}
             </button>
@@ -131,7 +130,7 @@ export function AiAssistantModal({ isOpen, onClose }: AiAssistantModalProps) {
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && handleSend()}
-            className="h-10 text-xs rounded-xl bg-background"
+            className="h-10 text-md rounded-xl bg-background"
           />
           <Button
             size="sm"

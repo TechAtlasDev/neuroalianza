@@ -11,18 +11,18 @@ export function NotFoundPage() {
       <h1 className="text-2xl font-bold font-heading text-foreground mb-2">
         Página no encontrada
       </h1>
-      <p className="text-sm text-muted-foreground max-w-sm mb-6">
+      <p className="text-md text-muted-foreground max-w-sm mb-6">
         La ruta a la que intentas acceder no existe o fue movida dentro de la plataforma Neuroalianza.
       </p>
       <div className="flex flex-col sm:flex-row gap-3">
         <Link to="/">
-          <Button variant="outline" className="min-h-[44px] gap-2">
+          <Button variant="outline" className="min-h-11 gap-2">
             <ArrowLeft className="w-4 h-4" />
             <span>Volver a la Landing</span>
           </Button>
         </Link>
         <Link to="/app">
-          <Button className="min-h-[44px] gap-2 font-semibold">
+          <Button className="min-h-11 gap-2 font-semibold">
             <Home className="w-4 h-4" />
             <span>Ir a la Aplicación</span>
           </Button>

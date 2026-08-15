@@ -87,7 +87,7 @@ export function ResourcesPage() {
           <BookOpen size={24} weight="fill" className="text-primary" />
           <span>Biblioteca de Recursos</span>
         </h2>
-        <p className="text-xs text-muted-foreground">
+        <p className="text-md text-muted-foreground">
           Guías oficiales de neurodesarrollo, fichas ilustradas y pautas para familias.
         </p>
       </div>
@@ -99,7 +99,7 @@ export function ResourcesPage() {
           placeholder="Buscar guías, actividades o protocolos..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="pl-9 h-10 text-xs rounded-xl bg-card"
+          className="pl-9 h-10 text-md rounded-xl bg-card"
         />
       </div>
 
@@ -116,7 +116,7 @@ export function ResourcesPage() {
             size="sm"
             variant={selectedCategory === cat.id ? "default" : "outline"}
             onClick={() => setSelectedCategory(cat.id)}
-            className="text-xs h-8 rounded-lg shrink-0 px-3"
+            className="text-md h-8 rounded-lg shrink-0 px-3"
           >
             {cat.label}
           </Button>
@@ -137,27 +137,27 @@ export function ResourcesPage() {
 
                 <div className="flex-1 min-w-0 space-y-1">
                   <div className="flex items-center gap-1.5 flex-wrap">
-                    <Badge variant="outline" className="text-[10px] px-1.5 py-0">
+                    <Badge variant="outline" className="text-md px-1.5 py-0">
                       {res.ageRange}
                     </Badge>
-                    <span className="text-[10px] text-muted-foreground font-medium">
+                    <span className="text-md text-muted-foreground font-medium">
                       {res.durationOrPages}
                     </span>
                   </div>
 
-                  <h3 className="text-xs font-bold text-foreground leading-tight">
+                  <h3 className="text-md font-bold text-foreground leading-tight">
                     {res.title}
                   </h3>
 
-                  <p className="text-[11px] text-muted-foreground leading-relaxed">
+                  <p className="text-md text-muted-foreground leading-relaxed">
                     {res.description}
                   </p>
 
                   <div className="pt-1.5 flex items-center justify-between">
-                    <span className="text-[10px] font-semibold text-primary">
+                    <span className="text-md font-semibold text-primary">
                       {res.type}
                     </span>
-                    <Button size="sm" variant="ghost" className="h-7 text-xs px-2 gap-1 text-primary">
+                    <Button size="sm" variant="ghost" className="h-7 text-md px-2 gap-1 text-primary">
                       <DownloadSimple size={14} weight="bold" />
                       <span>Descargar</span>
                     </Button>

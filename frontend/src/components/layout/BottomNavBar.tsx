@@ -138,11 +138,10 @@ export function BottomNavBar({
                   onClick={() => handleNavClick(item)}
                   aria-label={item.label}
                   aria-current={active ? "page" : undefined}
-                  className={`relative flex flex-col items-center justify-center w-16 h-12 bg-transparent transition-colors duration-150 active:scale-95 ${
-                    active
-                      ? "text-primary"
-                      : "text-muted-foreground hover:text-foreground"
-                  }`}
+                  className={`relative flex flex-col items-center justify-center w-16 h-12 bg-transparent transition-colors duration-150 active:scale-95 ${active
+                    ? "text-primary"
+                    : "text-muted-foreground hover:text-foreground"
+                    }`}
                 >
                   <IconComponent
                     size={24}
@@ -150,14 +149,13 @@ export function BottomNavBar({
                     className="transition-colors duration-150"
                   />
                   <span
-                    className={`text-[11px] tracking-tight mt-0.5 ${
-                      active ? "font-bold text-primary" : "font-medium text-muted-foreground"
-                    }`}
+                    className={`text-md t-tight mt-0.5 ${active ? "font-bold text-primary" : "font-medium text-muted-foreground"
+                      }`}
                   >
                     {item.label}
                   </span>
                   {Boolean(item.badgeCount && item.badgeCount > 0) && (
-                    <span className="absolute top-1 right-2 min-w-[16px] h-4 px-1 rounded-full bg-destructive text-destructive-foreground text-[10px] font-bold flex items-center justify-center ring-2 ring-card">
+                    <span className="absolute top-1 right-2 min-w-4 h-4 px-1 rounded-full bg-destructive text-destructive-foreground text-md font-bold flex items-center justify-center ring-2 ring-card">
                       {item.badgeCount! > 99 ? "99+" : item.badgeCount}
                     </span>
                   )}
@@ -198,11 +196,10 @@ export function BottomNavBar({
                   onClick={() => handleNavClick(item)}
                   aria-label={item.label}
                   aria-current={active ? "page" : undefined}
-                  className={`relative flex flex-col items-center justify-center w-16 h-12 bg-transparent transition-colors duration-150 active:scale-95 ${
-                    active
-                      ? "text-primary"
-                      : "text-muted-foreground hover:text-foreground"
-                  }`}
+                  className={`relative flex flex-col items-center justify-center w-16 h-12 bg-transparent transition-colors duration-150 active:scale-95 ${active
+                    ? "text-primary"
+                    : "text-muted-foreground hover:text-foreground"
+                    }`}
                 >
                   <IconComponent
                     size={24}
@@ -210,14 +207,13 @@ export function BottomNavBar({
                     className="transition-colors duration-150"
                   />
                   <span
-                    className={`text-[11px] tracking-tight mt-0.5 leading-none text-center ${
-                      active ? "font-bold text-primary" : "font-medium text-muted-foreground"
-                    }`}
+                    className={`text-md t-tight mt-0.5 leading-none text-center ${active ? "font-bold text-primary" : "font-medium text-muted-foreground"
+                      }`}
                   >
                     {item.label}
                   </span>
                   {Boolean(item.badgeCount && item.badgeCount > 0) && (
-                    <span className="absolute top-1 right-2 min-w-[16px] h-4 px-1 rounded-full bg-destructive text-destructive-foreground text-[10px] font-bold flex items-center justify-center ring-2 ring-card">
+                    <span className="absolute top-1 right-2 min-w-4 h-4 px-1 rounded-full bg-destructive text-destructive-foreground text-md font-bold flex items-center justify-center ring-2 ring-card">
                       {item.badgeCount! > 99 ? "99+" : item.badgeCount}
                     </span>
                   )}

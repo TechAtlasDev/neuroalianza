@@ -10,7 +10,7 @@ export function FamilyHomePage() {
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-lg font-bold font-heading text-foreground">Familia Quispe</h2>
-          <p className="text-xs text-muted-foreground">Paciente: Mateo Quispe (18 meses)</p>
+          <p className="text-md text-muted-foreground">Paciente: Mateo Quispe (18 meses)</p>
         </div>
         <Badge className="bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-500/20">
           En Atención
@@ -21,40 +21,40 @@ export function FamilyHomePage() {
       <Card className="border-primary/30 bg-gradient-to-br from-primary/10 via-card to-card shadow-sm">
         <CardHeader className="pb-2">
           <div className="flex items-center justify-between">
-            <Badge variant="default" className="bg-primary text-primary-foreground text-xs">
+            <Badge variant="default" className="bg-primary text-primary-foreground text-md">
               Próxima Cita Médica
             </Badge>
-            <span className="text-xs font-semibold text-primary">INSN San Borja</span>
+            <span className="text-md font-semibold text-primary">INSN San Borja</span>
           </div>
           <CardTitle className="text-base font-bold font-heading text-foreground mt-1">
             Evaluación Integral de Neuropediatría
           </CardTitle>
-          <CardDescription className="text-xs">
+          <CardDescription className="text-md">
             Dra. Carla Morales · Bloque Integrado de la Mañana
           </CardDescription>
         </CardHeader>
-        <CardContent className="space-y-3 pt-0 text-sm">
+        <CardContent className="space-y-3 pt-0 text-md">
           <div className="space-y-1.5 bg-background/80 p-3 rounded-xl border border-border">
-            <div className="flex items-center gap-2 text-xs text-foreground font-medium">
+            <div className="flex items-center gap-2 text-md text-foreground font-medium">
               <CalendarCheck size={16} weight="bold" className="text-primary" />
               <span>Martes 24 de Febrero, 2026</span>
             </div>
-            <div className="flex items-center gap-2 text-xs text-muted-foreground">
+            <div className="flex items-center gap-2 text-md text-muted-foreground">
               <Clock size={16} weight="bold" className="text-primary" />
               <span>09:30 AM (Llegar 15 min antes)</span>
             </div>
-            <div className="flex items-center gap-2 text-xs text-muted-foreground">
+            <div className="flex items-center gap-2 text-md text-muted-foreground">
               <MapPin size={16} weight="bold" className="text-primary" />
               <span>Av. Javier Prado Este 3101, San Borja</span>
             </div>
           </div>
 
           <div className="flex gap-2">
-            <Button className="flex-1 min-h-[44px] gap-1.5 font-semibold">
+            <Button className="flex-1 min-h-11 gap-1.5 font-semibold">
               <CheckCircle size={16} weight="bold" />
               <span>Confirmar Asistencia</span>
             </Button>
-            <Button variant="outline" className="min-h-[44px] px-3">
+            <Button variant="outline" className="min-h-11 px-3">
               Reprogramar
             </Button>
           </div>
@@ -65,20 +65,20 @@ export function FamilyHomePage() {
       <Card className="border-border">
         <CardHeader className="pb-2">
           <div className="flex items-center justify-between">
-            <CardTitle className="text-sm font-bold font-heading text-foreground">
+            <CardTitle className="text-md font-bold font-heading text-foreground">
               Guía de Estimulación en Casa
             </CardTitle>
-            <Badge variant="secondary" className="text-xs">Día 4 de 7</Badge>
+            <Badge variant="secondary" className="text-md">Día 4 de 7</Badge>
           </div>
-          <CardDescription className="text-xs">
+          <CardDescription className="text-md">
             Ejercicios de contacto visual y juego interactivo para realizar con Mateo.
           </CardDescription>
         </CardHeader>
         <CardContent className="pt-0">
           <div className="p-3 rounded-xl bg-muted/40 border border-border flex items-center justify-between">
             <div className="space-y-0.5">
-              <p className="text-xs font-bold text-foreground">Juego de las escondidas con telas</p>
-              <p className="text-[11px] text-muted-foreground">5 minutos · Fomenta atención compartida</p>
+              <p className="text-md font-bold text-foreground">Juego de las escondidas con telas</p>
+              <p className="text-md text-muted-foreground">5 minutos · Fomenta atención compartida</p>
             </div>
             <Button size="sm" className="gap-1 bg-primary text-primary-foreground h-9 px-3">
               <Play size={14} weight="fill" />

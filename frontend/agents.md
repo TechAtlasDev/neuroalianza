@@ -49,7 +49,7 @@ Aplican a `src/pages/`, `src/features/`, `src/components/shared/` y `src/compone
 - ✅ `bg-background`, `text-foreground`, `bg-card`, `text-card-foreground`, `bg-primary`, `text-primary-foreground`, `bg-destructive`, `text-destructive-foreground`, `bg-muted`, `text-muted-foreground`, `border-border`, `ring-ring`
 
 ### 2. Tipografía y Legibilidad
-- ❌ `text-xs`, `text-[11px]`, `text-[13px]`, `style={{ fontSize: 12 }}`
+- ❌ `text-md`, `text-md`, `text-[13px]`, `style={{ fontSize: 12 }}`
 - ❌ `font-thin`, `font-extralight`
 - ✅ Mínimo `text-md` (16px) para textos de lectura y formularios. Escala: `text-md`, `text-lg`, `text-xl`, `text-2xl`, `text-3xl`.
 - *Justificación:* Los usuarios son personal de salud en postas bajo luz solar y familias con celulares económicos o presbicia.

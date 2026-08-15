@@ -91,7 +91,7 @@ El sistema de diseño utiliza variables CSS semánticas definidas en `src/index.
 
 > [!CAUTION]
 > **Prohibición de Tamaños Pequeños:**  
-> Los tamaños `text-xs` y `text-[13px]` están **estrictamente prohibidos**.
+> Los tamaños `text-md` y `text-[13px]` están **estrictamente prohibidos**.
 
 | Clase Tailwind | Tamaño (px) | Propósito Clínico y UX |
 | :--- | :--- | :--- |

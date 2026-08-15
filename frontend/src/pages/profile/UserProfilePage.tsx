@@ -25,17 +25,17 @@ export function UserProfilePage() {
 
         <div className="flex-1 min-w-0 space-y-0.5">
           <div className="flex items-center gap-2">
-            <h2 className="text-sm font-bold font-heading text-foreground truncate">
+            <h2 className="text-md font-bold font-heading text-foreground truncate">
               Lic. Carmen Morales
             </h2>
-            <Badge variant="outline" className="text-[10px] text-primary border-primary/40 px-1.5 py-0">
+            <Badge variant="outline" className="text-md text-primary border-primary/40 px-1.5 py-0">
               CRED
             </Badge>
           </div>
-          <p className="text-xs text-muted-foreground truncate">
+          <p className="text-md text-muted-foreground truncate">
             Enfermera Especialista en Crecimiento y Desarrollo
           </p>
-          <p className="text-[11px] text-muted-foreground flex items-center gap-1 font-medium pt-0.5">
+          <p className="text-md text-muted-foreground flex items-center gap-1 font-medium pt-0.5">
             <Hospital size={13} className="text-primary" />
             <span>C.S. San Juan de Miraflores (RIS Sur)</span>
           </p>
@@ -44,7 +44,7 @@ export function UserProfilePage() {
 
       {/* Ajustes de la Aplicación */}
       <section className="space-y-2">
-        <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-wider px-1">
+        <h3 className="text-md font-bold text-muted-foreground uppercase tracking-wider px-1">
           Ajustes de Sincronización y PWA
         </h3>
 
@@ -57,8 +57,8 @@ export function UserProfilePage() {
                   <CloudArrowDown size={18} weight="bold" />
                 </div>
                 <div>
-                  <p className="text-xs font-bold text-foreground">Sincronización Offline</p>
-                  <p className="text-[11px] text-muted-foreground">
+                  <p className="text-md font-bold text-foreground">Sincronización Offline</p>
+                  <p className="text-md text-muted-foreground">
                     Guarda fichas de tamizaje sin internet y sincroniza al conectar
                   </p>
                 </div>
@@ -78,8 +78,8 @@ export function UserProfilePage() {
                   <ShieldCheck size={18} weight="bold" />
                 </div>
                 <div>
-                  <p className="text-xs font-bold text-foreground">Protección de Datos MINSA</p>
-                  <p className="text-[11px] text-muted-foreground">
+                  <p className="text-md font-bold text-foreground">Protección de Datos MINSA</p>
+                  <p className="text-md text-muted-foreground">
                     Cifrado de fichas CRED y consentimiento informado
                   </p>
                 </div>
@@ -94,8 +94,8 @@ export function UserProfilePage() {
                   <IdentificationCard size={18} weight="bold" />
                 </div>
                 <div>
-                  <p className="text-xs font-bold text-foreground">Colegiatura y Registro</p>
-                  <p className="text-[11px] text-muted-foreground">
+                  <p className="text-md font-bold text-foreground">Colegiatura y Registro</p>
+                  <p className="text-md text-muted-foreground">
                     CEP: 58941 • RNE: 024194
                   </p>
                 </div>
@@ -109,7 +109,7 @@ export function UserProfilePage() {
       {/* Cerrar Sesión */}
       <Button
         variant="outline"
-        className="w-full min-h-[44px] text-xs font-semibold text-destructive border-destructive/30 hover:bg-destructive/10 gap-2 mt-2"
+        className="w-full min-h-11 text-md font-semibold text-destructive border-destructive/30 hover:bg-destructive/10 gap-2 mt-2"
       >
         <SignOut size={16} weight="bold" />
         <span>Cerrar Sesión Segura</span>

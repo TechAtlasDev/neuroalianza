@@ -56,7 +56,7 @@ export function AppointmentsTrackingPage() {
           <Path size={24} weight="fill" className="text-primary" />
           <span>Seguimiento de Citas y Ruta</span>
         </h2>
-        <p className="text-xs text-muted-foreground">
+        <p className="text-md text-muted-foreground">
           Hoja de ruta viva del menor: desde el primer tamizaje hasta la atención en el INSN San Borja.
         </p>
       </div>
@@ -65,21 +65,21 @@ export function AppointmentsTrackingPage() {
       <Card className="border-primary/40 bg-gradient-to-br from-primary/10 via-card to-card shadow-sm">
         <CardHeader className="pb-2">
           <div className="flex items-center justify-between">
-            <Badge className="bg-primary text-primary-foreground text-[10px] gap-1">
+            <Badge className="bg-primary text-primary-foreground text-md gap-1">
               <CalendarCheck size={13} weight="bold" />
               <span>Próxima Cita Confirmada</span>
             </Badge>
-            <span className="text-[11px] font-bold text-primary">En 3 días</span>
+            <span className="text-md font-bold text-primary">En 3 días</span>
           </div>
           <CardTitle className="text-base font-bold font-heading text-foreground mt-1">
             Neuropediatría Integral
           </CardTitle>
-          <CardDescription className="text-xs">
+          <CardDescription className="text-md">
             Instituto Nacional de Salud del Niño San Borja (INSN-SB)
           </CardDescription>
         </CardHeader>
         <CardContent className="pt-0 space-y-2.5">
-          <div className="grid grid-cols-2 gap-2 text-xs">
+          <div className="grid grid-cols-2 gap-2 text-md">
             <div className="flex items-center gap-1.5 text-muted-foreground">
               <Clock size={15} className="text-primary shrink-0" />
               <span>09:30 AM</span>
@@ -91,7 +91,7 @@ export function AppointmentsTrackingPage() {
           </div>
 
           <div className="flex gap-2 pt-1">
-            <Button size="sm" className="flex-1 min-h-[38px] text-xs font-semibold gap-1.5">
+            <Button size="sm" className="flex-1 min-h-10 text-md font-semibold gap-1.5">
               <PhoneCall size={15} weight="bold" />
               <span>Llamar al Módulo INSN</span>
             </Button>
@@ -101,7 +101,7 @@ export function AppointmentsTrackingPage() {
 
       {/* Timeline de la Hoja de Ruta */}
       <section className="space-y-3 pt-1">
-        <h3 className="text-xs font-bold text-foreground uppercase tracking-wider text-muted-foreground">
+        <h3 className="text-md font-bold text-foreground uppercase tracking-wider text-muted-foreground">
           Línea de Tiempo del Paciente
         </h3>
 
@@ -114,13 +114,12 @@ export function AppointmentsTrackingPage() {
               <div key={step.id} className="relative group">
                 {/* Marcador del timeline */}
                 <div
-                  className={`absolute -left-6 top-0.5 w-5 h-5 rounded-full flex items-center justify-center ring-4 ring-background ${
-                    isCompleted
-                      ? "bg-emerald-500 text-white"
-                      : isProxima
+                  className={`absolute -left-6 top-0.5 w-5 h-5 rounded-full flex items-center justify-center ring-4 ring-background ${isCompleted
+                    ? "bg-emerald-500 text-white"
+                    : isProxima
                       ? "bg-primary text-primary-foreground animate-pulse"
                       : "bg-muted text-muted-foreground border border-border"
-                  }`}
+                    }`}
                 >
                   {isCompleted ? (
                     <CheckCircle size={14} weight="bold" />
@@ -132,23 +131,22 @@ export function AppointmentsTrackingPage() {
                 </div>
 
                 <div
-                  className={`p-3 rounded-xl border transition-all ${
-                    isProxima
-                      ? "bg-primary/5 border-primary/40 shadow-sm"
-                      : "bg-card border-border/80"
-                  }`}
+                  className={`p-3 rounded-xl border transition-all ${isProxima
+                    ? "bg-primary/5 border-primary/40 shadow-sm"
+                    : "bg-card border-border/80"
+                    }`}
                 >
                   <div className="flex items-center justify-between gap-1 mb-0.5">
-                    <h4 className="text-xs font-bold text-foreground">{step.title}</h4>
-                    <span className="text-[10px] text-muted-foreground font-medium">
+                    <h4 className="text-md font-bold text-foreground">{step.title}</h4>
+                    <span className="text-md text-muted-foreground font-medium">
                       {step.date}
                     </span>
                   </div>
-                  <div className="flex items-center gap-1 text-[11px] text-primary font-medium mb-1">
+                  <div className="flex items-center gap-1 text-md text-primary font-medium mb-1">
                     <Hospital size={13} weight="duotone" />
                     <span>{step.location}</span>
                   </div>
-                  <p className="text-[11px] text-muted-foreground leading-snug">
+                  <p className="text-md text-muted-foreground leading-snug">
                     {step.detail}
                   </p>
                 </div>

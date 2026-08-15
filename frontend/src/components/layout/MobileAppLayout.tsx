@@ -75,11 +75,11 @@ export function MobileAppLayout({
   return (
     <div
       data-testid="mobile-app-shell"
-      className={`min-h-screen w-full bg-slate-900/10 flex justify-center items-start sm:py-4 transition-colors ${className}`}
+      className={`fixed inset-0 h-screen h-[100dvh] w-full bg-slate-900/10 flex justify-center items-center overflow-hidden sm:p-4 transition-colors ${className}`}
     >
-      {/* Marco móvil PWA estandarizado */}
+      {/* Marco móvil PWA estandarizado con altura fija de viewport */}
       <div
-        className={`w-full max-w-md min-h-screen sm:min-h-[844px] sm:max-h-[920px] bg-background sm:rounded-[36px] shadow-2xl sm:border sm:border-border/80 flex flex-col overflow-hidden relative ${containerClassName}`}
+        className={`w-full max-w-md h-full sm:h-[90vh] sm:max-h-[96vh] bg-background sm:rounded-3xl shadow-2xl sm:border sm:border-border/80 flex flex-col overflow-hidden relative ${containerClassName}`}
       >
         {/* 1. Ranura Modular: Banner Superior */}
         {topBannerSlot && (
@@ -111,10 +111,10 @@ export function MobileAppLayout({
           </div>
         )}
 
-        {/* 4. Contenedor de Contenido Principal (Scrolleable) */}
+        {/* 4. Contenedor de Contenido Principal (Scrolleable internamente, nunca empuja el navbar) */}
         <main
           data-testid="mobile-app-content"
-          className="flex-1 w-full overflow-y-auto px-4 py-4 space-y-4 focus:outline-none"
+          className="flex-1 min-h-0 w-full overflow-y-auto overscroll-contain px-4 py-4 space-y-4 focus:outline-none"
         >
           {children || <Outlet />}
         </main>
@@ -126,9 +126,9 @@ export function MobileAppLayout({
           </div>
         )}
 
-        {/* 6. Ranura Modular: Barra de Navegación Inferior (PWA Bar) */}
+        {/* 6. Ranura Modular: Barra de Navegación Inferior Estática y Fija */}
         {!hideBottomNav && (
-          <div className="w-full shrink-0 z-30">
+          <div className="w-full shrink-0 z-30 mt-auto">
             {bottomSlot || (
               <BottomNavBar
                 onAiClick={() => setIsAiModalOpen(true)}

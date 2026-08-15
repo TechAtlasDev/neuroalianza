@@ -27,18 +27,18 @@ export function AppIndexPage() {
               <Sparkle size={14} weight="fill" />
               <span>PWA Mobile-First</span>
             </Badge>
-            <span className="text-xs font-semibold text-muted-foreground">Posta CRED</span>
+            <span className="text-md font-semibold text-muted-foreground">Posta CRED</span>
           </div>
-          <CardTitle className="text-xl font-bold tracking-tight mt-1 text-foreground font-heading">
+          <CardTitle className="text-xl font-bold t-tight mt-1 text-foreground font-heading">
             Detección Oportuna en CRED
           </CardTitle>
-          <CardDescription className="text-sm text-muted-foreground">
+          <CardDescription className="text-md text-muted-foreground">
             Ventana crítica de neurodesarrollo (0 a 5 años) articulada con INSN San Borja.
           </CardDescription>
         </CardHeader>
         <CardContent className="pt-0 space-y-2">
           <Link to="/app/salud">
-            <Button className="w-full min-h-[46px] gap-2 font-semibold shadow-md shadow-primary/20">
+            <Button className="w-full min-h-12 gap-2 font-semibold shadow-md shadow-primary/20">
               <PlusCircle size={20} weight="bold" />
               <span>Iniciar Nuevo Tamizaje CRED</span>
             </Button>
@@ -57,7 +57,7 @@ export function AppIndexPage() {
             variant="ghost"
             size="sm"
             onClick={() => setDemoState(demoState === "alto" ? "bajo" : "alto")}
-            className="text-xs h-8 text-primary font-medium"
+            className="text-md h-8 text-primary font-medium"
           >
             Alternar Demo
           </Button>
@@ -75,7 +75,7 @@ export function AppIndexPage() {
 
       {/* Selector Rápido de Módulos */}
       <section className="space-y-2.5 pt-1">
-        <h2 className="text-sm font-bold uppercase tracking-wider text-muted-foreground">
+        <h2 className="text-md font-bold uppercase tracking-wider text-muted-foreground">
           Accesos Rápidos
         </h2>
 
@@ -88,10 +88,10 @@ export function AppIndexPage() {
                     <BookOpen size={20} weight="duotone" />
                   </div>
                   <div>
-                    <p className="text-sm font-bold text-foreground group-hover:text-primary transition-colors">
+                    <p className="text-md font-bold text-foreground group-hover:text-primary transition-colors">
                       Biblioteca de Recursos
                     </p>
-                    <p className="text-xs text-muted-foreground">
+                    <p className="text-md text-muted-foreground">
                       Guías de estimulación y materiales en casa
                     </p>
                   </div>
@@ -109,10 +109,10 @@ export function AppIndexPage() {
                     <Path size={20} weight="duotone" />
                   </div>
                   <div>
-                    <p className="text-sm font-bold text-foreground group-hover:text-primary transition-colors">
+                    <p className="text-md font-bold text-foreground group-hover:text-primary transition-colors">
                       Seguimiento de Citas & Ruta
                     </p>
-                    <p className="text-xs text-muted-foreground">
+                    <p className="text-md text-muted-foreground">
                       Interconsultas INSN-SB y telemedicina
                     </p>
                   </div>
@@ -130,10 +130,10 @@ export function AppIndexPage() {
                     <User size={20} weight="duotone" />
                   </div>
                   <div>
-                    <p className="text-sm font-bold text-foreground group-hover:text-primary transition-colors">
+                    <p className="text-md font-bold text-foreground group-hover:text-primary transition-colors">
                       Perfil del Usuario
                     </p>
-                    <p className="text-xs text-muted-foreground">
+                    <p className="text-md text-muted-foreground">
                       Modo offline, colegiatura y ajustes
                     </p>
                   </div>
