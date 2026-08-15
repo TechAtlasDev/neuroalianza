@@ -18,22 +18,58 @@ def test_get_resources() -> None:
     assert len(data["items"]) >= 4
 
 
-def test_submit_screening() -> None:
-    """Test CRED screening submission with high risk."""
+def test_submit_screening_high_risk() -> None:
+    """Test CRED screening submission with high risk (>= 2 failures)."""
     payload = {
-        "patient_name": "Test Child",
+        "patient_name": "Test Child High Risk",
         "age_months": 18,
         "dni": "70000000",
         "guardian_name": "Test Guardian",
         "guardian_phone": "+51 900000000",
         "health_center_origin": "C.S. San Juan",
-        "answers": {1: False, 2: False, 3: False, 4: True, 5: True},
+        "answers": {1: False, 2: True, 3: False, 4: True, 5: False},
     }
     res = client.post("/api/v1/health-worker/screening", json=payload)
     assert res.status_code == 200
     data = res.json()
     assert data["risk_level"] == "alto"
     assert data["requires_referral"] is True
+
+
+def test_submit_screening_moderate_risk() -> None:
+    """Test CRED screening submission with moderate risk (1 failure)."""
+    payload = {
+        "patient_name": "Test Child Moderate Risk",
+        "age_months": 24,
+        "dni": "70000001",
+        "guardian_name": "Test Guardian 2",
+        "guardian_phone": "+51 900000001",
+        "health_center_origin": "C.S. Huaycán",
+        "answers": {1: True, 2: True, 3: True, 4: True, 5: False},
+    }
+    res = client.post("/api/v1/health-worker/screening", json=payload)
+    assert res.status_code == 200
+    data = res.json()
+    assert data["risk_level"] == "moderado"
+    assert data["requires_referral"] is False
+
+
+def test_submit_screening_low_risk() -> None:
+    """Test CRED screening submission with low risk (0 failures)."""
+    payload = {
+        "patient_name": "Test Child Low Risk",
+        "age_months": 12,
+        "dni": "70000002",
+        "guardian_name": "Test Guardian 3",
+        "guardian_phone": "+51 900000002",
+        "health_center_origin": "C.S. Santa Anita",
+        "answers": {1: True, 2: False, 3: True, 4: True, 5: False},
+    }
+    res = client.post("/api/v1/health-worker/screening", json=payload)
+    assert res.status_code == 200
+    data = res.json()
+    assert data["risk_level"] == "bajo"
+    assert data["requires_referral"] is False
 
 
 def test_submit_referral() -> None:

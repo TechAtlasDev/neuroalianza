@@ -28,11 +28,19 @@ def submit_screening(
     payload: ScreeningSubmitRequest,
     _container: Annotated[Container, Depends(get_container_dep)],
 ) -> ScreeningSubmitResponse:
-    """Evaluates screening answers and produces risk level and recommendations."""
-    failed_answers = [pid for pid, passed in payload.answers.items() if not passed]
-    failures_count = len(failed_answers)
+    # Preguntas 1, 3, 4: responder "NO" (False) es falla
+    # Preguntas 2, 5: responder "SÍ" (True) es señal de alerta (falla)
+    failures_count = 0
+    for qid, val in payload.answers.items():
+        q_num = int(qid)
+        if q_num in (2, 5):
+            if val is True:
+                failures_count += 1
+        else:
+            if val is False:
+                failures_count += 1
 
-    if failures_count >= 3:
+    if failures_count >= 2:
         risk_level = "alto"
         risk_label = "Alto Riesgo de Neurodesarrollo"
         recommendation = "Derivar prioritariamente a evaluación multidisciplinaria en INSN San Borja."
