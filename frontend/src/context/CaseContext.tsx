@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState } from "react"
 import { submitScreeningApi, apiClient } from "@/services/apiClient"
+import { saveScreeningToFirestore, saveReferralToFirestore } from "@/services/firebaseService"
 
 export interface Patient {
   id: string
@@ -132,6 +133,20 @@ export function CaseProvider({ children }: { children: React.ReactNode }) {
       lastUpdate: "Recién registrado",
     }
 
+    // Petición asíncrona a Firestore DB
+    saveScreeningToFirestore({
+      patientName: newPatient.name,
+      ageMonths: newPatient.ageMonths,
+      dni: newPatient.dni,
+      guardianName: newPatient.guardian,
+      guardianPhone: newPatient.phone,
+      healthCenterOrigin: newPatient.origin,
+      riskLevel: newPatient.riskLevel,
+      riskLabel: newPatient.riskLabel,
+      failuresCount: failureCount,
+      recommendation: risk === "alto" ? "Derivar a INSN San Borja" : "Control CRED habitutalt",
+    })
+
     // Petición asíncrona HTTP al Backend FastAPI
     submitScreeningApi({
       patient_name: newPatient.name,
@@ -157,6 +172,16 @@ export function CaseProvider({ children }: { children: React.ReactNode }) {
       referralCode: code,
       createdAt: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
     }
+
+    // Petición asíncrona a Firestore DB
+    saveReferralToFirestore({
+      patientId: referral.patientId,
+      referralCode: code,
+      findings: referral.findings,
+      priority: referral.priority,
+      notes: referral.notes,
+      targetCenter: referral.targetCenter,
+    })
 
     // Petición asíncrona HTTP al Backend FastAPI
     apiClient("/health-worker/referral", {
