@@ -1,38 +1,37 @@
-# 🖥️ Neuroalianza — Frontend Web Application
+# 📱 Neuroalianza — Frontend PWA (Mobile-First)
 
 > **Hackatón Instituto Nacional de Salud del Niño San Borja (INSN SB) 2026**  
 > *Desafío 04: Neurodesarrollo — Neurología Pediátrica · Psiquiatría Infantil · Psicología · Genética · Medicina Física y Rehabilitación*
 
-Aplicación web moderna, inclusiva y accesible para la plataforma **Neuroalianza**, construida con **React 19**, **TypeScript**, **Vite 8**, **React Compiler**, **Untitled UI React** y **Tailwind CSS**.
+Aplicación web progresiva (**PWA**) Mobile-First para la plataforma **Neuroalianza**, construida con **React 19**, **TypeScript**, **Vite 8**, **React Compiler**, **shadcn/ui**, **Radix UI**, **Tailwind CSS** y **Lucide Icons**.
 
 ---
 
 ## 📚 Índice de Documentación del Frontend
 
-Para consultar la especificación exhaustiva del frontend, navega por los documentos especializados:
-
 | Documento | Enlace | Contenido Principal |
 | :--- | :--- | :--- |
-| **Filosofía y Principios UX** | [PHILOSOPHY.md](file:///home/techatlasdev/Proyectos/Sensoria/hackatones/neuroalianza-v1/frontend/PHILOSOPHY.md) | Enfoque humano-clínico, tres realidades sobre un AppShell, "Regla Cero", legibilidad y ética médica. |
-| **Guía de Contribución** | [CONTRIBUTING.md](file:///home/techatlasdev/Proyectos/Sensoria/hackatones/neuroalianza-v1/frontend/CONTRIBUTING.md) | Instalación de Untitled UI por CLI, uso obligatorio de tokens, tipografía $\ge 16\text{px}$, testing y checklist de PR. |
-| **Reglas para Asistentes AI** | [agents.md](file:///home/techatlasdev/Proyectos/Sensoria/hackatones/neuroalianza-v1/frontend/agents.md) | Reglas obligatorias para asistentes de código: prohibición de valores fijos, componentes crudos y tamaños pequeños. |
-| **Arquitectura Técnica** | [docs/ARCHITECTURE.md](file:///home/techatlasdev/Proyectos/Sensoria/hackatones/neuroalianza-v1/frontend/docs/ARCHITECTURE.md) | Jerarquía de providers, enrutado por zonas (`/salud`, `/familia`, `/clinico`, `/demo`), React Query y caché offline. |
-| **Estándares Normativos** | [docs/neuro_estandares.md](file:///home/techatlasdev/Proyectos/Sensoria/hackatones/neuroalianza-v1/frontend/docs/neuro_estandares.md) | Documento normativo completo sobre tokens, paleta institucional, composición de providers y linters. |
-| **Mapa de Rutas y Páginas** | [docs/routes.md](file:///home/techatlasdev/Proyectos/Sensoria/hackatones/neuroalianza-v1/frontend/docs/routes.md) | Especificación funcional de las 23 pantallas del sistema priorizadas por [P1] y [P2]. |
-| **Sistema de Diseño y Tokens** | [docs/DESIGN_SYSTEM_AND_TOKENS.md](file:///home/techatlasdev/Proyectos/Sensoria/hackatones/neuroalianza-v1/frontend/docs/DESIGN_SYSTEM_AND_TOKENS.md) | Tokens semánticos de fondo/texto/borde, escala tipográfica, áreas táctiles $\ge 44\text{px}$ y accesibilidad WCAG AAA. |
-| **Estrategia de Testing** | [docs/TESTING_STRATEGY.md](file:///home/techatlasdev/Proyectos/Sensoria/hackatones/neuroalianza-v1/frontend/docs/TESTING_STRATEGY.md) | Pirámide de pruebas con Vitest, React Testing Library, auditoría con axe-core y mocks de API con MSW. |
+| **Filosofía y Principios UX** | [PHILOSOPHY.md](file:///home/techatlasdev/Proyectos/Sensoria/hackatones/neuroalianza-v1/frontend/PHILOSOPHY.md) | Enfoque humano para 3 realidades (CRED, Familias, Especialistas), PWA Mobile-First, accesibilidad y ética clínica. |
+| **Guía de Contribución** | [CONTRIBUTING.md](file:///home/techatlasdev/Proyectos/Sensoria/hackatones/neuroalianza-v1/frontend/CONTRIBUTING.md) | Instalación de shadcn/ui por CLI (`npx shadcn@latest add`), tokens semánticos, tipografía $\ge 16\text{px}$ y PRs. |
+| **Reglas para Asistentes AI** | [agents.md](file:///home/techatlasdev/Proyectos/Sensoria/hackatones/neuroalianza-v1/frontend/agents.md) | Reglas normativas: adopción de shadcn/ui, `MobileAppShell`, tokens semánticos y prohibiciones estrictas. |
+| **Arquitectura de Interfaz** | [docs/ARCHITECTURE.md](file:///home/techatlasdev/Proyectos/Sensoria/hackatones/neuroalianza-v1/frontend/docs/ARCHITECTURE.md) | Layout `MobileAppShell`, enrutado por zonas (`/salud`, `/familia`, `/clinico`, `/demo`), React Query y offline queue. |
+| **Estándares Normativos** | [docs/neuro_estandares.md](file:///home/techatlasdev/Proyectos/Sensoria/hackatones/neuroalianza-v1/frontend/docs/neuro_estandares.md) | Documento normativo sobre tokens shadcn, linters, `MobileAppShell` y buenas prácticas. |
+| **Mapa de Rutas y Páginas** | [docs/routes.md](file:///home/techatlasdev/Proyectos/Sensoria/hackatones/neuroalianza-v1/frontend/docs/routes.md) | Especificación funcional de las 23 pantallas priorizadas por `[P1]` y `[P2]`. |
+| **Sistema de Diseño y Tokens** | [docs/DESIGN_SYSTEM_AND_TOKENS.md](file:///home/techatlasdev/Proyectos/Sensoria/hackatones/neuroalianza-v1/frontend/docs/DESIGN_SYSTEM_AND_TOKENS.md) | Variables CSS de shadcn/ui, escala tipográfica, áreas táctiles $\ge 44\text{px}$ y WCAG AAA. |
+| **Estrategia de Testing** | [docs/TESTING_STRATEGY.md](file:///home/techatlasdev/Proyectos/Sensoria/hackatones/neuroalianza-v1/frontend/docs/TESTING_STRATEGY.md) | Pirámide de pruebas con Vitest, Testing Library, auditoría axe y MSW. |
 
 ---
 
 ## ⚡ 1. Características Destacadas
 
-* **Untitled UI React + React Aria:** Componentes nativamente accesibles con soporte total para navegación por teclado y lectores de pantalla.
+* **PWA Mobile-First (`MobileAppShell`):** Diseñado específicamente para pantallas táctiles de teléfonos móviles, con barra inferior ergonómica (*Bottom Navigation*) y vista contenida elegante en escritorio.
+* **Componentes shadcn/ui + Radix UI:** Accesibilidad universal nativa (WCAG AAA), navegación por teclado y lectores de pantalla.
 * **Tres Experiencias Adaptadas:**
   * **Personal de Salud (`/salud`):** Optimizado para uso móvil ágil en postas y controles CRED con soporte offline.
   * **Familias (`/familia`):** Lenguaje simple, tipografía grande, hoja de ruta clara y ejercicios prácticos en casa.
   * **Especialistas (`/clinico`):** Ficha Multidisciplinaria 360°, agenda interactiva y panel analítico de tiempos de espera.
-* **React 19 + React Compiler:** Memoización automática en compilación para máximo rendimiento.
-* **Diseño Responsivo y Modo Oscuro:** Transición fluida entre temas con contraste asegurado.
+* **Iconografía con `lucide-react`:** Set de iconos limpio y consistente.
+* **React 19 + React Compiler:** Máximo rendimiento y memoización automática.
 
 ---
 
@@ -76,18 +75,17 @@ npm run test
 
 ```
 src/
-├── main.tsx                         # Composición de RouteProvider, ThemeProvider, QueryProvider
-├── App.tsx                          # Enrutador principal
-├── styles/                          # theme.css (@theme tokens) y globals.css
+├── main.tsx                         # Composición de BrowserRouter y QueryProvider
+├── App.tsx                          # Enrutador principal envuelto en MobileAppShell
+├── index.css                        # Variables CSS del tema shadcn/ui
 ├── components/
-│   ├── base/                        # Átomos de Untitled UI (Button, Input, Badge, Select)
-│   ├── application/                 # Organismos de Untitled UI (Modals, Tables, Slideouts)
-│   ├── shared/                      # Componentes de dominio (SemaforoRiesgo, TimelineItem)
-│   └── layout/                      # AppShell, Sidebar, Header
+│   ├── ui/                          # Componentes shadcn (Button, Card, Dialog, Input, Select...)
+│   ├── shared/                      # Componentes de dominio (SemaforoRiesgo, TimelineItem...)
+│   └── layout/                      # MobileAppShell, BottomNavBar, TopHeader
 ├── features/                        # Módulos de negocio (screening, referral, appointments, metrics)
 ├── pages/                           # Vistas por zona (/public, /health-worker, /family, /specialist, /demo)
 ├── hooks/                           # Custom Hooks
-└── utils/                           # Utilidades y combinadores de clases
+└── utils/                           # Utilidad cn (clsx + twMerge)
 ```
 
 ---

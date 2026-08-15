@@ -35,15 +35,15 @@ El repositorio cuenta con documentación técnica profunda y exhaustiva para cad
 * 🧪 **[Estrategia de Testing](file:///home/techatlasdev/Proyectos/Sensoria/hackatones/neuroalianza-v1/backend/docs/TESTING_STRATEGY.md):** Pirámide de 5 niveles, Hypothesis, SimulatedClock y Schemathesis.
 * 🛠️ **[Herramientas y Estándares](file:///home/techatlasdev/Proyectos/Sensoria/hackatones/neuroalianza-v1/backend/docs/TOOLING_AND_STANDARDS.md):** Configuración de `uv`, Ruff (`ALL`), MyPy (`strict`) y Makefile.
 
-### ⚛️ Documentación del Frontend (React 19 / TypeScript / Untitled UI)
-* 📖 **[Frontend README](file:///home/techatlasdev/Proyectos/Sensoria/hackatones/neuroalianza-v1/frontend/README.md):** Visión general de la SPA, configuración con Vite y características.
-* 🎨 **[Filosofía y Principios UX](file:///home/techatlasdev/Proyectos/Sensoria/hackatones/neuroalianza-v1/frontend/PHILOSOPHY.md):** Enfoque humano para 3 realidades (CRED, Familias, Especialistas), "Regla Cero" y accesibilidad.
-* 🤝 **[Guía de Contribución](file:///home/techatlasdev/Proyectos/Sensoria/hackatones/neuroalianza-v1/frontend/CONTRIBUTING.md):** Procedimiento de componentes Untitled UI, tokens semánticos, tipografía $\ge 16\text{px}$ y PRs.
-* 🤖 **[Reglas para Asistentes AI](file:///home/techatlasdev/Proyectos/Sensoria/hackatones/neuroalianza-v1/frontend/agents.md):** Reglas normativas directas: prohibición de valores hardcodeados y componentes crudos.
-* 🏛️ **[Arquitectura de Interfaz](file:///home/techatlasdev/Proyectos/Sensoria/hackatones/neuroalianza-v1/frontend/docs/ARCHITECTURE.md):** Composición de providers, enrutado por zonas, React Query y sincronización offline.
-* 📋 **[Estándares Normativos](file:///home/techatlasdev/Proyectos/Sensoria/hackatones/neuroalianza-v1/frontend/docs/neuro_estandares.md):** Especificación normativa completa sobre tokens, paleta institucional y linters.
+### ⚛️ Documentación del Frontend (React 19 / TypeScript / shadcn/ui / PWA Mobile-First)
+* 📖 **[Frontend README](file:///home/techatlasdev/Proyectos/Sensoria/hackatones/neuroalianza-v1/frontend/README.md):** Visión general de la PWA Mobile-First, configuración con Vite, React 19 y características.
+* 🎨 **[Filosofía y Principios UX](file:///home/techatlasdev/Proyectos/Sensoria/hackatones/neuroalianza-v1/frontend/PHILOSOPHY.md):** Enfoque humano para 3 realidades (CRED, Familias, Especialistas), PWA Mobile-First, shadcn/ui y accesibilidad.
+* 🤝 **[Guía de Contribución](file:///home/techatlasdev/Proyectos/Sensoria/hackatones/neuroalianza-v1/frontend/CONTRIBUTING.md):** Procedimiento de componentes shadcn/ui (`npx shadcn@latest add`), tokens semánticos, tipografía $\ge 16\text{px}$ y PRs.
+* 🤖 **[Reglas para Asistentes AI](file:///home/techatlasdev/Proyectos/Sensoria/hackatones/neuroalianza-v1/frontend/agents.md):** Reglas normativas directas: `MobileAppShell`, tokens semánticos, iconografía `lucide-react` y prohibiciones estrictas.
+* 🏛️ **[Arquitectura de Interfaz](file:///home/techatlasdev/Proyectos/Sensoria/hackatones/neuroalianza-v1/frontend/docs/ARCHITECTURE.md):** Layout `MobileAppShell`, enrutado por zonas, React Query y sincronización offline.
+* 📋 **[Estándares Normativos](file:///home/techatlasdev/Proyectos/Sensoria/hackatones/neuroalianza-v1/frontend/docs/neuro_estandares.md):** Especificación normativa completa sobre tokens shadcn, linters, `MobileAppShell` y buenas prácticas.
 * 🗺️ **[Mapa de Rutas y Páginas](file:///home/techatlasdev/Proyectos/Sensoria/hackatones/neuroalianza-v1/frontend/docs/routes.md):** Especificación funcional de las 23 pantallas priorizadas por `[P1]` y `[P2]`.
-* 🌈 **[Sistema de Diseño y Tokens](file:///home/techatlasdev/Proyectos/Sensoria/hackatones/neuroalianza-v1/frontend/docs/DESIGN_SYSTEM_AND_TOKENS.md):** Tokens de color, escala tipográfica, áreas táctiles $\ge 44\text{px}$ y WCAG AAA.
+* 🌈 **[Sistema de Diseño y Tokens](file:///home/techatlasdev/Proyectos/Sensoria/hackatones/neuroalianza-v1/frontend/docs/DESIGN_SYSTEM_AND_TOKENS.md):** Variables CSS de shadcn/ui, escala tipográfica, áreas táctiles $\ge 44\text{px}$ y WCAG AAA.
 * 🧪 **[Estrategia de Testing](file:///home/techatlasdev/Proyectos/Sensoria/hackatones/neuroalianza-v1/frontend/docs/TESTING_STRATEGY.md):** Pirámide de pruebas con Vitest, Testing Library, auditoría axe y MSW.
 
 ---

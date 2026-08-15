@@ -1,143 +1,92 @@
+# AGENTS.md — Neuroalianza Frontend (PWA Mobile-First)
 
-# AGENTS.md — Neuroalianza Frontend
-
-Reglas obligatorias para cualquier asistente de código que trabaje en este repositorio.
+Reglas obligatorias para cualquier asistente de código o desarrollador que trabaje en este repositorio.  
 Estas reglas no son sugerencias. El código que las incumpla no pasa la puerta de calidad.
 
 ---
 
-## REGLA CERO
+## 🛑 REGLA CERO
 
-**Untitled UI React es la única librería de componentes de interfaz del proyecto.**
+**shadcn/ui (Tailwind CSS + Radix UI Primitives + Lucide Icons) es la única librería de componentes de interfaz del proyecto.**
 
-No escribas componentes de interfaz a mano. Si necesitas un componente, instálalo:
+No escribas componentes de interfaz básicos a mano (botones, inputs, dialogs, selects, dropdowns, etc.). Si necesitas un componente, instálalo vía el CLI oficial:
 
 ```bash
-npx untitledui@latest add <componente>
+npx shadcn@latest add <componente>
+# Ejemplos:
+# npx shadcn@latest add button
+# npx shadcn@latest add input
+# npx shadcn@latest add card
+# npx shadcn@latest add dialog
+# npx shadcn@latest add tabs
 ```
 
-Si el CLI no lo tiene, cópialo íntegro desde la página oficial del componente en la
-documentación de Untitled UI. Nunca lo improvises.
+Los componentes de shadcn se ubican en `src/components/ui/`. Nunca improvises componentes primitivos.
 
 ---
 
-## PROHIBICIONES ABSOLUTAS
+## 📱 ARQUITECTURA MOBILE-FIRST Y LAYOUT PWA
+
+**Neuroalianza es una Progressive Web App (PWA) pensada prioritariamente para dispositivos móviles.**
+
+1. **Layout Móvil Global (`MobileAppShell`):**
+   * En pantallas móviles: la aplicación ocupa el $100\%$ del ancho de pantalla con manejo de *safe areas* (notch, barras de navegación táctiles).
+   * En pantallas de escritorio: la aplicación se renderiza contenida en un marco central tipo dispositivo móvil (`max-w-md w-full mx-auto shadow-2xl min-h-screen bg-background border-x border-border`) sobre un fondo neutro elegante (`bg-muted/40`).
+2. **Navegación Inferior (*Bottom Navigation Bar*):**
+   * El acceso a las secciones principales del rol activo (CRED, Familia, Especialista) se ubica en la barra de navegación inferior fija para acceso ergonómico con una sola mano.
+3. **Áreas Táctiles Mínimas:**
+   * Todo botón o control interactivo debe tener un área de pulsación de al menos **$44\times 44\text{ px}$**.
+
+---
+
+## 🚫 PROHIBICIONES ABSOLUTAS
 
 Aplican a `src/pages/`, `src/features/`, `src/components/shared/` y `src/components/layout/`.
 
-### Colores
+### 1. Colores y Tokens
+- ❌ `#F04438`, `#fff`, `rgb(16,24,40)`, `hsl(...)` en línea
+- ❌ `bg-blue-500`, `text-gray-600`, `border-red-400` (escala directa de Tailwind sin token semántico)
+- ✅ `bg-background`, `text-foreground`, `bg-card`, `text-card-foreground`, `bg-primary`, `text-primary-foreground`, `bg-destructive`, `text-destructive-foreground`, `bg-muted`, `text-muted-foreground`, `border-border`, `ring-ring`
 
-- ❌ `#F04438`, `#fff`, `rgb(16,24,40)`, `hsl(...)`
-- ❌ `bg-blue-500`, `text-gray-600`, `border-red-400` (escala base de Tailwind)
-- ✅ `bg-primary`, `text-secondary`, `border-error`, `bg-brand-solid`, `text-error-primary`
-
-Tokens disponibles: `text-primary`, `text-secondary`, `text-tertiary`,
-`text-primary_on-brand`, `bg-primary`, `bg-secondary`, `bg-brand-solid`,
-`bg-error-primary`, `bg-warning-primary`, `bg-success-primary`,
-`border-primary`, `border-secondary`, `border-error`, `focus-ring`.
-
-### Tipografía
-
-- ❌ `text-xs`, `text-sm` — **prohibidos sin excepción**
-- ❌ `text-[14px]`, `style={{ fontSize: 13 }}`
+### 2. Tipografía y Legibilidad
+- ❌ `text-xs`, `text-[11px]`, `text-[13px]`, `style={{ fontSize: 12 }}`
 - ❌ `font-thin`, `font-extralight`
-- ✅ Mínimo `text-md` (16px). Escala: `text-md`, `text-lg`, `text-xl`,
-  `text-display-xs`, `text-display-sm`, `text-display-md`
+- ✅ Mínimo `text-md` (16px) para textos de lectura y formularios. Escala: `text-md`, `text-lg`, `text-xl`, `text-2xl`, `text-3xl`.
+- *Justificación:* Los usuarios son personal de salud en postas bajo luz solar y familias con celulares económicos o presbicia.
 
-Si el diseño "necesita" texto más pequeño, reduce la densidad de información,
-no el tamaño de letra. Los usuarios son personal de salud en celulares bajo sol
-y familias que pueden tener presbicia.
-
-### Espaciado y dimensiones
-
+### 3. Espaciado y Dimensiones
 - ❌ `p-[13px]`, `gap-[7px]`, `w-[247px]`, `h-[38px]`, `rounded-[9px]`
-- ✅ Escala: `0, 0.5, 1, 1.5, 2, 3, 4, 5, 6, 8, 10, 12, 16, 20, 24`
-- ✅ `w-full`, `max-w-container`, flex, grid
-- ✅ Radios: `rounded-sm|md|lg|xl|2xl|full`
-- ✅ Sombras: `shadow-xs` … `shadow-3xl`
+- ✅ Escala oficial de Tailwind: `p-2`, `p-4`, `p-6`, `gap-3`, `gap-4`, `rounded-md`, `rounded-lg`, `rounded-xl`, `rounded-full`.
 
-### Estilos inline
-
-- ❌ `style={{ marginTop: 12 }}`
-- ✅ Única excepción: valor calculado en runtime, con supresión justificada:
-
+### 4. Estilos Inline
+- ❌ `style={{ marginTop: 12, backgroundColor: 'red' }}`
+- ✅ Única excepción permitida: valores calculados dinámicamente en runtime (ej. porcentaje de barra de progreso):
 ```tsx
-// eslint-disable-next-line react/forbid-dom-props -- ancho dinámico derivado de datos
-<div style={{ width: `${pct}%` }} className="h-2 rounded-full bg-brand-solid" />
+<div style={{ width: `${porcentaje}%` }} className="h-2 rounded-full bg-primary" />
 ```
 
-### Elementos crudos
-
-- ❌ `<button>`, `<input>`, `<select>`, `<textarea>`, `<a>`
-- ✅ `import { Button } from "@/components/base/buttons/button"` y equivalentes
-
-### Tamaños de componente
-
-- ❌ `size="xs"` en cualquier control interactivo
-- ✅ Mínimo `size="md"`. Área táctil mínima: 44×44 px
-- `size="sm"` solo en elementos decorativos no interactivos (badges en tablas)
-
-### Librerías
-
-- ❌ MUI, Chakra, HeroUI, Mantine, Ant Design, shadcn, Flowbite, Radix directo
-- ❌ lucide-react, react-icons, heroicons
-- ✅ Iconos: `@untitledui/icons`
-- ✅ Permitidas para su función exclusiva: `recharts` (gráficos),
-  `@tanstack/react-table` (lógica de tablas, estilos de Untitled UI),
-  `@tanstack/react-query`, `react-router-dom`, `motion`, `date-fns`
-
-### Archivos intocables
-
-- ❌ Nunca modifiques `src/components/base/**` ni `src/components/application/**`
-- Personaliza por props y por tokens, nunca editando el fuente del componente
-- Para cambiar la paleta: solo `--color-brand-50` … `--color-brand-950` en `theme.css`
+### 5. Elementos Crudos e Iconos
+- ❌ `<button>`, `<input>`, `<select>`, `<textarea>` nativos sin encapsular.
+- ❌ `heroicons`, `react-icons`, `@untitledui/icons`.
+- ✅ `import { Button } from "@/components/ui/button"`
+- ✅ `import { Input } from "@/components/ui/input"`
+- ✅ Iconos exclusivamente de: `import { Heart, Activity, AlertTriangle } from "lucide-react"`
 
 ---
 
-## CHECKLIST ANTES DE ESCRIBIR
+## 🩺 CONTEXTO CLÍNICO Y ÉTICO
 
-1. ¿Existe ya este componente en `src/components/`? → impórtalo
-2. ¿Existe en Untitled UI? → instálalo por CLI antes de continuar
-3. ¿Voy a escribir un valor visual literal? → busca el token
-4. ¿Algún texto queda bajo `text-md`? → corrígelo
-5. ¿Algún control mide menos de 44px de lado? → agrándalo
-6. ¿Usé `<button>` o `<input>` crudo? → cámbialo por el componente
+1. **El sistema NUNCA emite un diagnóstico clínico automatizado.**
+2. El resultado del motor de tamizaje muestra **nivel de riesgo** (`BAJO`, `MODERADO`, `ALTO`), **señales de alerta observadas** y **recomendaciones de acción asistencial**.
+3. Las declinaciones de citas familiares exigen capturar motivos estructurales tipados (económico, distancia, cruce laboral, salud).
 
 ---
 
-## VERIFICACIÓN
+## ✅ CHECKLIST ANTES DE ENTREGAR CÓDIGO
 
-Todo código entregado debe pasar:
-
-```bash
-npm run lint && npm run lint:css && npm run audit:ui && npm run typecheck
-```
-
-Si no puedes verificarlo, dilo explícitamente en tu respuesta. No lo asumas.
-
----
-
-## ACCESIBILIDAD
-
-- Todo control interactivo lleva etiqueta accesible, no solo icono
-- El color nunca es el único portador de significado (añade icono + texto)
-- Nunca uses `outline-none`; el foco usa el token `focus-ring`
-- La interfaz completa debe ser navegable con teclado
-- El contenido para familias se redacta en lenguaje simple y frases cortas
-
----
-
-## CONTEXTO DEL PROYECTO
-
-Neuroalianza conecta la detección de señales de alarma del neurodesarrollo en el
-primer nivel de atención con la evaluación especializada y el seguimiento terapéutico.
-
-Tres roles, tres experiencias distintas sobre el mismo AppShell:
-
-- **Personal de salud (CRED)** — móvil, offline, poco tiempo, tamizaje y derivación
-- **Familia** — móvil de gama baja, lenguaje simple, densidad baja, tipografía grande
-- **Especialista** — escritorio, densidad alta, tablas, alertas, ficha consolidada
-
-Restricción de alcance del desafío: **el sistema nunca emite un diagnóstico**.
-El semáforo de riesgo devuelve una recomendación de acción, no una etiqueta clínica.
-Cualquier texto de interfaz debe respetar esto.
+1. ¿El componente base existe en `src/components/ui/` o se instaló con `npx shadcn@latest add`?
+2. ¿Se usó `lucide-react` para iconografía?
+3. ¿Se verificó que ningún texto esté por debajo de `text-md` (16px)?
+4. ¿Los botones y campos cumplen con el área táctil mínima de 44px?
+5. ¿La pantalla responde adecuadamente dentro del layout PWA mobile-first?
+6. ¿Se ejecutan las pruebas automatizadas de componentes sin errores?

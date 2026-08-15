@@ -1,182 +1,138 @@
-# 🏛️ Arquitectura Técnica del Frontend — Neuroalianza
+# 🏛️ Arquitectura Técnica del Frontend — Neuroalianza (PWA)
 
 > **Proyecto:** Neuroalianza (Hackatón INSN San Borja 2026 — Desafío 04: Neurodesarrollo)  
-> **Stack:** React 19, TypeScript, Vite 8, React Compiler, Untitled UI React (React Aria Components), Tailwind CSS, TanStack React Query.
+> **Stack:** React 19, TypeScript, Vite 8, React Compiler, shadcn/ui (Radix UI), Tailwind CSS, TanStack React Query, Lucide Icons.
 
 ---
 
-## 1. Visión y Topología de la Aplicación
+## 1. Topología de Progressive Web App (PWA) Mobile-First
 
-El frontend de **Neuroalianza** implementa una arquitectura modular de Single Page Application (SPA), optimizada para ofrecer tres experiencias de usuario altamente diferenciadas sobre una base compartida y coherente:
+El frontend de **Neuroalianza** está diseñado como una **PWA Mobile-First** para asegurar que el sistema sea accesible y ultra-usable tanto en teléfonos de familias y enfermeras en postas como en computadoras de escritorio de especialistas:
 
 ```mermaid
 flowchart TB
-    subgraph AppRoot ["Main Entrypoint & Providers"]
+    subgraph PWARoot ["PWA Entrypoint & Providers"]
         Main["main.tsx"]
         BrowserRouter["BrowserRouter (react-router-dom)"]
-        RouteProvider["RouteProvider (React Aria)"]
-        ThemeProvider["ThemeProvider (Light/Dark Mode)"]
-        QueryProvider["QueryClientProvider (React Query)"]
+        QueryProvider["QueryClientProvider (TanStack Query)"]
     end
 
-    subgraph Shell ["AppShell Unificado"]
-        Nav["Navigation Sidebar / Bottom Nav"]
-        Header["Top Header & Role Switcher"]
-        MainContent["Main Content Outlet"]
+    subgraph MobileShell ["MobileAppShell (Contenedor Móvil)"]
+        TopBar["TopHeader (Notificaciones, Conexión, Rol)"]
+        OutletArea["Main Content Area (Scrollable, Safe Area)"]
+        BottomNav["BottomNavBar (Navegación Móvil)"]
     end
 
-    subgraph Zones ["Zonas Funcionales por Actor"]
-        PublicZone["Zona Pública (/, /login)"]
-        HealthZone["Zona Personal de Salud (/salud)"]
+    subgraph Zones ["Zonas de Usuario"]
+        PublicZone["Zona Pública (Landing, Login Demo)"]
+        HealthZone["Zona CRED / 1er Nivel (/salud)"]
         FamilyZone["Zona Familia (/familia)"]
         ClinicalZone["Zona Especialistas (/clinico)"]
         DemoZone["Zona Demo y Pitch (/demo)"]
     end
 
-    subgraph ComponentsHierarchy ["Jerarquía de Componentes"]
-        BaseComp["Components Base (Untitled UI Atoms)"]
-        AppComp["Components Application (Untitled UI Organisms)"]
-        SharedDomain["Components Shared (Domain Cards, Badges, Semaphores)"]
-        FeatureComp["Features Modules (Screening, Referrals, Journey)"]
-        PagesComp["Pages (Route Views)"]
+    subgraph ComponentStack ["Capa de Componentes shadcn/ui"]
+        ShadcnUI["shadcn/ui Primitives (Button, Card, Dialog, Input...)"]
+        DomainShared["Domain Components (SemaforoRiesgo, TimelineItem...)"]
+        FeatureModules["Feature Modules (Screening, Referrals, Journey...)"]
     end
 
-    subgraph DataLayer ["Capa de Datos y Sincronización"]
-        ApiClient["API Client (OpenAPI Generated)"]
-        ReactQuery["TanStack React Query Cache"]
-        OfflineQueue["Offline Storage & Sync Queue"]
+    subgraph StorageSync ["Persistencia y Sincronización Offline"]
+        ApiClient["OpenAPI Typed Client"]
+        QueryCache["TanStack Query Cache"]
+        OfflineQueue["Offline Storage / IndexedDB"]
     end
 
-    Main --> BrowserRouter --> RouteProvider --> ThemeProvider --> QueryProvider
-    QueryProvider --> Shell
-    Shell --> Zones
-    Zones --> PagesComp
-    PagesComp --> FeatureComp --> SharedDomain --> AppComp --> BaseComp
-    FeatureComp --> ReactQuery --> ApiClient
-    ReactQuery <--> OfflineQueue
+    Main --> BrowserRouter --> QueryProvider --> MobileShell
+    MobileShell --> Zones
+    Zones --> FeatureModules
+    FeatureModules --> DomainShared --> ShadcnUI
+    FeatureModules --> QueryCache --> ApiClient
+    QueryCache <--> OfflineQueue
 ```
 
 ---
 
-## 2. Composición de Providers en `main.tsx`
+## 2. El Layout Global `MobileAppShell`
 
-La jerarquía de providers es indispensable para asegurar el correcto enrutamiento en componentes accesibles de React Aria y el soporte de temas:
+El componente `MobileAppShell` envuelve todas las rutas de la aplicación:
 
 ```tsx
-// src/main.tsx
+// src/components/layout/MobileAppShell.tsx
 import React from "react";
-import ReactDOM from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { RouteProvider } from "@/providers/route-provider";
-import { ThemeProvider } from "@/providers/theme-provider";
-import { App } from "@/App";
-import "@/styles/globals.css";
+import { TopHeader } from "./TopHeader";
+import { BottomNavBar } from "./BottomNavBar";
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: 1000 * 60 * 5, // 5 minutos de caché
-      retry: 2,
-    },
-  },
-});
+interface MobileAppShellProps {
+  children: React.ReactNode;
+}
 
-ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <RouteProvider>
-        <ThemeProvider>
-          <QueryClientProvider client={queryClient}>
-            <App />
-          </QueryClientProvider>
-        </ThemeProvider>
-      </RouteProvider>
-    </BrowserRouter>
-  </React.StrictMode>
-);
+export function MobileAppShell({ children }: MobileAppShellProps) {
+  return (
+    <div className="min-h-screen bg-muted/40 flex justify-center">
+      {/* Contenedor tipo dispositivo móvil en pantallas de escritorio */}
+      <div className="w-full max-w-md min-h-screen bg-background border-x border-border shadow-2xl flex flex-col relative pb-16">
+        <TopHeader />
+        <main className="flex-1 p-4 overflow-y-auto">
+          {children}
+        </main>
+        <BottomNavBar />
+      </div>
+    </div>
+  );
+}
 ```
 
-> [!NOTE]
-> `RouteProvider` es obligatorio para que los enlaces internos de Untitled UI / React Aria no provoquen recargas duras del navegador.
+* **En móviles:** La aplicación ocupa el 100% del ancho con padding inferior para la barra fija.
+* **En escritorio:** Se centra con un ancho máximo `max-w-md` (ej. 448px), bordes elegantes y sombra profunda, brindando una experiencia idéntica a una aplicación nativa.
 
 ---
 
-## 3. Zonas Funcionales y Rutas de la Aplicación
-
-El sistema se estructura en **5 zonas** con configuraciones de navegación y paletas de acento adaptadas a cada rol:
+## 3. Zonas Funcionales y Mapa de Rutas
 
 ```
 src/pages/
 ├── public/
-│   ├── LandingPage.tsx              # / -> Propuesta de valor, estadísticas y comparativa
-│   └── LoginPage.tsx                # /login -> Selector rápido de usuarios demo
+│   ├── LandingPage.tsx              # / -> Visión, cifras clave del neurodesarrollo y selector de rol
+│   └── LoginPage.tsx                # /login -> Selector rápido de perfiles demo
 ├── health-worker/
-│   ├── HealthWorkerDashboard.tsx    # /salud -> Métricas locales, pacientes pendientes
-│   ├── ScreeningWizardPage.tsx      # /salud/tamizaje/nuevo -> Cuestionario interactivo
+│   ├── HealthWorkerDashboard.tsx    # /salud -> Pacientes CRED, tamizajes pendientes
+│   ├── ScreeningWizardPage.tsx      # /salud/tamizaje/nuevo -> Asistente de tamizaje paso a paso
 │   ├── ScreeningResultPage.tsx      # /salud/tamizaje/:id -> Resultado de riesgo y derivación
 │   └── HealthWorkerCasesPage.tsx    # /salud/pacientes -> Lista de derivaciones de la posta
 ├── family/
-│   ├── FamilyHomePage.tsx           # /familia -> Resumen familiar y estado actual
+│   ├── FamilyHomePage.tsx           # /familia -> Resumen familiar y estado del caso
 │   ├── JourneyPage.tsx              # /familia/ruta -> Visualización de la Ruta de Atención
-│   ├── FamilyAppointmentsPage.tsx   # /familia/citas -> Confirmación/Declinación de citas
-│   ├── HomeActivitiesPage.tsx       # /familia/actividades -> Guías terapéuticas para el hogar
-│   └── VideoUploadPage.tsx          # /familia/video -> Envío seguro de grabaciones caseras
+│   ├── FamilyAppointmentsPage.tsx   # /familia/citas -> Confirmación y declinación de citas
+│   ├── HomeActivitiesPage.tsx       # /familia/actividades -> Guías terapéuticas en el hogar
+│   └── VideoUploadPage.tsx          # /familia/video -> Envío de grabaciones breves caseras
 ├── specialist/
-│   ├── SpecialistDashboard.tsx      # /clinico -> Bandeja de entrada y alertas prioritarias
-│   ├── IncomingReferralsPage.tsx    # /clinico/referencias -> Evaluación y admisión
+│   ├── SpecialistDashboard.tsx      # /clinico -> Bandeja de alertas y referencias
+│   ├── IncomingReferralsPage.tsx    # /clinico/referencias -> Admisión de casos
 │   ├── ConsolidatedCasePage.tsx     # /clinico/casos/:id -> Ficha Multidisciplinaria 360°
 │   ├── SpecialistSchedulePage.tsx   # /clinico/agenda -> Calendario y bloques agrupados
-│   ├── EvaluationWizardPage.tsx     # /clinico/casos/:id/evaluacion -> Registro de evaluación
-│   └── ClinicalMetricsPage.tsx      # /clinico/metricas -> Tiempos de espera y deserción
+│   ├── EvaluationWizardPage.tsx     # /clinico/casos/:id/evaluacion -> Registro evaluativo
+│   └── ClinicalMetricsPage.tsx      # /clinico/metricas -> Métricas de tiempos y deserción
 └── demo/
-    └── DemoControlPanelPage.tsx     # /demo -> Simulación de reloj, disparo de alertas y reset
+    └── DemoControlPanelPage.tsx     # /demo -> Simulación del reloj y disparo de alertas
 ```
 
 ---
 
-## 4. Jerarquía y Encapsulamiento de Componentes
+## 4. Capa de Componentes shadcn/ui y Primitivas Radix
 
-Para mantener el código ordenado y evitar el acoplamiento:
+La arquitectura de interfaz desacopla los componentes en 3 niveles claros:
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│ 1. Base Components (src/components/base/)                   │
-│    Átomos puros de Untitled UI: Button, Input, Badge, Tag   │
-└──────────────────────────────┬──────────────────────────────┘
-                               │
-                               ▼
-┌─────────────────────────────────────────────────────────────┐
-│ 2. Application Components (src/components/application/)     │
-│    Moléculas y organismos: Modals, Slideouts, Table, Sidebar│
-└──────────────────────────────┬──────────────────────────────┘
-                               │
-                               ▼
-┌─────────────────────────────────────────────────────────────┐
-│ 3. Shared Domain Components (src/components/shared/)        │
-│    Componentes de negocio: SemaforoRiesgo, TimelineItem     │
-└──────────────────────────────┬──────────────────────────────┘
-                               │
-                               ▼
-┌─────────────────────────────────────────────────────────────┐
-│ 4. Features (src/features/*)                                │
-│    Lógica y estado de flujos: useScreening, useJourney      │
-└──────────────────────────────┬──────────────────────────────┘
-                               │
-                               ▼
-┌─────────────────────────────────────────────────────────────┐
-│ 5. Pages (src/pages/*)                                      │
-│    Vistas de ruta conectadas al enrutador                   │
-└─────────────────────────────────────────────────────────────┘
-```
+1. **`src/components/ui/` (Primitivas shadcn):** Componentes atómicos instalados vía CLI (`Button`, `Card`, `Dialog`, `Input`, `Select`, `Tabs`, `Badge`, `Progress`, `RadioGroup`).
+2. **`src/components/shared/` (Dominio Clínico):** Componentes transversales compuestos (`SemaforoRiesgo`, `TimelineItem`, `CaseCard`, `AlertaBadge`).
+3. **`src/features/*/components/` (Flujos de Negocio):** Formularios complejos y asistentes (`ScreeningWizard`, `ReferralForm`, `DeclineAppointmentModal`).
 
 ---
 
-## 5. Estrategia de Datos y Sincronización Offline
+## 5. Resiliencia Offline y Caché con TanStack React Query
 
-1. **Cliente API Fuertemente Tipado:** Generado automáticamente desde `contracts/openapi.json` del backend para asegurar consistencia de contratos sin llamadas escritas a mano.
-2. **TanStack React Query:** Centraliza el estado del servidor, revalidaciones automáticas, estados de carga (`isLoading`, `isFetching`) y paginación por cursor.
-3. **Cola Offline de Tamizaje:** Para personal de CRED sin conexión:
-   * Los cuestionarios completados se almacenan en `LocalStorage`/`IndexedDB`.
-   * Un indicador visual en la barra superior muestra el estado de conectividad y registros pendientes de sincronizar.
-   * Al restablecerse la conexión, la cola despacha peticiones idempotentes con `Idempotency-Key` único.
+1. **Gestión de Estado del Servidor:** React Query administra la memoria caché, estados de carga (`isLoading`), revalidaciones automáticas y mutaciones con actualización optimista.
+2. **Cola de Tamizaje Offline:** Para personal en postas remotas sin conectividad:
+   * Los tamizajes se almacenan en `IndexedDB`/`LocalStorage`.
+   * La cabecera `TopHeader` muestra un icono de sincronización con el conteo de registros locales.
+   * Al reconectarse a internet, la aplicación despacha automáticamente las peticiones con cabecera `Idempotency-Key` única.

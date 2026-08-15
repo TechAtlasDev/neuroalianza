@@ -1,122 +1,81 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import { useState } from "react"
+import { MobileAppShell } from "@/components/layout/MobileAppShell"
+import { SemaforoRiesgo } from "@/components/shared/SemaforoRiesgo"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { PlusCircle, Baby, ArrowRight, Sparkles } from "lucide-react"
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const [tamizajeEstado, setTamizajeEstado] = useState<"demo" | "completado">("demo")
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+    <MobileAppShell title="Neuroalianza CRED" role="C.S. San Juan de Lurigancho">
+      <div className="space-y-4">
+        {/* Banner de bienvenida */}
+        <Card className="bg-gradient-to-br from-primary/10 via-background to-background border-primary/20">
+          <CardHeader className="pb-2">
+            <div className="flex items-center justify-between">
+              <Badge variant="secondary" className="gap-1 bg-primary/10 text-primary border-none">
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>Ventana Crítica 0-5 años</span>
+              </Badge>
+              <span className="text-xs text-muted-foreground">Hoy</span>
+            </div>
+            <CardTitle className="text-xl font-bold tracking-tight mt-1 text-foreground">
+              Detección Oportuna en CRED
+            </CardTitle>
+            <CardDescription className="text-sm">
+              Tamizaje estandarizado rápido de desarrollo y señales de alerta.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="pt-0">
+            <Button
+              className="w-full min-h-[44px] gap-2 font-medium"
+              onClick={() => setTamizajeEstado(tamizajeEstado === "demo" ? "completado" : "demo")}
+            >
+              <PlusCircle className="w-5 h-5" />
+              <span>{tamizajeEstado === "demo" ? "Iniciar Nuevo Tamizaje" : "Reiniciar Demostración"}</span>
+            </Button>
+          </CardContent>
+        </Card>
 
-      <div className="ticks"></div>
+        {/* Demostración de Semáforo de Riesgo */}
+        <section className="space-y-2">
+          <h2 className="text-md font-bold text-foreground flex items-center gap-2">
+            <Baby className="w-5 h-5 text-primary" />
+            <span>Última Evaluación Realizada</span>
+          </h2>
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+          <SemaforoRiesgo
+            nivel={tamizajeEstado === "demo" ? "ALTO" : "BAJO"}
+            justificacion={
+              tamizajeEstado === "demo"
+                ? "Paciente Mateo R. (18 meses): 2 señales críticas observadas en interacción social y contacto visual."
+                : "Paciente Lucía M. (12 meses): Hitos de motricidad y lenguaje acordes a su grupo de edad."
+            }
+          />
+        </section>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+        {/* Acciones Rápidas */}
+        <Card>
+          <CardHeader className="pb-2">
+            <CardTitle className="text-md font-semibold">Flujo Asistencial Articulado</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-2 pt-0">
+            <div className="flex items-center justify-between p-3 rounded-lg bg-muted/40 border border-border">
+              <div>
+                <p className="text-sm font-medium">Derivación Especializada</p>
+                <p className="text-xs text-muted-foreground">INSN San Borja (Neuropediatría)</p>
+              </div>
+              <Button size="sm" variant="outline" className="min-h-[44px] gap-1">
+                <span>Gestionar</span>
+                <ArrowRight className="w-4 h-4" />
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    </MobileAppShell>
   )
 }
-
-export default App
