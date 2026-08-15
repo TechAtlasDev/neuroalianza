@@ -1,0 +1,74 @@
+name: Continuous Integration (CI) - Tinkuy
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  backend-ci:
+    name: 🐍 Backend (Python FastAPI + pytest)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout repositorio
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Configurar Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: ⚡ Instalar uv (Python package manager)
+        run: curl -LsSf https://astral.sh/uv/install.sh | sh
+
+      - name: 📦 Instalar dependencias del Backend
+        run: |
+          cd backend
+          $HOME/.local/bin/uv sync
+
+      - name: 🧪 Ejecutar pruebas unitarias e integración (pytest)
+        run: |
+          cd backend
+          $HOME/.local/bin/uv run pytest
+
+  frontend-ci:
+    name: ⚡ Frontend (React PWA + Vitest + Build)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout repositorio
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Configurar Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: 📦 Instalar dependencias del Frontend
+        run: |
+          cd frontend
+          npm ci
+
+      - name: 🔍 Verificación de Tipos TypeScript (tsc)
+        run: |
+          cd frontend
+          npm run typecheck
+
+      - name: 🎨 Auditoría de Design Tokens (Linter)
+        run: |
+          cd frontend
+          npm run check:tokens
+
+      - name: 🧪 Ejecutar pruebas de interfaz (Vitest)
+        run: |
+          cd frontend
+          npm run test
+
+      - name: 🏗️ Compilación de Producción (Vite Build)
+        run: |
+          cd frontend
+          npm run build

@@ -1,105 +1,16 @@
 {
-    
-"services"
-:
- 
-{
-        
-"frontend"
-:
- 
-{
-            
-"root"
-:
- 
-"frontend"
-,
-            
-"framework"
-:
- 
-"vite"
-        
-}
-,
-        
-"backend"
-:
- 
-{
-            
-"root"
-:
- 
-"backend"
-        
-}
-    
-}
-,
-    
-"rewrites"
-:
- 
-[
-        
-{
-            
-"source"
-:
- 
-"/api(/.*)?"
-,
-            
-"destination"
-:
- 
-{
-                
-"type"
-:
- 
-"service"
-,
-                
-"service"
-:
- 
-"backend"
-            
-}
-        
-}
-,
-        
-{
-            
-"source"
-:
- 
-"/(.*)"
-,
-            
-"destination"
-:
- 
-{
-                
-"type"
-:
- 
-"service"
-,
-                
-"service"
-:
- 
-"frontend"
-            
-}
-        
-}
-    
-]
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "cd frontend && npm install && npm run build",
+  "outputDirectory": "frontend/dist",
+  "framework": "vite",
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "https://neuroalianza-backend.onrender.com/api/$1"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
 }
