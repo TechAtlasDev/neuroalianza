@@ -13,7 +13,7 @@ export interface FirestoreScreeningData {
   guardianName: string
   guardianPhone: string
   healthCenterOrigin: string
-  riskLevel: "bajo" | "moderado" | "alto"
+  riskLevel: "bajo" | "medio" | "moderado" | "alto"
   riskLabel: string
   failuresCount: number
   recommendation: string

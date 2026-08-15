@@ -101,7 +101,7 @@ export async function submitScreeningApi(payload: {
     screening_id: string
     patient_id: string
     risk_level: string
-    risk_label: str
+    risk_label: string
     failures_count: number
     recommendation: string
     requires_referral: boolean
