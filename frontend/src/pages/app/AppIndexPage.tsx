@@ -11,6 +11,10 @@ import {
   Heartbeat,
   Info,
   CalendarCheck,
+  Hospital,
+  MapPin,
+  PhoneCall,
+  CalendarBlank,
 } from "@phosphor-icons/react"
 import {
   Sheet,
@@ -56,13 +60,14 @@ const FEATURED_RESOURCES = [
 
 export function AppIndexPage() {
   const [isLanguageSheetOpen, setIsLanguageSheetOpen] = useState(false)
+  const [isAppointmentSheetOpen, setIsAppointmentSheetOpen] = useState(false)
   const [selectedLanguage, setSelectedLanguage] = useState("es")
 
   return (
     <div className="-mx-4 -mt-4 flex flex-col">
       {/* 1. Hero Superior con Imagen y Capa Gradiente */}
       <section
-        className="text-white px-4 pt-7 pb-12 relative overflow-hidden bg-cover bg-center bg-no-repeat"
+        className="text-white px-4 pt-7 pb-12 relative overflow-hidden bg-cover bg-bottom bg-no-repeat"
         style={{
           backgroundImage: `url('https://res.cloudinary.com/de1xmnmeq/image/upload/v1786776308/paisaje-monta%C3%B1oso-low-poly-al-amanecer-con-degradados-pastel-en-los-picos-fondo-de-pantalla-para-m%C3%B3vil-experimenta-la-serena-378149134_pfiikg.webp')`,
         }}
@@ -148,20 +153,27 @@ export function AppIndexPage() {
 
       {/* 2. Contenido Inferior Solapado con Esquinas Redondeadas */}
       <div className="bg-background rounded-t-3xl -mt-4 px-4 pt-6 pb-8 space-y-6 relative z-20 shadow-lg">
-        {/* Banner Informativo Sutil */}
-        <div className="p-3.5 rounded-2xl bg-muted/40 border border-border/80 flex items-start gap-3">
-          <div className="w-8 h-8 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0 mt-0.5">
-            <Info size={18} weight="regular" />
+        {/* Banner Informativo Negro con Texto Blanco e Interactivo */}
+        <button
+          type="button"
+          onClick={() => setIsAppointmentSheetOpen(true)}
+          className="w-full text-left p-4 rounded-2xl bg-zinc-950 text-white border border-zinc-800 shadow-md hover:bg-zinc-900 active:scale-[0.99] transition-all flex items-start gap-3.5 group cursor-pointer"
+        >
+          <div className="w-9 h-9 rounded-xl bg-white/15 text-white flex items-center justify-center shrink-0 mt-0.5 border border-white/20">
+            <Info size={20} weight="bold" className="text-white" />
           </div>
-          <div className="space-y-0.5 flex-1">
-            <p className="text-sm font-medium text-foreground">
-              Tu próxima atención está programada
-            </p>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              Si surge alguna dificultad, cuéntanos para coordinar contigo.
+          <div className="space-y-1 flex-1">
+            <div className="flex items-center justify-between">
+              <p className="text-sm font-semibold text-white">
+                Tu próxima atención está programada
+              </p>
+              <CaretRight size={16} className="text-white/60 group-hover:text-white group-hover:translate-x-0.5 transition-all shrink-0 ml-1" />
+            </div>
+            <p className="text-sm text-zinc-300 leading-relaxed">
+              Jueves 18 de Agosto · 09:30 AM en INSN San Borja. Toca para ver detalles o coordinar.
             </p>
           </div>
-        </div>
+        </button>
 
         {/* Sección: Último Proceso (Ultra Minimalista) */}
         <section className="space-y-2.5">
@@ -330,6 +342,113 @@ export function AppIndexPage() {
                 </button>
               )
             })}
+          </div>
+        </SheetContent>
+      </Sheet>
+
+      {/* 4. Bottom Sheet de Detalles de la Próxima Atención */}
+      <Sheet open={isAppointmentSheetOpen} onOpenChange={setIsAppointmentSheetOpen}>
+        <SheetContent
+          side="bottom"
+          className="pb-8 pt-4 space-y-5 max-h-[90vh] overflow-y-auto"
+        >
+          {/* Indicador de arrastre */}
+          <div className="w-12 h-1 bg-muted-foreground/30 rounded-full mx-auto" />
+
+          <SheetHeader className="text-left space-y-1.5">
+            <div className="flex items-center gap-2">
+              <span className="px-2.5 py-0.5 rounded-full bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 text-sm font-medium">
+                Cita Confirmada
+              </span>
+              <span className="text-sm text-muted-foreground">
+                Código: #RIS-2026-891
+              </span>
+            </div>
+            <SheetTitle className="text-lg font-bold text-foreground">
+              Evaluación Especializada 360°
+            </SheetTitle>
+            <SheetDescription className="text-sm text-muted-foreground">
+              Tele-interconsulta y derivación con el Instituto Nacional de Salud del Niño San Borja.
+            </SheetDescription>
+          </SheetHeader>
+
+          {/* Detalles estructurados */}
+          <div className="space-y-3">
+            <div className="p-4 rounded-2xl bg-muted/40 border border-border/80 space-y-3">
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
+                  <Hospital size={20} weight="regular" />
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-foreground">
+                    INSN San Borja · Neuropediatría
+                  </p>
+                  <p className="text-sm text-muted-foreground">
+                    Dra. Marcela Valdivia (Especialista asignada)
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
+                  <CalendarBlank size={20} weight="regular" />
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-foreground">
+                    Jueves 18 de Agosto, 2026
+                  </p>
+                  <p className="text-sm text-muted-foreground">
+                    09:30 AM (Llegar 15 min antes)
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
+                  <MapPin size={20} weight="regular" />
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-foreground">
+                    Consultorio 304 (Piso 3)
+                  </p>
+                  <p className="text-sm text-muted-foreground">
+                    Av. Javier Prado Este 3101, Lima
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Requisitos y recordatorios */}
+            <div className="p-4 rounded-2xl bg-muted/25 border border-border/70 space-y-2">
+              <p className="text-sm font-semibold text-foreground">
+                Documentos requeridos:
+              </p>
+              <ul className="text-sm text-muted-foreground space-y-1 list-disc list-inside">
+                <li>DNI físico del menor y del apoderado.</li>
+                <li>Carné de control CRED y cartilla de vacunación.</li>
+                <li>Hojas de tamizaje M-CHAT-R completadas.</li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Acciones principales */}
+          <div className="space-y-2 pt-2">
+            <Link
+              to="/app/citas"
+              onClick={() => setIsAppointmentSheetOpen(false)}
+              className="w-full py-3.5 px-4 rounded-2xl bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 font-medium text-sm flex items-center justify-center gap-2 hover:bg-zinc-800 transition-all active:scale-[0.99] text-center"
+            >
+              <span>Ver seguimiento en Mi Ruta</span>
+              <CaretRight size={16} />
+            </Link>
+
+            <a
+              href="tel:113"
+              className="w-full py-3 px-4 rounded-2xl bg-muted hover:bg-muted/80 text-foreground font-medium text-sm flex items-center justify-center gap-2 transition-all active:scale-[0.99] border border-border/70"
+            >
+              <PhoneCall size={18} weight="regular" />
+              <span>Llamar a Central Minsa (113)</span>
+            </a>
           </div>
         </SheetContent>
       </Sheet>
