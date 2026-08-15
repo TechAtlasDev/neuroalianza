@@ -31,7 +31,7 @@ interface CaseItem {
 const INITIAL_CASES: CaseItem[] = [
   {
     id: "case-1",
-    patient: "Mateo Quispe Ramos",
+    patient: "Mateo Jimenez Ramos",
     age: "18 meses",
     origin: "C.S. San Juan de Lurigancho",
     nurse: "Lic. Rosa Vega",
@@ -152,11 +152,10 @@ export function SpecialistDashboard() {
               return (
                 <div
                   key={item.id}
-                  className={`p-4 rounded-2xl border transition-all space-y-3 ${
-                    isAdmitted
+                  className={`p-4 rounded-2xl border transition-all space-y-3 ${isAdmitted
                       ? "bg-muted/20 border-border/50 opacity-70"
                       : "bg-card border-border/80"
-                  }`}
+                    }`}
                 >
                   <div className="flex items-center justify-between">
                     <div>
@@ -175,11 +174,10 @@ export function SpecialistDashboard() {
                       </span>
                     ) : (
                       <span
-                        className={`px-2.5 py-0.5 rounded-full text-sm font-medium border ${
-                          item.riskLevel === "alto"
+                        className={`px-2.5 py-0.5 rounded-full text-sm font-medium border ${item.riskLevel === "alto"
                             ? "bg-red-500/10 text-red-600 dark:text-red-400 border-red-500/20"
                             : "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20"
-                        }`}
+                          }`}
                       >
                         {item.riskLabel}
                       </span>

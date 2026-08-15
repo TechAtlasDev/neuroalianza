@@ -1,7 +1,6 @@
 import { useState } from "react"
 import { Link } from "react-router-dom"
 import {
-  CalendarCheck,
   MapPin,
   CheckCircle,
   CaretRight,
@@ -11,6 +10,7 @@ import {
   Heartbeat,
   ShieldCheck,
   Check,
+  Info,
 } from "@phosphor-icons/react"
 import {
   Sheet,
@@ -46,45 +46,37 @@ export function FamilyHomePage() {
             Acompañamiento Familiar
           </p>
           <h1 className="text-3xl font-normal text-white tracking-tight">
-            Familia Quispe
+            Familia Jimenez
           </h1>
           <p className="text-sm font-normal text-white/80">
-            Mateo Quispe · 18 meses
+            Mateo Jimenez · 18 meses
           </p>
         </div>
       </section>
 
       {/* 2. Contenido Inferior Solapado con Esquinas Redondeadas */}
       <div className="bg-background rounded-t-3xl -mt-4 px-4 pt-6 pb-8 space-y-6 relative z-20 shadow-lg">
-        {/* Banner Negro Interactivo de Próxima Atención */}
-        <section>
-          <button
-            type="button"
-            onClick={() => setIsAppointmentSheetOpen(true)}
-            className="w-full p-4 rounded-3xl bg-black text-white flex items-center justify-between shadow-sm hover:bg-black/90 active:scale-[0.99] transition-all text-left group"
-          >
-            <div className="flex items-center gap-3.5">
-              <div className="w-12 h-12 rounded-2xl bg-white text-black flex items-center justify-center shrink-0">
-                <CalendarCheck size={26} weight="regular" />
-              </div>
-              <div className="space-y-0.5">
-                <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-white/15 text-white text-sm font-medium">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                  <span>Cita Médica Confirmada</span>
-                </div>
-                <h2 className="text-base font-semibold text-white">
-                  INSN San Borja · Neuropediatría
-                </h2>
-                <p className="text-sm text-zinc-300">
-                  Martes 24 de Febrero, 2026 · 09:30 AM
-                </p>
-              </div>
+        {/* Banner Informativo Negro Minimalista e Interactivo */}
+        <button
+          type="button"
+          onClick={() => setIsAppointmentSheetOpen(true)}
+          className="w-full text-left p-4 rounded-2xl bg-zinc-950 text-white border border-zinc-800 shadow-md hover:bg-zinc-900 active:scale-[0.99] transition-all flex items-start gap-3.5 group cursor-pointer"
+        >
+          <div className="w-9 h-9 rounded-xl bg-white/15 text-white flex items-center justify-center shrink-0 mt-0.5 border border-white/20">
+            <Info size={20} weight="bold" className="text-white" />
+          </div>
+          <div className="space-y-1 flex-1">
+            <div className="flex items-center justify-between">
+              <p className="text-sm font-semibold text-white">
+                Tu próxima atención está programada
+              </p>
+              <CaretRight size={16} className="text-white/60 group-hover:text-white group-hover:translate-x-0.5 transition-all shrink-0 ml-1" />
             </div>
-            <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white shrink-0 group-hover:translate-x-0.5 transition-transform">
-              <CaretRight size={18} weight="bold" />
-            </div>
-          </button>
-        </section>
+            <p className="text-sm text-zinc-300 leading-relaxed">
+              Martes 24 de Febrero · 09:30 AM en INSN San Borja (Neuropediatría). Toca para ver detalles o coordinar.
+            </p>
+          </div>
+        </button>
 
         {/* Guía de Estimulación en Casa (Día a Día) */}
         <section className="space-y-3">
