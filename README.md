@@ -21,7 +21,34 @@ flowchart LR
 
 ---
 
-## 🎯 2. Objetivos del Proyecto
+## 📚 2. Hub de Documentación del Proyecto
+
+El repositorio cuenta con documentación técnica profunda y exhaustiva para cada área del sistema:
+
+### 🐍 Documentación del Backend (Python 3.12+ / FastAPI / Hexagonal)
+* 📖 **[Backend README](file:///home/techatlasdev/Proyectos/Sensoria/hackatones/neuroalianza-v1/backend/README.md):** Visión general del servicio backend, inicio rápido con `uv` y comandos clave.
+* 🏛️ **[Filosofía y Principios](file:///home/techatlasdev/Proyectos/Sensoria/hackatones/neuroalianza-v1/backend/PHILOSOPHY.md):** Postura ético-clínica, minimización de datos, inmutabilidad del timeline y funciones puras.
+* 🤝 **[Guía de Contribución](file:///home/techatlasdev/Proyectos/Sensoria/hackatones/neuroalianza-v1/backend/CONTRIBUTING.md):** Flujo Git, contratos de arquitectura (`import-linter`), estándares Ruff/MyPy y testing obligatorio.
+* 📐 **[Arquitectura Técnica](file:///home/techatlasdev/Proyectos/Sensoria/hackatones/neuroalianza-v1/backend/docs/ARCHITECTURE.md):** Puertos y adaptadores, Composition Root, bus de eventos y RFC 7807.
+* 🧠 **[Dominio y Estados](file:///home/techatlasdev/Proyectos/Sensoria/hackatones/neuroalianza-v1/backend/docs/DOMAIN_AND_STATE_MACHINE.md):** Máquina de estados determinista, motor de tamizaje (EEDP/TEPSI/M-CHAT) y alertas.
+* 🌐 **[Contratos de la API](file:///home/techatlasdev/Proyectos/Sensoria/hackatones/neuroalianza-v1/backend/docs/API_CONTRACTS.md):** Catálogo de endpoints por actor, idempotencia y proyecciones de vista.
+* 🧪 **[Estrategia de Testing](file:///home/techatlasdev/Proyectos/Sensoria/hackatones/neuroalianza-v1/backend/docs/TESTING_STRATEGY.md):** Pirámide de 5 niveles, Hypothesis, SimulatedClock y Schemathesis.
+* 🛠️ **[Herramientas y Estándares](file:///home/techatlasdev/Proyectos/Sensoria/hackatones/neuroalianza-v1/backend/docs/TOOLING_AND_STANDARDS.md):** Configuración de `uv`, Ruff (`ALL`), MyPy (`strict`) y Makefile.
+
+### ⚛️ Documentación del Frontend (React 19 / TypeScript / Untitled UI)
+* 📖 **[Frontend README](file:///home/techatlasdev/Proyectos/Sensoria/hackatones/neuroalianza-v1/frontend/README.md):** Visión general de la SPA, configuración con Vite y características.
+* 🎨 **[Filosofía y Principios UX](file:///home/techatlasdev/Proyectos/Sensoria/hackatones/neuroalianza-v1/frontend/PHILOSOPHY.md):** Enfoque humano para 3 realidades (CRED, Familias, Especialistas), "Regla Cero" y accesibilidad.
+* 🤝 **[Guía de Contribución](file:///home/techatlasdev/Proyectos/Sensoria/hackatones/neuroalianza-v1/frontend/CONTRIBUTING.md):** Procedimiento de componentes Untitled UI, tokens semánticos, tipografía $\ge 16\text{px}$ y PRs.
+* 🤖 **[Reglas para Asistentes AI](file:///home/techatlasdev/Proyectos/Sensoria/hackatones/neuroalianza-v1/frontend/agents.md):** Reglas normativas directas: prohibición de valores hardcodeados y componentes crudos.
+* 🏛️ **[Arquitectura de Interfaz](file:///home/techatlasdev/Proyectos/Sensoria/hackatones/neuroalianza-v1/frontend/docs/ARCHITECTURE.md):** Composición de providers, enrutado por zonas, React Query y sincronización offline.
+* 📋 **[Estándares Normativos](file:///home/techatlasdev/Proyectos/Sensoria/hackatones/neuroalianza-v1/frontend/docs/neuro_estandares.md):** Especificación normativa completa sobre tokens, paleta institucional y linters.
+* 🗺️ **[Mapa de Rutas y Páginas](file:///home/techatlasdev/Proyectos/Sensoria/hackatones/neuroalianza-v1/frontend/docs/routes.md):** Especificación funcional de las 23 pantallas priorizadas por `[P1]` y `[P2]`.
+* 🌈 **[Sistema de Diseño y Tokens](file:///home/techatlasdev/Proyectos/Sensoria/hackatones/neuroalianza-v1/frontend/docs/DESIGN_SYSTEM_AND_TOKENS.md):** Tokens de color, escala tipográfica, áreas táctiles $\ge 44\text{px}$ y WCAG AAA.
+* 🧪 **[Estrategia de Testing](file:///home/techatlasdev/Proyectos/Sensoria/hackatones/neuroalianza-v1/frontend/docs/TESTING_STRATEGY.md):** Pirámide de pruebas con Vitest, Testing Library, auditoría axe y MSW.
+
+---
+
+## 🎯 3. Objetivos del Proyecto
 
 ### 🎯 Objetivo General
 Desarrollar una solución tecnológica accesible, integral e interoperable que optimice la ruta asistencial de pacientes con trastornos del neurodesarrollo en el Perú, agilizando la detección temprana, reduciendo las barreras geográficas y socioeconómicas en el proceso de referencia, y maximizando la adherencia terapéutica mediante la articulación del equipo multidisciplinario y el empoderamiento familiar.
@@ -35,7 +62,7 @@ Desarrollar una solución tecnológica accesible, integral e interoperable que o
 
 ---
 
-## 📊 3. Contexto y Justificación del Problema (Realidad Nacional)
+## 📊 4. Contexto y Justificación del Problema (Realidad Nacional)
 
 En el Perú, el abordaje de los trastornos del neurodesarrollo enfrenta brechas críticas documentadas por el Ministerio de Salud (MINSA) y el INSN San Borja:
 
@@ -53,7 +80,7 @@ En el Perú, el abordaje de los trastornos del neurodesarrollo enfrenta brechas 
 
 ---
 
-## 👥 4. Usuarios y Beneficiarios
+## 👥 5. Usuarios y Beneficiarios
 
 | Rol / Actor | Necesidades y Dolores Principales | Aporte de Neuroalianza |
 | :--- | :--- | :--- |
@@ -64,7 +91,7 @@ En el Perú, el abordaje de los trastornos del neurodesarrollo enfrenta brechas 
 
 ---
 
-## 🧩 5. Módulos y Arquitectura Funcional
+## 🧩 6. Módulos y Arquitectura Funcional
 
 ```mermaid
 graph TD
@@ -113,7 +140,7 @@ graph TD
 
 ---
 
-## ⚖️ 6. Alcance y Restricciones Éticas / Clínicas
+## ⚖️ 7. Alcance y Restricciones Éticas / Clínicas
 
 ### ✅ Qué SÍ incluye la solución
 * Prototipo digital funcional e interactivo de la ruta completa de atención.
@@ -128,23 +155,25 @@ graph TD
 
 ---
 
-## 🛠️ 7. Stack Tecnológico
+## 🛠️ 8. Stack Tecnológico
 
 * **Frontend:**
   * **Framework:** React 19 + TypeScript
   * **Build Tool:** Vite 8 con soporte de React Compiler
-  * **Diseño e Interfaz:** CSS moderno responsivo, accesible (a11y), mobile-first y de alta legibilidad
+  * **Sistema de Diseño:** Untitled UI React (React Aria Components) + Tailwind CSS
+  * **Gestión de Estado:** TanStack React Query
 * **Backend:**
   * **Lenguaje:** Python 3.12+
   * **Gestor de Entornos y Paquetes:** `uv` (rápido, determinista y moderno)
   * **Framework:** FastAPI (REST API estructurada con Pydantic v2)
-  * **Testing & Calidad:** Pytest, HTTPX TestClient
+  * **Arquitectura:** Hexagonal / Puertos y Adaptadores con DDD
+  * **Testing & Calidad:** Pytest, HTTPX TestClient, Hypothesis, Schemathesis, Ruff, MyPy
 * **Base de Datos & Persistencia:**
-  * Modelado relacional estructurado para pacientes, referencias, tamizajes, citas y notas multidisciplinarias.
+  * Adaptador en memoria para desarrollo y demo; PostgreSQL para producción.
 
 ---
 
-## 🧪 8. Estrategia de Testing y Calidad
+## 🧪 9. Estrategia de Testing y Calidad
 
 En cumplimiento con los estándares de desarrollo, **cada funcionalidad e integración cuenta con pruebas automatizadas**:
 
@@ -154,10 +183,11 @@ En cumplimiento con los estándares de desarrollo, **cada funcionalidad e integr
    * Ejecución ágil con `uv run pytest`.
 2. **Frontend Tests:**
    * Pruebas de componentes y flujos de usuario (tamizaje interactivo, navegación de roles, visualización de trazabilidad).
+   * Pruebas de accesibilidad automatizadas con `axe-core`.
 
 ---
 
-## 🚀 9. Guía de Ejecución Local
+## 🚀 10. Guía de Ejecución Local
 
 ### Prerrequisitos
 * Python `>=3.12` y gestor [`uv`](https://docs.astral.sh/uv/)
@@ -187,6 +217,5 @@ npm run dev  # Servidor de desarrollo Vite en http://localhost:5173
 
 ---
 
-## 📄 10. Licencia y Créditos
+## 📄 11. Licencia y Créditos
 Proyecto desarrollado en el marco de la **Hackatón INSN San Borja 2026: Conectando Ideas para Innovar en la Salud Infantil**, alineado a las necesidades de los servicios de Neurología, Psiquiatría, Psicología y Genética.
-
