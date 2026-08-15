@@ -101,7 +101,7 @@ export function AppointmentsTrackingPage() {
 
       {/* Timeline de la Hoja de Ruta */}
       <section className="space-y-3 pt-1">
-        <h3 className="text-md font-bold text-foreground uppercase tracking-wider text-muted-foreground">
+        <h3 className="text-md font-bold text-foreground uppercase trk_wider text-muted-foreground">
           Línea de Tiempo del Paciente
         </h3>
 

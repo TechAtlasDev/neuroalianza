@@ -44,7 +44,7 @@ export function UserProfilePage() {
 
       {/* Ajustes de la Aplicación */}
       <section className="space-y-2">
-        <h3 className="text-md font-bold text-muted-foreground uppercase tracking-wider px-1">
+        <h3 className="text-md font-bold text-muted-foreground uppercase trk_wider px-1">
           Ajustes de Sincronización y PWA
         </h3>
 

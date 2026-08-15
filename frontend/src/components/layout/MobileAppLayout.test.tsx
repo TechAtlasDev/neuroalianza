@@ -4,10 +4,10 @@ import { MemoryRouter } from "react-router-dom"
 import { MobileAppLayout } from "./MobileAppLayout"
 
 describe("MobileAppLayout (Modular Mobile-First PWA Shell)", () => {
-  it("renderiza correctamente las ranuras predeterminadas (Header, Contenido y BottomNav)", () => {
+  it("renderiza correctamente el shell limpio sin topbar por defecto, con contenido y BottomNav", () => {
     render(
       <MemoryRouter initialEntries={["/app"]}>
-        <MobileAppLayout title="Neuroalianza CRED" role="Posta San Juan">
+        <MobileAppLayout>
           <div data-testid="main-child">Vista de prueba</div>
         </MobileAppLayout>
       </MemoryRouter>
@@ -16,9 +16,8 @@ describe("MobileAppLayout (Modular Mobile-First PWA Shell)", () => {
     // Verifica que el contenedor móvil esté presente
     expect(screen.getByTestId("mobile-app-shell")).toBeInTheDocument()
 
-    // Verifica TopHeader por defecto
-    expect(screen.getByText("Neuroalianza CRED")).toBeInTheDocument()
-    expect(screen.getByText("Posta San Juan")).toBeInTheDocument()
+    // No debe haber top-header por defecto
+    expect(screen.queryByTestId("top-header")).not.toBeInTheDocument()
 
     // Verifica Contenido
     expect(screen.getByTestId("main-child")).toBeInTheDocument()
@@ -55,16 +54,15 @@ describe("MobileAppLayout (Modular Mobile-First PWA Shell)", () => {
     expect(screen.getByTestId("custom-extension")).toHaveTextContent("Debug Drawer")
   })
 
-  it("permite ocultar encabezado o barra de navegación según configuración", () => {
+  it("permite ocultar la barra de navegación según configuración", () => {
     render(
       <MemoryRouter initialEntries={["/app"]}>
-        <MobileAppLayout hideHeader={true} hideBottomNav={true}>
+        <MobileAppLayout hideBottomNav={true}>
           <div>Solo Contenido</div>
         </MobileAppLayout>
       </MemoryRouter>
     )
 
-    expect(screen.queryByTestId("top-header")).not.toBeInTheDocument()
     expect(screen.queryByTestId("bottom-nav-bar")).not.toBeInTheDocument()
     expect(screen.getByText("Solo Contenido")).toBeInTheDocument()
   })

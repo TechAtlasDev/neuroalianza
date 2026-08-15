@@ -99,19 +99,19 @@ export function BottomNavBar({
 
   return (
     <div className={`sticky bottom-0 z-30 w-full ${className}`}>
-      {/* Botón Flotante de IA (Outline blanco limpio, sin animaciones ni badges) */}
+      {/* Botón Flotante de IA (Outline blanco/contraste limpio con token semántico) */}
       {showAiFab && (
         <div className="absolute -top-14 right-4 z-40 pointer-events-auto">
           <button
             type="button"
             onClick={onAiClick || (() => navigate("/app/demo"))}
             aria-label="Asistente de Inteligencia Artificial"
-            className="flex items-center justify-center w-12 h-12 rounded-full bg-slate-900 text-white shadow-md hover:bg-slate-800 active:scale-95 transition-transform duration-150 border border-slate-700/60"
+            className="flex items-center justify-center w-12 h-12 rounded-full bg-foreground text-background shadow-md hover:opacity-90 active:scale-95 transition-transform duration-150 border border-border"
           >
             <Sparkle
-              size={24}
+              size={26}
               weight="regular"
-              className="text-white"
+              className="text-background"
             />
           </button>
         </div>
@@ -121,9 +121,9 @@ export function BottomNavBar({
       <nav
         data-testid="bottom-nav-bar"
         aria-label="Navegación principal de la aplicación"
-        className="w-full bg-card/75 backdrop-blur-xl border-t border-border/50 px-2 py-1 shadow-lg shadow-black/5"
+        className="w-full bg-card/75 backdrop-blur-xl border-t border-border/50 px-2 py-1 shadow-lg"
       >
-        <div className="flex items-center justify-between max-w-md mx-auto relative h-14">
+        <div className="flex items-center justify-between max-w-md mx-auto relative h-16">
           {/* Bloque Izquierdo: Home y Recursos */}
           <div className="flex items-center justify-around flex-1">
             {leftItems.map((item) => {
@@ -138,24 +138,24 @@ export function BottomNavBar({
                   onClick={() => handleNavClick(item)}
                   aria-label={item.label}
                   aria-current={active ? "page" : undefined}
-                  className={`relative flex flex-col items-center justify-center w-16 h-12 bg-transparent transition-colors duration-150 active:scale-95 ${active
-                    ? "text-primary"
-                    : "text-muted-foreground hover:text-foreground"
+                  className={`relative flex flex-col items-center justify-center w-16 h-14 bg-transparent transition-colors duration-150 active:scale-95 ${active
+                      ? "text-primary"
+                      : "text-muted-foreground hover:text-foreground"
                     }`}
                 >
                   <IconComponent
-                    size={24}
+                    size={28}
                     weight={active ? "fill" : "regular"}
                     className="transition-colors duration-150"
                   />
                   <span
-                    className={`text-md t-tight mt-0.5 ${active ? "font-bold text-primary" : "font-medium text-muted-foreground"
+                    className={`text-sm trk_tight mt-0.5 ${active ? "font-bold text-primary" : "font-medium text-muted-foreground"
                       }`}
                   >
                     {item.label}
                   </span>
                   {Boolean(item.badgeCount && item.badgeCount > 0) && (
-                    <span className="absolute top-1 right-2 min-w-4 h-4 px-1 rounded-full bg-destructive text-destructive-foreground text-md font-bold flex items-center justify-center ring-2 ring-card">
+                    <span className="absolute top-1 right-2 min-w-4 h-4 px-1 rounded-full bg-destructive text-destructive-foreground text-sm font-bold flex items-center justify-center ring-2 ring-card">
                       {item.badgeCount! > 99 ? "99+" : item.badgeCount}
                     </span>
                   )}
@@ -172,10 +172,10 @@ export function BottomNavBar({
                 data-testid="nav-center-action"
                 onClick={handleCenterClick}
                 aria-label="Nueva acción o tamizaje rápido"
-                className="group relative flex items-center justify-center w-14 h-14 rounded-full bg-primary text-primary-foreground shadow-lg shadow-primary/30 hover:bg-primary/90 active:scale-95 transition-transform duration-150 ring-4 ring-background border border-white/20"
+                className="group relative flex items-center justify-center w-14 h-14 rounded-full bg-primary text-primary-foreground shadow-lg shadow-primary/30 hover:bg-primary/90 active:scale-95 transition-transform duration-150 ring-4 ring-background border border-primary-foreground/20"
               >
                 <Plus
-                  size={26}
+                  size={30}
                   weight="bold"
                 />
               </button>
@@ -196,24 +196,24 @@ export function BottomNavBar({
                   onClick={() => handleNavClick(item)}
                   aria-label={item.label}
                   aria-current={active ? "page" : undefined}
-                  className={`relative flex flex-col items-center justify-center w-16 h-12 bg-transparent transition-colors duration-150 active:scale-95 ${active
-                    ? "text-primary"
-                    : "text-muted-foreground hover:text-foreground"
+                  className={`relative flex flex-col items-center justify-center w-16 h-14 bg-transparent transition-colors duration-150 active:scale-95 ${active
+                      ? "text-primary"
+                      : "text-muted-foreground hover:text-foreground"
                     }`}
                 >
                   <IconComponent
-                    size={24}
+                    size={28}
                     weight={active ? "fill" : "regular"}
                     className="transition-colors duration-150"
                   />
                   <span
-                    className={`text-md t-tight mt-0.5 leading-none text-center ${active ? "font-bold text-primary" : "font-medium text-muted-foreground"
+                    className={`text-sm trk_tight mt-0.5 leading-none text-center ${active ? "font-bold text-primary" : "font-medium text-muted-foreground"
                       }`}
                   >
                     {item.label}
                   </span>
                   {Boolean(item.badgeCount && item.badgeCount > 0) && (
-                    <span className="absolute top-1 right-2 min-w-4 h-4 px-1 rounded-full bg-destructive text-destructive-foreground text-md font-bold flex items-center justify-center ring-2 ring-card">
+                    <span className="absolute top-1 right-2 min-w-4 h-4 px-1 rounded-full bg-destructive text-destructive-foreground text-sm font-bold flex items-center justify-center ring-2 ring-card">
                       {item.badgeCount! > 99 ? "99+" : item.badgeCount}
                     </span>
                   )}
