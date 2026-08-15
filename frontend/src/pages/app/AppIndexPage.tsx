@@ -67,7 +67,7 @@ export function AppIndexPage() {
     <div className="-mx-4 -mt-4 flex flex-col">
       {/* 1. Hero Superior con Imagen y Capa Gradiente */}
       <section
-        className="text-white px-4 pt-7 pb-12 relative overflow-hidden bg-cover bg-bottom bg-no-repeat"
+        className="text-white px-4 pt-7 pb-12 relative overflow-hidden bg-cover bg-center bg-no-repeat"
         style={{
           backgroundImage: `url('https://res.cloudinary.com/de1xmnmeq/image/upload/v1786776308/paisaje-monta%C3%B1oso-low-poly-al-amanecer-con-degradados-pastel-en-los-picos-fondo-de-pantalla-para-m%C3%B3vil-experimenta-la-serena-378149134_pfiikg.webp')`,
         }}
@@ -322,8 +322,8 @@ export function AppIndexPage() {
                     setIsLanguageSheetOpen(false)
                   }}
                   className={`w-full p-3.5 rounded-2xl flex items-center justify-between transition-all active:scale-[0.99] ${isSelected
-                      ? "bg-primary/10 text-primary border border-primary/30"
-                      : "hover:bg-muted text-foreground border border-border/70"
+                    ? "bg-primary/10 text-primary border border-primary/30"
+                    : "hover:bg-muted text-foreground border border-border/70"
                     }`}
                 >
                   <div className="text-left">

@@ -101,12 +101,12 @@ export function BottomNavBar({
     <div className={`sticky bottom-0 z-30 w-full ${className}`}>
       {/* Botón Flotante de IA (Outline blanco/contraste limpio con token semántico) */}
       {showAiFab && (
-        <div className="absolute -top-14 right-4 z-40 pointer-events-auto">
+        <div className="absolute -top-18 right-4 z-40 pointer-events-auto">
           <button
             type="button"
             onClick={onAiClick || (() => navigate("/app/demo"))}
             aria-label="Asistente de Inteligencia Artificial"
-            className="flex items-center justify-center w-12 h-12 rounded-full bg-foreground text-background shadow-md hover:opacity-90 active:scale-95 transition-transform duration-150 border border-border"
+            className="flex items-center justify-center w-15 h-15 rounded-full bg-foreground text-background shadow-md hover:opacity-90 active:scale-95 transition-transform duration-150 border border-border"
           >
             <Sparkle
               size={26}
@@ -139,8 +139,8 @@ export function BottomNavBar({
                   aria-label={item.label}
                   aria-current={active ? "page" : undefined}
                   className={`relative flex flex-col items-center justify-center w-16 h-14 bg-transparent transition-colors duration-150 active:scale-95 ${active
-                      ? "text-primary"
-                      : "text-muted-foreground hover:text-foreground"
+                    ? "text-primary"
+                    : "text-muted-foreground hover:text-foreground"
                     }`}
                 >
                   <IconComponent
@@ -197,8 +197,8 @@ export function BottomNavBar({
                   aria-label={item.label}
                   aria-current={active ? "page" : undefined}
                   className={`relative flex flex-col items-center justify-center w-16 h-14 bg-transparent transition-colors duration-150 active:scale-95 ${active
-                      ? "text-primary"
-                      : "text-muted-foreground hover:text-foreground"
+                    ? "text-primary"
+                    : "text-muted-foreground hover:text-foreground"
                     }`}
                 >
                   <IconComponent
