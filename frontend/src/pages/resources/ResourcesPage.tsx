@@ -1,7 +1,5 @@
 import { useState } from "react"
-import { Link } from "react-router-dom"
 import {
-  ArrowLeft,
   MagnifyingGlass,
   SlidersHorizontal,
   CaretDown,
@@ -173,237 +171,250 @@ export function ResourcesPage() {
   })
 
   return (
-    <div className="space-y-4 pb-8">
-      {/* 1. Top Bar: Botón de Retroceder + Barra Larga de Búsqueda */}
-      <div className="flex items-center gap-2.5 pt-1">
-        <Link
-          to="/app"
-          className="w-11 h-11 rounded-2xl bg-card border border-border/80 flex items-center justify-center text-foreground hover:text-primary hover:bg-muted active:scale-95 transition-all shrink-0"
-          aria-label="Volver al inicio"
-        >
-          <ArrowLeft size={20} weight="bold" />
-        </Link>
+    <div className="-mx-4 -mt-4 flex flex-col">
+      {/* 1. Hero Superior con Imagen de Fondo Alineada Abajo (Sin láminas ni capas) */}
+      <section
+        className="text-white px-4 pt-7 pb-12 relative overflow-hidden bg-cover bg-bottom bg-no-repeat"
+        style={{
+          backgroundImage: `url('https://res.cloudinary.com/de1xmnmeq/image/upload/v1786777517/images_3_rmd6xc.jpg')`,
+        }}
+      >
+        {/* Barra Superior con Botón de Retroceso y Título */}
+        <div className="flex items-center justify-between relative z-10 h-20">
+        </div>
 
-        {/* Barra de Búsqueda Larga */}
-        <div className="relative flex-1">
+        {/* Sección Central Destacada */}
+        <div className="text-center py-14 space-y-2 relative z-10">
+          <p className="text-lg font-normal text-white/90">
+            Aprende en Familia
+          </p>
+          <h1 className="text-3xl font-normal text-white tracking-tight">
+            Guías & Recursos
+          </h1>
+          <p className="text-sm font-normal text-white/80">
+            Pautas de estimulación temprana y neurodesarrollo
+          </p>
+        </div>
+
+        {/* Barra de Búsqueda Translúcida en el Hero */}
+        <div className="relative max-w-sm mx-auto z-10">
           <MagnifyingGlass
             size={18}
-            className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none"
+            className="absolute left-3.5 top-1/2 -translate-y-1/2 text-white/80 pointer-events-none"
           />
           <input
             type="text"
-            placeholder="Buscar artículos, guías o actividades..."
+            placeholder="Buscar artículos, guías o videos..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full h-11 pl-10 pr-4 rounded-2xl bg-card border border-border/80 text-sm font-normal text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/50 transition-colors"
+            className="w-full h-11 pl-10 pr-4 rounded-2xl bg-white/20 hover:bg-white/25 backdrop-blur-md border border-white/25 text-sm font-normal text-white placeholder:text-white/70 focus:outline-none focus:border-white/50 transition-colors"
           />
+        </div>
+      </section>
+
+      {/* 2. Contenido Inferior Solapado con Esquinas Redondeadas */}
+      <div className="bg-background rounded-t-3xl -mt-4 px-4 pt-5 pb-8 space-y-5 relative z-20 shadow-lg">
+        {/* Fila de Filtros Desplegables Tipo Chip */}
+        <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar -mx-4 px-4 snap-x">
+          {/* Botón Principal de Filtros */}
+          <button
+            type="button"
+            onClick={() => setIsFilterSheetOpen(true)}
+            className={`shrink-0 h-10 px-3.5 rounded-2xl flex items-center gap-2 text-sm transition-all border ${activeFiltersCount > 0
+              ? "bg-primary text-primary-foreground border-primary font-medium"
+              : "bg-card text-foreground border-border/80 hover:bg-muted"
+              }`}
+            aria-label="Abrir panel de filtros"
+          >
+            <SlidersHorizontal size={18} weight="regular" />
+            <span>Filtros</span>
+            {activeFiltersCount > 0 && (
+              <span className="w-5 h-5 rounded-full bg-primary-foreground text-primary text-sm font-semibold flex items-center justify-center">
+                {activeFiltersCount}
+              </span>
+            )}
+          </button>
+
+          {/* Filtro por Edad */}
+          <button
+            type="button"
+            onClick={() => setIsFilterSheetOpen(true)}
+            className={`shrink-0 h-10 px-3.5 rounded-2xl flex items-center gap-1.5 text-sm transition-all border ${selectedAge !== "todos"
+              ? "bg-primary/10 text-primary border-primary/30 font-medium"
+              : "bg-card text-foreground border-border/80 hover:bg-muted"
+              }`}
+          >
+            <span>
+              {selectedAge === "0-18" ? "Edad: 0-18m" : selectedAge === "18-36" ? "Edad: 18-36m" : "Edad"}
+            </span>
+            <CaretDown size={14} weight="bold" />
+          </button>
+
+          {/* Filtro por Tipo */}
+          <button
+            type="button"
+            onClick={() => setIsFilterSheetOpen(true)}
+            className={`shrink-0 h-10 px-3.5 rounded-2xl flex items-center gap-1.5 text-sm transition-all border ${selectedType !== "todos"
+              ? "bg-primary/10 text-primary border-primary/30 font-medium"
+              : "bg-card text-foreground border-border/80 hover:bg-muted"
+              }`}
+          >
+            <span className="capitalize">
+              {selectedType === "todos"
+                ? "Tipo de recurso"
+                : selectedType === "actividades"
+                  ? "Actividades"
+                  : selectedType === "guias"
+                    ? "Guías"
+                    : selectedType === "rutinas"
+                      ? "Rutinas"
+                      : "Videos"}
+            </span>
+            <CaretDown size={14} weight="bold" />
+          </button>
+
+          {/* Filtro Offline */}
+          <button
+            type="button"
+            onClick={() => setOnlyOffline((prev) => !prev)}
+            className={`shrink-0 h-10 px-3.5 rounded-2xl flex items-center gap-1.5 text-sm transition-all border ${onlyOffline
+              ? "bg-primary/10 text-primary border-primary/30 font-medium"
+              : "bg-card text-muted-foreground border-border/80 hover:bg-muted"
+              }`}
+          >
+            <WifiSlash size={16} />
+            <span>Offline</span>
+          </button>
+        </div>
+
+        {/* Encabezado de Cantidad de Recursos */}
+        <div className="pt-1">
+          <h2 className="text-lg font-semibold text-foreground">
+            {filteredResources.length}+ recursos disponibles
+          </h2>
+          <p className="text-sm text-muted-foreground">
+            Materiales clínicos validados para el neurodesarrollo en primera infancia.
+          </p>
+        </div>
+
+        {/* Lista de Tarjetas Visuales Grandes */}
+        <div className="space-y-4">
+          {filteredResources.length === 0 ? (
+            <div className="text-center py-12 space-y-3 bg-card border border-border/80 rounded-3xl p-6">
+              <p className="text-base font-semibold text-foreground">
+                No hay recursos con estos filtros
+              </p>
+              <p className="text-sm text-muted-foreground">
+                Prueba cambiando el rango de edad o el formato del recurso.
+              </p>
+              <button
+                type="button"
+                onClick={resetFilters}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-primary/10 text-primary text-sm font-medium hover:bg-primary/15 transition-colors"
+              >
+                <ArrowsCounterClockwise size={16} />
+                <span>Restablecer Filtros</span>
+              </button>
+            </div>
+          ) : (
+            filteredResources.map((res, index) => (
+              <div key={res.id} className="space-y-4">
+                <div
+                  onClick={() => setSelectedResource(res)}
+                  className="cursor-pointer group block"
+                >
+                  <Card className="overflow-hidden bg-card border border-border/80 shadow-none hover:border-primary/40 transition-all rounded-3xl">
+                    <CardContent className="p-0">
+                      {/* Contenedor de Imagen de Portada */}
+                      <div className="relative aspect-16/10 w-full overflow-hidden bg-muted">
+                        <img
+                          src={res.image}
+                          alt={res.title}
+                          className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500"
+                          loading="lazy"
+                        />
+
+                        {/* Badge de Categoría Flotante */}
+                        <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-black/55 backdrop-blur-md text-white text-sm font-medium border border-white/20">
+                          {res.categoryLabel}
+                        </div>
+
+                        {/* Botón de Favorito Flotante */}
+                        <button
+                          type="button"
+                          onClick={(e) => toggleFavorite(res.id, e)}
+                          className="absolute top-3 right-3 w-9 h-9 rounded-full bg-black/45 hover:bg-black/60 backdrop-blur-md flex items-center justify-center text-white border border-white/20 active:scale-90 transition-all"
+                          aria-label="Guardar en favoritos"
+                        >
+                          <Heart
+                            size={18}
+                            weight={favoriteIds[res.id] ? "fill" : "regular"}
+                            className={favoriteIds[res.id] ? "text-destructive" : "text-white"}
+                          />
+                        </button>
+
+                        {/* Badge de Rango de Edad */}
+                        <div className="absolute bottom-3 left-3 px-3 py-1 rounded-xl bg-card/90 backdrop-blur-md text-foreground text-sm font-medium border border-border/60">
+                          {res.ageRange}
+                        </div>
+                      </div>
+
+                      {/* Información Detallada Debajo de la Imagen */}
+                      <div className="p-4 space-y-2">
+                        <h3 className="text-base font-semibold text-foreground leading-snug group-hover:text-primary transition-colors">
+                          {res.title}
+                        </h3>
+
+                        {/* Rating y Vistas */}
+                        <div className="flex items-center gap-1.5 text-sm text-foreground">
+                          <span className="font-semibold">{res.rating}</span>
+                          <Star size={14} weight="fill" className="text-primary fill-primary" />
+                          <span className="text-muted-foreground">({res.ratingsCount} familias)</span>
+                        </div>
+
+                        {/* Ubicación / Especialidad */}
+                        <p className="text-sm text-muted-foreground">
+                          {res.location}
+                        </p>
+
+                        {/* Barra Inferior: Tiempo de lectura y Botón de Apertura */}
+                        <div className="flex items-center justify-between pt-2 border-t border-border/50 text-sm">
+                          <span className="text-muted-foreground flex items-center gap-1">
+                            <Clock size={14} />
+                            {res.readTime}
+                          </span>
+                          <span className="font-semibold text-primary group-hover:underline">
+                            Ver Ficha Completa
+                          </span>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+
+                {/* Banner Informativo Entre Tarjetas */}
+                {index === 0 && (
+                  <div className="p-4 rounded-3xl bg-muted/50 border border-border/80 flex items-center justify-between gap-3">
+                    <div className="space-y-0.5">
+                      <p className="text-sm font-semibold text-foreground">
+                        Acceso sin conexión activado
+                      </p>
+                      <p className="text-sm text-muted-foreground">
+                        Puedes consultar todas estas fichas aunque no tengas señal en tu posta.
+                      </p>
+                    </div>
+                    <div className="w-10 h-10 rounded-2xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
+                      <Sparkle size={22} weight="regular" />
+                    </div>
+                  </div>
+                )}
+              </div>
+            ))
+          )}
         </div>
       </div>
 
-      {/* 2. Fila de Filtros Desplegables Tipo Chip (Abren el Bottom Sheet) */}
-      <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar -mx-4 px-4 snap-x">
-        {/* Botón Principal de Filtros */}
-        <button
-          type="button"
-          onClick={() => setIsFilterSheetOpen(true)}
-          className={`shrink-0 h-10 px-3.5 rounded-2xl flex items-center gap-2 text-sm transition-all border ${
-            activeFiltersCount > 0
-              ? "bg-primary text-primary-foreground border-primary font-medium"
-              : "bg-card text-foreground border-border/80 hover:bg-muted"
-          }`}
-          aria-label="Abrir panel de filtros"
-        >
-          <SlidersHorizontal size={18} weight="regular" />
-          <span>Filtros</span>
-          {activeFiltersCount > 0 && (
-            <span className="w-5 h-5 rounded-full bg-primary-foreground text-primary text-sm font-semibold flex items-center justify-center">
-              {activeFiltersCount}
-            </span>
-          )}
-        </button>
-
-        {/* Filtro por Edad */}
-        <button
-          type="button"
-          onClick={() => setIsFilterSheetOpen(true)}
-          className={`shrink-0 h-10 px-3.5 rounded-2xl flex items-center gap-1.5 text-sm transition-all border ${
-            selectedAge !== "todos"
-              ? "bg-primary/10 text-primary border-primary/30 font-medium"
-              : "bg-card text-foreground border-border/80 hover:bg-muted"
-          }`}
-        >
-          <span>
-            {selectedAge === "0-18" ? "Edad: 0-18m" : selectedAge === "18-36" ? "Edad: 18-36m" : "Edad"}
-          </span>
-          <CaretDown size={14} weight="bold" />
-        </button>
-
-        {/* Filtro por Tipo */}
-        <button
-          type="button"
-          onClick={() => setIsFilterSheetOpen(true)}
-          className={`shrink-0 h-10 px-3.5 rounded-2xl flex items-center gap-1.5 text-sm transition-all border ${
-            selectedType !== "todos"
-              ? "bg-primary/10 text-primary border-primary/30 font-medium"
-              : "bg-card text-foreground border-border/80 hover:bg-muted"
-          }`}
-        >
-          <span className="capitalize">
-            {selectedType === "todos"
-              ? "Tipo de recurso"
-              : selectedType === "actividades"
-              ? "Actividades"
-              : selectedType === "guias"
-              ? "Guías"
-              : selectedType === "rutinas"
-              ? "Rutinas"
-              : "Videos"}
-          </span>
-          <CaretDown size={14} weight="bold" />
-        </button>
-
-        {/* Filtro Offline */}
-        <button
-          type="button"
-          onClick={() => setOnlyOffline((prev) => !prev)}
-          className={`shrink-0 h-10 px-3.5 rounded-2xl flex items-center gap-1.5 text-sm transition-all border ${
-            onlyOffline
-              ? "bg-primary/10 text-primary border-primary/30 font-medium"
-              : "bg-card text-muted-foreground border-border/80 hover:bg-muted"
-          }`}
-        >
-          <WifiSlash size={16} />
-          <span>Offline</span>
-        </button>
-      </div>
-
-      {/* 3. Encabezado de Cantidad de Recursos */}
-      <div className="pt-1">
-        <h2 className="text-lg font-semibold text-foreground">
-          {filteredResources.length}+ recursos disponibles
-        </h2>
-        <p className="text-sm text-muted-foreground">
-          Materiales clínicos validados para el neurodesarrollo en primera infancia.
-        </p>
-      </div>
-
-      {/* 4. Lista de Tarjetas Visuales Grandes */}
-      <div className="space-y-4">
-        {filteredResources.length === 0 ? (
-          <div className="text-center py-12 space-y-3 bg-card border border-border/80 rounded-3xl p-6">
-            <p className="text-base font-semibold text-foreground">
-              No hay recursos con estos filtros
-            </p>
-            <p className="text-sm text-muted-foreground">
-              Prueba cambiando el rango de edad o el formato del recurso.
-            </p>
-            <button
-              type="button"
-              onClick={resetFilters}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-primary/10 text-primary text-sm font-medium hover:bg-primary/15 transition-colors"
-            >
-              <ArrowsCounterClockwise size={16} />
-              <span>Restablecer Filtros</span>
-            </button>
-          </div>
-        ) : (
-          filteredResources.map((res, index) => (
-            <div key={res.id} className="space-y-4">
-              <div
-                onClick={() => setSelectedResource(res)}
-                className="cursor-pointer group block"
-              >
-                <Card className="overflow-hidden bg-card border border-border/80 shadow-none hover:border-primary/40 transition-all rounded-3xl">
-                  <CardContent className="p-0">
-                    {/* Contenedor de Imagen de Portada */}
-                    <div className="relative aspect-16/10 w-full overflow-hidden bg-muted">
-                      <img
-                        src={res.image}
-                        alt={res.title}
-                        className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500"
-                        loading="lazy"
-                      />
-
-                      {/* Badge de Categoría Flotante */}
-                      <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-black/55 backdrop-blur-md text-white text-sm font-medium border border-white/20">
-                        {res.categoryLabel}
-                      </div>
-
-                      {/* Botón de Favorito Flotante */}
-                      <button
-                        type="button"
-                        onClick={(e) => toggleFavorite(res.id, e)}
-                        className="absolute top-3 right-3 w-9 h-9 rounded-full bg-black/45 hover:bg-black/60 backdrop-blur-md flex items-center justify-center text-white border border-white/20 active:scale-90 transition-all"
-                        aria-label="Guardar en favoritos"
-                      >
-                        <Heart
-                          size={18}
-                          weight={favoriteIds[res.id] ? "fill" : "regular"}
-                          className={favoriteIds[res.id] ? "text-destructive" : "text-white"}
-                        />
-                      </button>
-
-                      {/* Badge de Rango de Edad */}
-                      <div className="absolute bottom-3 left-3 px-3 py-1 rounded-xl bg-card/90 backdrop-blur-md text-foreground text-sm font-medium border border-border/60">
-                        {res.ageRange}
-                      </div>
-                    </div>
-
-                    {/* Información Detallada Debajo de la Imagen */}
-                    <div className="p-4 space-y-2">
-                      <h3 className="text-base font-semibold text-foreground leading-snug group-hover:text-primary transition-colors">
-                        {res.title}
-                      </h3>
-
-                      {/* Rating y Vistas */}
-                      <div className="flex items-center gap-1.5 text-sm text-foreground">
-                        <span className="font-semibold">{res.rating}</span>
-                        <Star size={14} weight="fill" className="text-primary fill-primary" />
-                        <span className="text-muted-foreground">({res.ratingsCount} familias)</span>
-                      </div>
-
-                      {/* Ubicación / Especialidad */}
-                      <p className="text-sm text-muted-foreground">
-                        {res.location}
-                      </p>
-
-                      {/* Barra Inferior: Tiempo de lectura y Botón de Apertura */}
-                      <div className="flex items-center justify-between pt-2 border-t border-border/50 text-sm">
-                        <span className="text-muted-foreground flex items-center gap-1">
-                          <Clock size={14} />
-                          {res.readTime}
-                        </span>
-                        <span className="font-semibold text-primary group-hover:underline">
-                          Ver Ficha Completa
-                        </span>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-
-              {/* Banner Informativo Entre Tarjetas */}
-              {index === 0 && (
-                <div className="p-4 rounded-3xl bg-muted/50 border border-border/80 flex items-center justify-between gap-3">
-                  <div className="space-y-0.5">
-                    <p className="text-sm font-semibold text-foreground">
-                      Acceso sin conexión activado
-                    </p>
-                    <p className="text-sm text-muted-foreground">
-                      Puedes consultar todas estas fichas aunque no tengas señal en tu posta.
-                    </p>
-                  </div>
-                  <div className="w-10 h-10 rounded-2xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
-                    <Sparkle size={22} weight="regular" />
-                  </div>
-                </div>
-              )}
-            </div>
-          ))
-        )}
-      </div>
-
-      {/* 5. Bottom Sheet de Filtros Avanzados */}
+      {/* 3. Bottom Sheet de Filtros Avanzados */}
       <Sheet open={isFilterSheetOpen} onOpenChange={setIsFilterSheetOpen}>
         <SheetContent
           side="bottom"
@@ -449,11 +460,10 @@ export function ResourcesPage() {
                     key={opt.id}
                     type="button"
                     onClick={() => setSelectedAge(opt.id)}
-                    className={`w-full p-3 rounded-2xl flex items-center justify-between text-left transition-all border ${
-                      isSelected
-                        ? "bg-primary/10 text-primary border-primary/30"
-                        : "bg-card text-foreground border-border/70 hover:bg-muted"
-                    }`}
+                    className={`w-full p-3 rounded-2xl flex items-center justify-between text-left transition-all border ${isSelected
+                      ? "bg-primary/10 text-primary border-primary/30"
+                      : "bg-card text-foreground border-border/70 hover:bg-muted"
+                      }`}
                   >
                     <div>
                       <p className={`text-sm ${isSelected ? "font-semibold text-primary" : "font-normal text-foreground"}`}>
@@ -488,11 +498,10 @@ export function ResourcesPage() {
                     key={opt.id}
                     type="button"
                     onClick={() => setSelectedType(opt.id)}
-                    className={`w-full p-3 rounded-2xl flex items-center justify-between text-left transition-all border ${
-                      isSelected
-                        ? "bg-primary/10 text-primary border-primary/30"
-                        : "bg-card text-foreground border-border/70 hover:bg-muted"
-                    }`}
+                    className={`w-full p-3 rounded-2xl flex items-center justify-between text-left transition-all border ${isSelected
+                      ? "bg-primary/10 text-primary border-primary/30"
+                      : "bg-card text-foreground border-border/70 hover:bg-muted"
+                      }`}
                   >
                     <div>
                       <p className={`text-sm ${isSelected ? "font-semibold text-primary" : "font-normal text-foreground"}`}>
@@ -526,7 +535,7 @@ export function ResourcesPage() {
         </SheetContent>
       </Sheet>
 
-      {/* 6. Bottom Sheet de Detalle del Recurso */}
+      {/* 4. Bottom Sheet de Detalle del Recurso */}
       <Sheet
         open={Boolean(selectedResource)}
         onOpenChange={(open) => !open && setSelectedResource(null)}
