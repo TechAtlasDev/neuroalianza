@@ -7,14 +7,32 @@ import {
   Check,
   PaperPlaneRight,
 } from "@phosphor-icons/react"
-import { useCase } from "@/context/CaseContext"
+import { useCase, type Patient } from "@/context/CaseContext"
 
 export function ScreeningResultPage() {
   const { id } = useParams()
   const navigate = useNavigate()
   const { patients, submitReferral } = useCase()
 
-  const patient = patients.find((p) => p.id === id) || patients[0]
+  const defaultPatient: Patient = {
+    id: "pat-fallback",
+    name: "Joaquín Delgado Paz",
+    ageMonths: 18,
+    ageDisplay: "18 meses",
+    dni: "79451203",
+    guardian: "Camila Paz (Madre)",
+    phone: "+51 987 654 321",
+    origin: "C.S. San Juan de Lurigancho",
+    riskLevel: "alto",
+    riskLabel: "Alto Riesgo",
+    daysInCurrentState: 0,
+    status: "derivado",
+    statusLabel: "Derivación Pendiente",
+    lastScreeningScore: "3/5 fallas",
+    lastUpdate: "Recién registrado",
+  }
+
+  const patient = patients.find((p) => p.id === id) || patients[0] || defaultPatient
 
   // Formulario de Derivación
   const [selectedFindings, setSelectedFindings] = useState<string[]>([

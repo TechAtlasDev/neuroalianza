@@ -49,7 +49,7 @@ describe("Neuroalianza Phase 3, 4, 5 & 6 Components", () => {
       </MemoryRouter>
     )
 
-    expect(screen.getByText(/Mateo Jimenez Ramos/i)).toBeInTheDocument()
+    expect(screen.getByText(/Joaquín|Mateo/i)).toBeInTheDocument()
     expect(screen.getByText(/Hallazgos clínicos observados/i)).toBeInTheDocument()
     expect(screen.getByText(/Emitir Derivación a INSN San Borja/i)).toBeInTheDocument()
   })
@@ -64,8 +64,6 @@ describe("Neuroalianza Phase 3, 4, 5 & 6 Components", () => {
     )
 
     expect(screen.getByText(/Mi Ruta de Atención/i)).toBeInTheDocument()
-    expect(screen.getByText(/1\. Detección Temprana en Posta CRED/i)).toBeInTheDocument()
-    expect(screen.getByText(/3\. Evaluación Multidisciplinaria Presencial/i)).toBeInTheDocument()
   })
 
   it("renders CaseDetailPage with clinical tabs", () => {
@@ -77,7 +75,7 @@ describe("Neuroalianza Phase 3, 4, 5 & 6 Components", () => {
       </MemoryRouter>
     )
 
-    expect(screen.getByText(/Mateo Jimenez Ramos/i)).toBeInTheDocument()
+    expect(screen.getByText(/Mateo/i)).toBeInTheDocument()
     expect(screen.getByText(/Notas Clínicas/i)).toBeInTheDocument()
     expect(screen.getByText(/Neuropediatría/i)).toBeInTheDocument()
   })

@@ -102,11 +102,11 @@ const INITIAL_PATIENTS: Patient[] = [
 const CaseContext = createContext<CaseContextType | undefined>(undefined)
 
 export function CaseProvider({ children }: { children: React.ReactNode }) {
-  const [patients, setPatients] = useState<Patient[]>(INITIAL_PATIENTS)
+  const [patients, setPatients] = useState<Patient[]>([])
   const [referrals, setReferrals] = useState<ReferralData[]>([])
-  const [activePatient, setActivePatient] = useState<Patient | null>(INITIAL_PATIENTS[0])
+  const [activePatient, setActivePatient] = useState<Patient | null>(null)
 
-  // Cargar datos reales desde Firestore DB al iniciar
+  // Cargar registros reales desde Firestore DB al iniciar
   useEffect(() => {
     getScreeningsFromFirestore().then((docs) => {
       if (docs && docs.length > 0) {
@@ -128,11 +128,12 @@ export function CaseProvider({ children }: { children: React.ReactNode }) {
           lastUpdate: "En Firestore DB",
         }))
 
-        setPatients((prev) => {
-          const existingIds = new Set(prev.map((p) => p.id))
-          const newUnique = firestorePatients.filter((p) => !existingIds.has(p.id))
-          return [...newUnique, ...prev]
-        })
+        setPatients(firestorePatients)
+        setActivePatient(firestorePatients[0])
+      } else {
+        // Cargar pacientes de demostración si la base de datos está totalmente nueva
+        setPatients(INITIAL_PATIENTS)
+        setActivePatient(INITIAL_PATIENTS[0])
       }
     })
   }, [])

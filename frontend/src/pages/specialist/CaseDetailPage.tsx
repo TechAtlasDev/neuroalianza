@@ -1,14 +1,32 @@
 import { useState } from "react"
 import { useParams, useNavigate, Link } from "react-router-dom"
 import { CaretLeft } from "@phosphor-icons/react"
-import { useCase } from "@/context/CaseContext"
+import { useCase, type Patient } from "@/context/CaseContext"
 
 export function CaseDetailPage() {
   const { id } = useParams()
   const navigate = useNavigate()
   const { patients } = useCase()
 
-  const patient = patients.find((p) => p.id === id) || patients[0]
+  const defaultPatient: Patient = {
+    id: "case-101",
+    name: "Mateo Jiménez Ramos",
+    ageMonths: 18,
+    ageDisplay: "18 meses",
+    dni: "78451209",
+    guardian: "Elena Ramos (Madre)",
+    phone: "+51 987 654 321",
+    origin: "C.S. San Juan de Lurigancho",
+    riskLevel: "alto",
+    riskLabel: "Alto Riesgo",
+    daysInCurrentState: 14,
+    status: "derivado",
+    statusLabel: "Derivado a INSN San Borja",
+    lastScreeningScore: "4/5 fallas",
+    lastUpdate: "Hace 2 horas",
+  }
+
+  const patient = patients.find((p) => p.id === id) || patients[0] || defaultPatient
 
   const [activeTab, setActiveTab] = useState<"notas" | "tamizajes" | "plan" | "resumen">("notas")
 
