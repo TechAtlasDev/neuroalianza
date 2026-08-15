@@ -1,16 +1,12 @@
 import { useState } from "react"
 import { useNavigate, Link } from "react-router-dom"
 import {
-  MapPin,
-  CheckCircle,
   CaretRight,
   Play,
-  Hospital,
   PhoneCall,
   Heartbeat,
   ShieldCheck,
   Check,
-  Info,
   Compass,
 } from "@phosphor-icons/react"
 import {
@@ -23,7 +19,6 @@ import {
 
 export function FamilyHomePage() {
   const navigate = useNavigate()
-  const [isAppointmentSheetOpen, setIsAppointmentSheetOpen] = useState(false)
   const [isActivityModalOpen, setIsActivityModalOpen] = useState(false)
   const [activityCompleted, setActivityCompleted] = useState(false)
 

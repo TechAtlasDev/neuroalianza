@@ -1,16 +1,9 @@
 import { useState } from "react"
-import { useNavigate, Link } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import {
   CaretLeft,
   CheckCircle,
   Clock,
-  MapPin,
-  Hospital,
-  Info,
-  CalendarBlank,
-  Heartbeat,
-  ShieldCheck,
-  WarningCircle,
 } from "@phosphor-icons/react"
 
 interface RoadmapStep {

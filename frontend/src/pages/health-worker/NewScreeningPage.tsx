@@ -2,10 +2,7 @@ import { useState } from "react"
 import { useNavigate, Link } from "react-router-dom"
 import {
   CaretLeft,
-  Baby,
   CheckCircle,
-  WarningCircle,
-  Info,
   Check,
   X,
   Sparkle,
@@ -32,25 +29,25 @@ const SCREENING_QUESTIONS: Question[] = [
   {
     id: 2,
     question: "¿Alguna vez se ha preguntado si su hijo/a tiene problemas de audición?",
-    detail: "Evalúa si responde de forma consistente a su nombre o a ruidos del entorno.",
+    detail: "Evalúa si responde adecuadamente a sonidos o a su nombre.",
     critical: false,
   },
   {
     id: 3,
     question: "¿Su hijo/a juega a simular o hacer como si...?",
-    detail: "Por ejemplo, fingir que bebe de una taza vacía, hablar por teléfono o dar de comer a un muñeco.",
+    detail: "Por ejemplo, fingir que bebe de una taza vacía o hablar por teléfono.",
     critical: true,
   },
   {
     id: 4,
     question: "¿A su hijo/a le gusta trepar y subirse a los muebles o escaleras?",
-    detail: "Evalúa iniciativa motora gruesa y exploración espacial del entorno.",
+    detail: "Evalúa iniciativa motora gruesa y exploración del espacio.",
     critical: false,
   },
   {
     id: 5,
     question: "¿Hace su hijo/a movimientos inusuales con los dedos cerca de sus ojos?",
-    detail: "Por ejemplo, aleteo repetitivo de manos o mover los dedos frente a los ojos.",
+    detail: "Por ejemplo, aletear los dedos cerca de los ojos de forma repetitiva.",
     critical: true,
   },
 ]
@@ -234,6 +231,18 @@ export function NewScreeningPage() {
                   type="text"
                   value={guardian}
                   onChange={(e) => setGuardian(e.target.value)}
+                  className="w-full h-11 px-3.5 rounded-xl border border-border bg-card text-foreground text-sm font-normal focus:outline-none focus:ring-2 focus:ring-zinc-900"
+                />
+              </div>
+
+              <div>
+                <label className="text-xs font-semibold text-muted-foreground block mb-1">
+                  Teléfono de Contacto
+                </label>
+                <input
+                  type="tel"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
                   className="w-full h-11 px-3.5 rounded-xl border border-border bg-card text-foreground text-sm font-normal focus:outline-none focus:ring-2 focus:ring-zinc-900"
                 />
               </div>

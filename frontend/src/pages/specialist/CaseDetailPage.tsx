@@ -1,17 +1,6 @@
 import { useState } from "react"
 import { useParams, useNavigate, Link } from "react-router-dom"
-import {
-  CaretLeft,
-  Hospital,
-  User,
-  Clock,
-  FileText,
-  CalendarCheck,
-  CheckCircle,
-  Sparkle,
-  PencilSimple,
-  ShieldCheck,
-} from "@phosphor-icons/react"
+import { CaretLeft } from "@phosphor-icons/react"
 import { useCase } from "@/context/CaseContext"
 
 export function CaseDetailPage() {

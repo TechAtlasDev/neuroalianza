@@ -1,37 +1,25 @@
 import { useState } from "react"
-import { useNavigate, Link } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import {
   UserCheck,
-  VideoCamera,
   CheckCircle,
   ShieldCheck,
   Check,
   ChartBar,
   CaretRight,
   FileText,
-  Hospital,
 } from "@phosphor-icons/react"
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetDescription,
-} from "@/components/ui/sheet"
 import { useCase } from "@/context/CaseContext"
 
 export function SpecialistDashboard() {
   const navigate = useNavigate()
   const { patients, updatePatientStatus } = useCase()
-  const [selectedCase, setSelectedCase] = useState<any | null>(null)
-  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false)
   const [showSuccessToast, setShowSuccessToast] = useState(false)
 
   const handleAdmit = (patientId: string) => {
     updatePatientStatus(patientId, "cita_programada", "Cita Neuropediatría Asignada")
     setShowSuccessToast(true)
     setTimeout(() => setShowSuccessToast(false), 3000)
-    setSelectedCase(null)
   }
 
   const admittedCount = patients.filter((p) => p.status === "cita_programada" || p.status === "en_evaluacion").length

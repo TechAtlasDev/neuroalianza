@@ -1,13 +1,7 @@
 import { useNavigate, Link } from "react-router-dom"
 import {
   CaretLeft,
-  ChartBar,
-  Clock,
-  CheckCircle,
-  WarningCircle,
-  Hospital,
   TrendUp,
-  MapPin,
 } from "@phosphor-icons/react"
 
 export function ClinicalMetricsPage() {

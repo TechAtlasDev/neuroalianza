@@ -4,9 +4,6 @@ import {
   CaretLeft,
   Hospital,
   CheckCircle,
-  ShieldCheck,
-  WarningCircle,
-  FileText,
   Check,
   PaperPlaneRight,
 } from "@phosphor-icons/react"
