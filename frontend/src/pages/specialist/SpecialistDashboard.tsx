@@ -1,8 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Stethoscope, Brain, AlertCircle, FileText, CheckCircle2, UserCheck, ArrowRight } from "lucide-react"
+import { UserCheck } from "@phosphor-icons/react"
 
 export function SpecialistDashboard() {
   return (
@@ -70,7 +69,7 @@ export function SpecialistDashboard() {
 
             <div className="flex gap-2 pt-1">
               <Button size="sm" className="flex-1 min-h-[38px] gap-1.5 font-semibold text-xs">
-                <UserCheck className="w-4 h-4" />
+                <UserCheck size={16} weight="bold" />
                 <span>Admitir y Agendar Cita 360°</span>
               </Button>
               <Button size="sm" variant="outline" className="min-h-[38px] text-xs">

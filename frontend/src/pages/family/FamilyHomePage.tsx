@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Calendar, Clock, MapPin, CheckCircle, Play, HeartHandshake, PhoneCall } from "lucide-react"
+import { CalendarCheck, Clock, MapPin, CheckCircle, Play } from "@phosphor-icons/react"
 
 export function FamilyHomePage() {
   return (
@@ -36,22 +36,22 @@ export function FamilyHomePage() {
         <CardContent className="space-y-3 pt-0 text-sm">
           <div className="space-y-1.5 bg-background/80 p-3 rounded-xl border border-border">
             <div className="flex items-center gap-2 text-xs text-foreground font-medium">
-              <Calendar className="w-4 h-4 text-primary" />
+              <CalendarCheck size={16} weight="bold" className="text-primary" />
               <span>Martes 24 de Febrero, 2026</span>
             </div>
             <div className="flex items-center gap-2 text-xs text-muted-foreground">
-              <Clock className="w-4 h-4 text-primary" />
+              <Clock size={16} weight="bold" className="text-primary" />
               <span>09:30 AM (Llegar 15 min antes)</span>
             </div>
             <div className="flex items-center gap-2 text-xs text-muted-foreground">
-              <MapPin className="w-4 h-4 text-primary" />
+              <MapPin size={16} weight="bold" className="text-primary" />
               <span>Av. Javier Prado Este 3101, San Borja</span>
             </div>
           </div>
 
           <div className="flex gap-2">
             <Button className="flex-1 min-h-[44px] gap-1.5 font-semibold">
-              <CheckCircle className="w-4 h-4" />
+              <CheckCircle size={16} weight="bold" />
               <span>Confirmar Asistencia</span>
             </Button>
             <Button variant="outline" className="min-h-[44px] px-3">
@@ -81,7 +81,7 @@ export function FamilyHomePage() {
               <p className="text-[11px] text-muted-foreground">5 minutos · Fomenta atención compartida</p>
             </div>
             <Button size="sm" className="gap-1 bg-primary text-primary-foreground h-9 px-3">
-              <Play className="w-3.5 h-3.5" />
+              <Play size={14} weight="fill" />
               <span>Ver Guía</span>
             </Button>
           </div>

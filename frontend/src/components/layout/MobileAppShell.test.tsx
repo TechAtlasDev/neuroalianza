@@ -21,7 +21,9 @@ describe("MobileAppShell Component", () => {
     expect(screen.getByTestId("test-content")).toBeInTheDocument()
 
     // Verifica elementos de navegación inferior
-    expect(screen.getByText("Inicio")).toBeInTheDocument()
-    expect(screen.getByText("Tamizaje")).toBeInTheDocument()
+    expect(screen.getByText("Home")).toBeInTheDocument()
+    expect(screen.getByText("Recursos")).toBeInTheDocument()
+    expect(screen.getByText("Citas")).toBeInTheDocument()
+    expect(screen.getByText("Perfil")).toBeInTheDocument()
   })
 })

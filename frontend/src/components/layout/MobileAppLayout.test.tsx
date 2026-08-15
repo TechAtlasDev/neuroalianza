@@ -25,8 +25,10 @@ describe("MobileAppLayout (Modular Mobile-First PWA Shell)", () => {
 
     // Verifica BottomNavBar por defecto
     expect(screen.getByTestId("bottom-nav-bar")).toBeInTheDocument()
-    expect(screen.getByText("Inicio")).toBeInTheDocument()
-    expect(screen.getByText("Tamizaje")).toBeInTheDocument()
+    expect(screen.getByText("Home")).toBeInTheDocument()
+    expect(screen.getByText("Recursos")).toBeInTheDocument()
+    expect(screen.getByText("Citas")).toBeInTheDocument()
+    expect(screen.getByText("Perfil")).toBeInTheDocument()
   })
 
   it("permite inyectar componentes personalizados en todas las ranuras modulares", () => {

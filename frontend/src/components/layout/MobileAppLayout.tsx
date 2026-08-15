@@ -1,165 +1,155 @@
-import { type ReactNode } from "react"
+import { useState } from "react"
+import type { ReactNode } from "react"
 import { Outlet } from "react-router-dom"
-import { TopHeader, type ConnectionStatus } from "./TopHeader"
-import { BottomNavBar, type BottomNavItem } from "./BottomNavBar"
+import { TopHeader } from "./TopHeader"
+import type { TopHeaderProps } from "./TopHeader"
+import { BottomNavBar } from "./BottomNavBar"
+import type { BottomNavBarProps } from "./BottomNavBar"
+import { AiAssistantModal } from "@/components/ai/AiAssistantModal"
 
 export interface MobileAppLayoutProps {
-  /** Título para el TopHeader predeterminado */
-  title?: string
-  /** Subtítulo o rol para el TopHeader predeterminado */
-  role?: string
-  /** Mostrar botón de retroceso en el TopHeader */
-  showBack?: boolean
-  /** Callback para el botón de retroceso */
-  onBack?: () => void
-  /** Estado de conexión para el TopHeader */
-  connectionStatus?: ConnectionStatus
-  /** Conteo de notificaciones */
-  notificationCount?: number
-  /** Callback al presionar notificaciones */
-  onNotificationsClick?: () => void
-
-  /** Ranura superior (encima del header: banners offline, alertas críticas, barra de pitch) */
-  topBannerSlot?: ReactNode
-  /** Ranura de encabezado personalizada (reemplaza a TopHeader por completo) */
+  /** Encabezado superior o configuración de TopHeader */
   headerSlot?: ReactNode
-  /** Oculta el encabezado por completo */
+  /** Ocultar encabezado superior */
   hideHeader?: boolean
-  /** Ranura sub-encabezado (debajo del header: buscadores, steps, filtros o tabs) */
+  /** Props para TopHeader si se usa el slot por defecto */
+  title?: string
+  role?: string
+  connectionStatus?: "online" | "offline" | "syncing"
+  showBack?: boolean
+  onBack?: () => void
+  headerProps?: TopHeaderProps
+
+  /** Ranura modular superior (ej: avisos de emergencia, banners de offline, etc.) */
+  topBannerSlot?: ReactNode
+
+  /** Ranura modular debajo del encabezado (ej: barra de búsqueda, tabs secundarios, filtros) */
   subHeaderSlot?: ReactNode
 
-  /** Contenido principal. Si no se provee, renderiza <Outlet /> para React Router */
+  /** Contenido principal (si no se pasa, renderiza <Outlet /> para react-router) */
   children?: ReactNode
 
-  /** Ranura encima de la barra inferior (botones de acción flotantes, resumen fijo, CTA) */
+  /** Ranura modular encima del BottomNavBar (ej: botón flotante FAB adicional, reproductor de audio, timer) */
   aboveBottomSlot?: ReactNode
-  /** Ranura de navegación inferior personalizada (reemplaza a BottomNavBar) */
-  bottomSlot?: ReactNode
-  /** Oculta la barra de navegación inferior */
-  hideBottomNav?: boolean
-  /** Elementos de navegación personalizados para el BottomNavBar predeterminado */
-  bottomNavItems?: BottomNavItem[]
-  /** Pestaña activa forzada para el BottomNavBar */
-  activeTab?: string
-  /** Callback al cambiar de pestaña */
-  onTabChange?: (tabId: string) => void
 
-  /** Ranura de extensión inferior (pie de página, debug drawer, barra segura) */
+  /** Barra inferior de navegación o componente personalizado */
+  bottomSlot?: ReactNode
+  /** Ocultar barra inferior */
+  hideBottomNav?: boolean
+  /** Props para BottomNavBar por defecto */
+  bottomNavProps?: BottomNavBarProps
+
+  /** Ranura modular inferior (ej: drawer expandible, panel de depuración) */
   bottomExtensionSlot?: ReactNode
 
-  /** Clases CSS para el contenedor móvil externo */
+  /** Clases CSS adicionales para el contenedor */
   className?: string
-  /** Clases CSS para la zona de contenido scrollable */
-  contentClassName?: string
+  containerClassName?: string
 }
 
 export function MobileAppLayout({
-  title = "Neuroalianza",
-  role = "CRED / Posta de Salud",
-  showBack = false,
-  onBack,
-  connectionStatus = "online",
-  notificationCount = 0,
-  onNotificationsClick,
-  topBannerSlot,
   headerSlot,
   hideHeader = false,
+  title = "Neuroalianza CRED",
+  role = "C.S. San Juan de Miraflores",
+  connectionStatus = "online",
+  showBack = false,
+  onBack,
+  headerProps,
+
+  topBannerSlot,
   subHeaderSlot,
   children,
   aboveBottomSlot,
+
   bottomSlot,
   hideBottomNav = false,
-  bottomNavItems,
-  activeTab,
-  onTabChange,
+  bottomNavProps,
+
   bottomExtensionSlot,
   className = "",
-  contentClassName = "",
+  containerClassName = "",
 }: MobileAppLayoutProps) {
+  const [isAiModalOpen, setIsAiModalOpen] = useState(false)
+
   return (
     <div
       data-testid="mobile-app-shell"
-      className="min-h-screen bg-muted/40 flex justify-center text-foreground font-sans antialiased selection:bg-primary/20 selection:text-primary"
+      className={`min-h-screen w-full bg-slate-900/10 flex justify-center items-start sm:py-4 transition-colors ${className}`}
     >
-      {/* Contenedor central tipo teléfono móvil en escritorio (max-w-md), 100% en pantallas móviles */}
+      {/* Marco móvil PWA estandarizado */}
       <div
-        className={`w-full max-w-md min-h-screen bg-background border-x border-border/80 shadow-2xl flex flex-col relative ${
-          hideBottomNav ? "pb-4" : "pb-20"
-        } ${className}`}
+        className={`w-full max-w-md min-h-screen sm:min-h-[844px] sm:max-h-[920px] bg-background sm:rounded-[36px] shadow-2xl sm:border sm:border-border/80 flex flex-col overflow-hidden relative ${containerClassName}`}
       >
-        {/* 1. Ranura Superior (Banner / Alertas de emergencia / Conectividad) */}
+        {/* 1. Ranura Modular: Banner Superior */}
         {topBannerSlot && (
-          <div data-testid="layout-top-banner" className="w-full shrink-0">
+          <div className="w-full shrink-0 z-40 animate-in slide-in-from-top-2">
             {topBannerSlot}
           </div>
         )}
 
-        {/* 2. Encabezado Modular */}
-        {!hideHeader &&
-          (headerSlot ? (
-            <div data-testid="layout-custom-header" className="shrink-0">
-              {headerSlot}
-            </div>
-          ) : (
-            <TopHeader
-              title={title}
-              role={role}
-              showBack={showBack}
-              onBack={onBack}
-              connectionStatus={connectionStatus}
-              notificationCount={notificationCount}
-              onNotificationsClick={onNotificationsClick}
-            />
-          ))}
+        {/* 2. Ranura Modular: Header */}
+        {!hideHeader && (
+          <div className="w-full shrink-0 z-30">
+            {headerSlot || (
+              <TopHeader
+                title={title}
+                role={role}
+                connectionStatus={connectionStatus}
+                showBack={showBack}
+                onBack={onBack}
+                {...headerProps}
+              />
+            )}
+          </div>
+        )}
 
-        {/* 3. Ranura Sub-Encabezado (Filtros, Tabs, Stepper) */}
+        {/* 3. Ranura Modular: Sub-Header */}
         {subHeaderSlot && (
-          <div
-            data-testid="layout-sub-header"
-            className="w-full bg-background/90 backdrop-blur-sm border-b border-border px-4 py-2 shrink-0"
-          >
+          <div className="w-full shrink-0 z-20 border-b border-border/60 bg-card/60 backdrop-blur-sm">
             {subHeaderSlot}
           </div>
         )}
 
-        {/* 4. Contenido Principal Scrollable */}
+        {/* 4. Contenedor de Contenido Principal (Scrolleable) */}
         <main
-          data-testid="layout-main-content"
-          className={`flex-1 p-4 overflow-y-auto ${contentClassName}`}
+          data-testid="mobile-app-content"
+          className="flex-1 w-full overflow-y-auto px-4 py-4 space-y-4 focus:outline-none"
         >
-          {children !== undefined ? children : <Outlet />}
+          {children || <Outlet />}
         </main>
 
-        {/* 5. Ranura encima de la navegación inferior (FABs, Resúmenes de caso) */}
+        {/* 5. Ranura Modular: Encima de la barra inferior */}
         {aboveBottomSlot && (
-          <div
-            data-testid="layout-above-bottom"
-            className="sticky bottom-20 px-4 z-30 pointer-events-auto"
-          >
+          <div className="w-full shrink-0 z-20 px-4 pb-2">
             {aboveBottomSlot}
           </div>
         )}
 
-        {/* 6. Barra de Navegación Inferior Modular */}
-        {!hideBottomNav &&
-          (bottomSlot ? (
-            <div data-testid="layout-custom-bottom" className="shrink-0">
-              {bottomSlot}
-            </div>
-          ) : (
-            <BottomNavBar
-              items={bottomNavItems}
-              activeTab={activeTab}
-              onTabChange={onTabChange}
-            />
-          ))}
+        {/* 6. Ranura Modular: Barra de Navegación Inferior (PWA Bar) */}
+        {!hideBottomNav && (
+          <div className="w-full shrink-0 z-30">
+            {bottomSlot || (
+              <BottomNavBar
+                onAiClick={() => setIsAiModalOpen(true)}
+                {...bottomNavProps}
+              />
+            )}
+          </div>
+        )}
 
-        {/* 7. Ranura de Extensión Inferior */}
+        {/* 7. Ranura Modular: Extensión Inferior */}
         {bottomExtensionSlot && (
-          <div data-testid="layout-bottom-extension" className="w-full shrink-0">
+          <div className="w-full shrink-0 z-20">
             {bottomExtensionSlot}
           </div>
         )}
+
+        {/* Asistente IA Modal */}
+        <AiAssistantModal
+          isOpen={isAiModalOpen}
+          onClose={() => setIsAiModalOpen(false)}
+        />
       </div>
     </div>
   )

@@ -1,4 +1,4 @@
-import { CheckCircle2, AlertTriangle, AlertOctagon } from "lucide-react"
+import { CheckCircle, Warning, WarningOctagon } from "@phosphor-icons/react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 
@@ -21,7 +21,7 @@ export function SemaforoRiesgo({
       badgeText: "Bajo Riesgo",
       badgeClass: "bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border-emerald-500/30",
       cardClass: "border-emerald-500/30 bg-emerald-50/30 dark:bg-emerald-950/20",
-      icon: CheckCircle2,
+      icon: CheckCircle,
       iconClass: "text-emerald-600 dark:text-emerald-400",
       defaultRec: "Continuar estimulación en el hogar y asistir al próximo control CRED programado.",
     },
@@ -30,7 +30,7 @@ export function SemaforoRiesgo({
       badgeText: "Riesgo Moderado",
       badgeClass: "bg-amber-500/15 text-amber-700 dark:text-amber-300 border-amber-500/30",
       cardClass: "border-amber-500/30 bg-amber-50/30 dark:bg-amber-950/20",
-      icon: AlertTriangle,
+      icon: Warning,
       iconClass: "text-amber-600 dark:text-amber-400",
       defaultRec: "Reforzar actividades en casa y programar reevaluación de seguimiento en 30-60 días.",
     },
@@ -39,7 +39,7 @@ export function SemaforoRiesgo({
       badgeText: "Alto Riesgo / Alerta",
       badgeClass: "bg-destructive/15 text-destructive dark:text-red-400 border-destructive/30",
       cardClass: "border-destructive/30 bg-destructive/5 dark:bg-destructive/10",
-      icon: AlertOctagon,
+      icon: WarningOctagon,
       iconClass: "text-destructive",
       defaultRec: "Generar solicitud de referencia prioritaria a evaluación multidisciplinaria especializada.",
     },
@@ -53,21 +53,21 @@ export function SemaforoRiesgo({
       <CardContent className="p-4 flex flex-col gap-3">
         <div className="flex items-start justify-between gap-2">
           <div className="flex items-center gap-2">
-            <Icon className={`w-6 h-6 shrink-0 ${config.iconClass}`} />
-            <h3 className="text-md font-bold text-foreground leading-snug">{config.titulo}</h3>
+            <Icon size={24} weight="fill" className={`shrink-0 ${config.iconClass}`} />
+            <h3 className="text-sm font-bold text-foreground leading-snug">{config.titulo}</h3>
           </div>
           <Badge variant="outline" className={`shrink-0 font-medium text-xs ${config.badgeClass}`}>
             {config.badgeText}
           </Badge>
         </div>
 
-        <p className="text-sm text-muted-foreground leading-relaxed">
+        <p className="text-xs text-muted-foreground leading-relaxed">
           {justificacion}
         </p>
 
-        <div className="rounded-lg bg-background/80 p-3 border border-border">
-          <p className="text-xs font-semibold text-foreground mb-1">Recomendación de acción:</p>
-          <p className="text-sm text-foreground/90 leading-relaxed">
+        <div className="rounded-xl bg-background/80 p-3 border border-border">
+          <p className="text-[11px] font-semibold text-foreground mb-1">Recomendación de acción:</p>
+          <p className="text-xs text-foreground/90 leading-relaxed">
             {recomendacion || config.defaultRec}
           </p>
         </div>

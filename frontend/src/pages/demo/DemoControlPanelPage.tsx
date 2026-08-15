@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Sparkles, ArrowRight, Play, RotateCcw, CheckCircle2, FastForward } from "lucide-react"
+import { Sparkles, ArrowRight, RotateCcw, CheckCircle2, FastForward } from "lucide-react"
 
 export function DemoControlPanelPage() {
   const [currentStage, setCurrentStage] = useState<number>(1)

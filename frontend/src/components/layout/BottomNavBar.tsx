@@ -1,152 +1,237 @@
-import type { ComponentType } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
 import {
-  Home,
-  ClipboardCheck,
-  HeartHandshake,
-  Stethoscope,
-  Sparkles,
-} from "lucide-react"
+  House,
+  BookOpen,
+  Plus,
+  Path,
+  User,
+  Sparkle,
+} from "@phosphor-icons/react"
+import type { Icon } from "@phosphor-icons/react"
 
-export interface BottomNavItem {
+export interface NavItem {
   id: string
   label: string
-  to?: string
-  icon: ComponentType<{ className?: string }>
+  to: string
+  icon: Icon
   badgeCount?: number
-  onClick?: () => void
 }
 
 export interface BottomNavBarProps {
-  /** Lista personalizada de elementos de navegación */
-  items?: BottomNavItem[]
-  /** ID o ruta de la pestaña activa (opcional si se usa con react-router) */
-  activeTab?: string
-  /** Callback al cambiar de pestaña */
-  onTabChange?: (tabId: string) => void
-  /** Clases adicionales */
+  items?: NavItem[]
+  activeId?: string
+  onTabChange?: (id: string) => void
+  onCenterAction?: () => void
+  onAiClick?: () => void
+  showAiFab?: boolean
+  showCenterButton?: boolean
   className?: string
 }
 
-export const DEFAULT_BOTTOM_NAV_ITEMS: BottomNavItem[] = [
+export const DEFAULT_BOTTOM_NAV_ITEMS: NavItem[] = [
   {
-    id: "inicio",
-    label: "Inicio",
+    id: "home",
+    label: "Home",
     to: "/app",
-    icon: Home,
+    icon: House,
   },
   {
-    id: "salud",
-    label: "Tamizaje",
-    to: "/app/salud",
-    icon: ClipboardCheck,
+    id: "recursos",
+    label: "Recursos",
+    to: "/app/recursos",
+    icon: BookOpen,
+  },
+  // El botón central (+) va aquí visualmente
+  {
+    id: "citas",
+    label: "Citas",
+    to: "/app/citas",
+    icon: Path,
   },
   {
-    id: "familia",
-    label: "Familias",
-    to: "/app/familia",
-    icon: HeartHandshake,
-  },
-  {
-    id: "clinico",
-    label: "Especialistas",
-    to: "/app/clinico",
-    icon: Stethoscope,
-    badgeCount: 2,
-  },
-  {
-    id: "demo",
-    label: "Demo Lab",
-    to: "/app/demo",
-    icon: Sparkles,
+    id: "perfil",
+    label: "Perfil",
+    to: "/app/perfil",
+    icon: User,
   },
 ]
 
 export function BottomNavBar({
   items = DEFAULT_BOTTOM_NAV_ITEMS,
-  activeTab,
+  activeId,
   onTabChange,
+  onCenterAction,
+  onAiClick,
+  showAiFab = true,
+  showCenterButton = true,
   className = "",
 }: BottomNavBarProps) {
-  let locationPath = ""
-  let navigate: ReturnType<typeof useNavigate> | null = null
+  const location = useLocation()
+  const navigate = useNavigate()
 
-  try {
-    const loc = useLocation()
-    locationPath = loc.pathname
-    navigate = useNavigate()
-  } catch {
-    // Fuera del contexto de React Router
-    locationPath = ""
-    navigate = null
+  // Determinar ítem activo basado en la URL actual si no se proporciona activeId
+  const getIsActive = (item: NavItem) => {
+    if (activeId) return activeId === item.id
+    if (item.to === "/app" && (location.pathname === "/app" || location.pathname === "/app/")) {
+      return true
+    }
+    return location.pathname.startsWith(item.to) && item.to !== "/app"
   }
 
-  const isItemActive = (item: BottomNavItem): boolean => {
-    if (activeTab !== undefined) {
-      return activeTab === item.id || (item.to !== undefined && activeTab === item.to)
-    }
-
-    if (!item.to || !locationPath) {
-      return false
-    }
-
-    if (item.to === "/app") {
-      return locationPath === "/app" || locationPath === "/app/"
-    }
-
-    return locationPath.startsWith(item.to)
-  }
-
-  const handleItemClick = (item: BottomNavItem) => {
-    if (item.onClick) {
-      item.onClick()
-    }
+  const handleNavClick = (item: NavItem) => {
     if (onTabChange) {
       onTabChange(item.id)
     }
-    if (item.to && navigate && !item.onClick) {
-      navigate(item.to)
+    navigate(item.to)
+  }
+
+  const handleCenterClick = () => {
+    if (onCenterAction) {
+      onCenterAction()
+    } else {
+      navigate("/app/salud")
     }
   }
 
-  return (
-    <nav
-      data-testid="bottom-nav-bar"
-      aria-label="Navegación principal móvil"
-      className={`fixed bottom-0 left-0 right-0 z-40 max-w-md mx-auto border-t border-border/80 bg-background/95 backdrop-blur-md px-1.5 py-1.5 flex items-center justify-around shadow-lg ${className}`}
-    >
-      {items.map((item) => {
-        const Icon = item.icon
-        const active = isItemActive(item)
+  // Dividir los ítems: primeros 2 a la izquierda, restantes a la derecha para rodear el botón central (+)
+  const leftItems = items.slice(0, 2)
+  const rightItems = items.slice(2)
 
-        return (
+  return (
+    <div className={`relative w-full ${className}`}>
+      {/* Botón Flotante de IA (Esquina superior derecha sobre la barra) */}
+      {showAiFab && (
+        <div className="absolute -top-14 right-4 z-40 pointer-events-auto">
           <button
-            key={item.id}
             type="button"
-            data-testid={`nav-item-${item.id}`}
-            onClick={() => handleItemClick(item)}
-            className={`relative min-h-[48px] min-w-[56px] flex-1 flex flex-col items-center justify-center gap-1 rounded-xl py-1 px-1 text-xs font-semibold transition-all duration-200 active:scale-95 ${
-              active
-                ? "text-primary bg-primary/10"
-                : "text-muted-foreground hover:text-foreground hover:bg-muted/40"
-            }`}
+            onClick={onAiClick || (() => navigate("/app/demo"))}
+            aria-label="Asistente de Inteligencia Artificial"
+            className="group relative flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-tr from-indigo-600 via-primary to-cyan-500 text-white shadow-lg shadow-primary/30 hover:scale-105 active:scale-95 transition-all duration-200 ring-2 ring-background border border-white/20"
           >
-            <div className="relative">
-              <Icon
-                className={`w-5 h-5 transition-transform duration-200 ${
-                  active ? "scale-110 stroke-[2.4]" : "stroke-[1.75]"
-                }`}
-              />
-              {Boolean(item.badgeCount && item.badgeCount > 0) && (
-                <span className="absolute -top-1.5 -right-2 min-w-[16px] h-4 px-1 rounded-full bg-primary text-primary-foreground text-[10px] font-bold flex items-center justify-center ring-2 ring-background">
-                  {item.badgeCount}
-                </span>
-              )}
-            </div>
-            <span className="truncate max-w-[64px] tracking-tight">{item.label}</span>
+            <Sparkle
+              size={24}
+              weight="fill"
+              className="text-amber-300 animate-pulse group-hover:rotate-12 transition-transform duration-300"
+            />
+            {/* Badge indicador de IA */}
+            <span className="absolute -top-1 -right-1 bg-amber-400 text-amber-950 text-[9px] font-black px-1.5 py-0.5 rounded-full uppercase tracking-wider shadow-sm">
+              IA
+            </span>
           </button>
-        )
-      })}
-    </nav>
+        </div>
+      )}
+
+      {/* Barra de Navegación Inferior (PWA Bar) */}
+      <nav
+        data-testid="bottom-nav-bar"
+        aria-label="Navegación principal de la aplicación"
+        className="w-full bg-card/95 backdrop-blur-md border-t border-border/80 px-2 py-1 shadow-lg shadow-black/5"
+      >
+        <div className="flex items-center justify-between max-w-md mx-auto relative h-14">
+          {/* Bloque Izquierdo: Home y Recursos */}
+          <div className="flex items-center justify-around flex-1">
+            {leftItems.map((item) => {
+              const active = getIsActive(item)
+              const IconComponent = item.icon
+
+              return (
+                <button
+                  key={item.id}
+                  type="button"
+                  data-testid={`nav-item-${item.id}`}
+                  onClick={() => handleNavClick(item)}
+                  aria-label={item.label}
+                  aria-current={active ? "page" : undefined}
+                  className={`relative flex flex-col items-center justify-center w-16 h-12 bg-transparent transition-colors duration-200 active:scale-95 ${
+                    active
+                      ? "text-primary"
+                      : "text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  <IconComponent
+                    size={24}
+                    weight={active ? "fill" : "regular"}
+                    className="transition-transform duration-200"
+                  />
+                  <span
+                    className={`text-[11px] tracking-tight mt-0.5 ${
+                      active ? "font-bold text-primary" : "font-medium text-muted-foreground"
+                    }`}
+                  >
+                    {item.label}
+                  </span>
+                  {Boolean(item.badgeCount && item.badgeCount > 0) && (
+                    <span className="absolute top-1 right-2 min-w-[16px] h-4 px-1 rounded-full bg-destructive text-destructive-foreground text-[10px] font-bold flex items-center justify-center ring-2 ring-card">
+                      {item.badgeCount! > 99 ? "99+" : item.badgeCount}
+                    </span>
+                  )}
+                </button>
+              )
+            })}
+          </div>
+
+          {/* Botón Central (+) Elevado / Prominente */}
+          {showCenterButton && (
+            <div className="relative -top-4 flex items-center justify-center px-2">
+              <button
+                type="button"
+                data-testid="nav-center-action"
+                onClick={handleCenterClick}
+                aria-label="Nueva acción o tamizaje rápido"
+                className="group relative flex items-center justify-center w-14 h-14 rounded-full bg-primary text-primary-foreground shadow-lg shadow-primary/40 hover:bg-primary/90 active:scale-95 transition-all duration-200 ring-4 ring-background border-2 border-white/20"
+              >
+                <Plus
+                  size={28}
+                  weight="bold"
+                  className="transition-transform duration-300 group-hover:rotate-90"
+                />
+              </button>
+            </div>
+          )}
+
+          {/* Bloque Derecho: Seguimiento de Citas y Perfil */}
+          <div className="flex items-center justify-around flex-1">
+            {rightItems.map((item) => {
+              const active = getIsActive(item)
+              const IconComponent = item.icon
+
+              return (
+                <button
+                  key={item.id}
+                  type="button"
+                  data-testid={`nav-item-${item.id}`}
+                  onClick={() => handleNavClick(item)}
+                  aria-label={item.label}
+                  aria-current={active ? "page" : undefined}
+                  className={`relative flex flex-col items-center justify-center w-16 h-12 bg-transparent transition-colors duration-200 active:scale-95 ${
+                    active
+                      ? "text-primary"
+                      : "text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  <IconComponent
+                    size={24}
+                    weight={active ? "fill" : "regular"}
+                    className="transition-transform duration-200"
+                  />
+                  <span
+                    className={`text-[11px] tracking-tight mt-0.5 leading-none text-center ${
+                      active ? "font-bold text-primary" : "font-medium text-muted-foreground"
+                    }`}
+                  >
+                    {item.label}
+                  </span>
+                  {Boolean(item.badgeCount && item.badgeCount > 0) && (
+                    <span className="absolute top-1 right-2 min-w-[16px] h-4 px-1 rounded-full bg-destructive text-destructive-foreground text-[10px] font-bold flex items-center justify-center ring-2 ring-card">
+                      {item.badgeCount! > 99 ? "99+" : item.badgeCount}
+                    </span>
+                  )}
+                </button>
+              )
+            })}
+          </div>
+        </div>
+      </nav>
+    </div>
   )
 }

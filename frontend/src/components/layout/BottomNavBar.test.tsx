@@ -1,50 +1,51 @@
 import { render, screen, fireEvent } from "@testing-library/react"
 import { describe, it, expect, vi } from "vitest"
 import { MemoryRouter } from "react-router-dom"
-import { BottomNavBar, DEFAULT_BOTTOM_NAV_ITEMS } from "./BottomNavBar"
-import { Activity } from "lucide-react"
+import { BottomNavBar } from "./BottomNavBar"
+import { House } from "@phosphor-icons/react"
 
 describe("BottomNavBar Component", () => {
-  it("renderiza todos los elementos por defecto", () => {
+  it("renderiza todos los elementos según el diseño de la PWA (Home, Recursos, Citas, Perfil)", () => {
     render(
       <MemoryRouter initialEntries={["/app"]}>
         <BottomNavBar />
       </MemoryRouter>
     )
 
-    expect(screen.getByText("Inicio")).toBeInTheDocument()
-    expect(screen.getByText("Tamizaje")).toBeInTheDocument()
-    expect(screen.getByText("Familias")).toBeInTheDocument()
-    expect(screen.getByText("Especialistas")).toBeInTheDocument()
-    expect(screen.getByText("Demo Lab")).toBeInTheDocument()
+    expect(screen.getByText("Home")).toBeInTheDocument()
+    expect(screen.getByText("Recursos")).toBeInTheDocument()
+    expect(screen.getByText("Citas")).toBeInTheDocument()
+    expect(screen.getByText("Perfil")).toBeInTheDocument()
+    expect(screen.getByTestId("nav-center-action")).toBeInTheDocument()
   })
 
   it("detecta la pestaña activa según la ruta actual en react-router", () => {
     render(
-      <MemoryRouter initialEntries={["/app/salud"]}>
+      <MemoryRouter initialEntries={["/app/recursos"]}>
         <BottomNavBar />
       </MemoryRouter>
     )
 
-    const saludButton = screen.getByTestId("nav-item-salud")
-    expect(saludButton).toHaveClass("text-primary")
-    expect(saludButton).toHaveClass("bg-primary/10")
+    const recursosButton = screen.getByTestId("nav-item-recursos")
+    expect(recursosButton).toHaveClass("text-primary")
   })
 
   it("permite pasar una lista de items personalizada", () => {
     const customItems = [
-      { id: "custom1", label: "Citas Hoy", to: "/app/citas", icon: Activity },
-      { id: "custom2", label: "Reportes", to: "/app/reportes", icon: Activity, badgeCount: 4 },
+      { id: "custom1", label: "Inicio", to: "/app/custom1", icon: House },
+      { id: "custom2", label: "Guías", to: "/app/custom2", icon: House, badgeCount: 4 },
+      { id: "custom3", label: "Ruta", to: "/app/custom3", icon: House },
+      { id: "custom4", label: "Ajustes", to: "/app/custom4", icon: House },
     ]
 
     render(
-      <MemoryRouter initialEntries={["/app/citas"]}>
+      <MemoryRouter initialEntries={["/app/custom1"]}>
         <BottomNavBar items={customItems} />
       </MemoryRouter>
     )
 
-    expect(screen.getByText("Citas Hoy")).toBeInTheDocument()
-    expect(screen.getByText("Reportes")).toBeInTheDocument()
+    expect(screen.getByText("Inicio")).toBeInTheDocument()
+    expect(screen.getByText("Guías")).toBeInTheDocument()
     expect(screen.getByText("4")).toBeInTheDocument()
   })
 
@@ -56,8 +57,8 @@ describe("BottomNavBar Component", () => {
       </MemoryRouter>
     )
 
-    const familiasButton = screen.getByTestId("nav-item-familia")
-    fireEvent.click(familiasButton)
-    expect(onTabChangeMock).toHaveBeenCalledWith("familia")
+    const recursosButton = screen.getByTestId("nav-item-recursos")
+    fireEvent.click(recursosButton)
+    expect(onTabChangeMock).toHaveBeenCalledWith("recursos")
   })
 })

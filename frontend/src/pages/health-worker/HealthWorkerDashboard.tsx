@@ -1,8 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { PlusCircle, ClipboardCheck, Users, AlertTriangle, ArrowRight } from "lucide-react"
-import { SemaforoRiesgo } from "@/components/shared/SemaforoRiesgo"
+import { PlusCircle, Warning, CaretRight } from "@phosphor-icons/react"
 
 export function HealthWorkerDashboard() {
   return (
@@ -25,7 +24,7 @@ export function HealthWorkerDashboard() {
         </CardHeader>
         <CardContent className="pt-1">
           <Button className="w-full min-h-[44px] gap-2 font-semibold shadow-sm">
-            <PlusCircle className="w-4 h-4" />
+            <PlusCircle size={20} weight="bold" />
             <span>Nuevo Tamizaje a Paciente</span>
           </Button>
         </CardContent>
@@ -60,12 +59,12 @@ export function HealthWorkerDashboard() {
               <div>
                 <p className="text-sm font-bold text-foreground">Mateo Quispe R. (18 m)</p>
                 <p className="text-xs text-destructive font-semibold flex items-center gap-1 mt-0.5">
-                  <AlertTriangle className="w-3.5 h-3.5" />
+                  <Warning size={15} weight="fill" />
                   <span>Riesgo Alto · Derivación enviada a INSN-SB</span>
                 </p>
               </div>
               <Button size="sm" variant="ghost" className="h-9 w-9 p-0">
-                <ArrowRight className="w-4 h-4" />
+                <CaretRight size={18} />
               </Button>
             </CardContent>
           </Card>
@@ -79,7 +78,7 @@ export function HealthWorkerDashboard() {
                 </p>
               </div>
               <Button size="sm" variant="ghost" className="h-9 w-9 p-0">
-                <ArrowRight className="w-4 h-4" />
+                <CaretRight size={18} />
               </Button>
             </CardContent>
           </Card>

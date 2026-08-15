@@ -1,151 +1,107 @@
-import { type ReactNode } from "react"
+import type { ReactNode } from "react"
 import { useNavigate } from "react-router-dom"
-import { Activity, Bell, ArrowLeft, Wifi, WifiOff, RefreshCw } from "lucide-react"
-import { Badge } from "@/components/ui/badge"
-
-export type ConnectionStatus = "online" | "offline" | "syncing"
+import { CaretLeft, WifiHigh, WifiSlash, ArrowsClockwise } from "@phosphor-icons/react"
 
 export interface TopHeaderProps {
-  /** Título principal de la vista */
   title?: string
-  /** Subtítulo o rol del usuario actual (ej. CRED / Posta, Neuropediatría) */
   role?: string
-  /** Muestra un botón de retroceso a la izquierda */
+  connectionStatus?: "online" | "offline" | "syncing"
   showBack?: boolean
-  /** Callback personalizado al presionar retroceso (por defecto ejecuta navigate(-1)) */
   onBack?: () => void
-  /** Estado de conectividad de la PWA */
-  connectionStatus?: ConnectionStatus
-  /** Número de notificaciones pendientes */
-  notificationCount?: number
-  /** Callback al presionar el botón de notificaciones */
-  onNotificationsClick?: () => void
-  /** Ranura para componentes personalizados a la izquierda (reemplaza icono/back) */
   leftSlot?: ReactNode
-  /** Ranura para acciones o botones personalizados a la derecha */
   rightSlot?: ReactNode
-  /** Clase CSS adicional para el contenedor */
   className?: string
 }
 
 export function TopHeader({
   title = "Neuroalianza",
-  role = "CRED / Posta",
+  role = "Red Asistencial",
+  connectionStatus = "online",
   showBack = false,
   onBack,
-  connectionStatus = "online",
-  notificationCount = 0,
-  onNotificationsClick,
   leftSlot,
   rightSlot,
   className = "",
 }: TopHeaderProps) {
-  let navigate: ReturnType<typeof useNavigate> | null = null
-  try {
-    // Usar navigate si estamos dentro de un Router context
-    navigate = useNavigate()
-  } catch {
-    // Fallback si se renderiza fuera de un Router
-    navigate = null
-  }
+  const navigate = useNavigate()
 
   const handleBack = () => {
     if (onBack) {
       onBack()
-    } else if (navigate) {
+    } else {
       navigate(-1)
+    }
+  }
+
+  const getStatusBadge = () => {
+    switch (connectionStatus) {
+      case "offline":
+        return (
+          <span
+            data-testid="status-badge"
+            className="flex items-center gap-1 text-[11px] font-medium text-amber-700 bg-amber-500/15 border border-amber-500/30 px-2 py-0.5 rounded-full"
+          >
+            <WifiSlash size={13} weight="bold" />
+            <span>Offline</span>
+          </span>
+        )
+      case "syncing":
+        return (
+          <span
+            data-testid="status-badge"
+            className="flex items-center gap-1 text-[11px] font-medium text-blue-700 bg-blue-500/15 border border-blue-500/30 px-2 py-0.5 rounded-full"
+          >
+            <ArrowsClockwise size={13} weight="bold" className="animate-spin" />
+            <span>Sincronizando</span>
+          </span>
+        )
+      case "online":
+      default:
+        return (
+          <span
+            data-testid="status-badge"
+            className="flex items-center gap-1 text-[11px] font-medium text-emerald-700 bg-emerald-500/15 border border-emerald-500/30 px-2 py-0.5 rounded-full"
+          >
+            <WifiHigh size={13} weight="bold" />
+            <span>Online</span>
+          </span>
+        )
     }
   }
 
   return (
     <header
       data-testid="top-header"
-      className={`sticky top-0 z-40 w-full border-b border-border/80 bg-background/95 backdrop-blur-md px-4 py-3 flex items-center justify-between transition-colors ${className}`}
+      className={`sticky top-0 z-30 w-full bg-card/95 backdrop-blur-md border-b border-border/80 px-4 py-3 flex items-center justify-between shadow-sm transition-colors ${className}`}
     >
-      {/* Zona Izquierda: Back button o Logo/Icono de Neuroalianza */}
       <div className="flex items-center gap-2.5 min-w-0">
-        {leftSlot ? (
-          leftSlot
-        ) : showBack ? (
+        {showBack && (
           <button
             type="button"
             onClick={handleBack}
             aria-label="Volver atrás"
-            className="w-10 h-10 -ml-1 rounded-xl flex items-center justify-center text-foreground hover:bg-muted/80 active:scale-95 transition-all"
+            className="flex items-center justify-center w-9 h-9 rounded-xl hover:bg-muted active:scale-95 transition-all text-foreground shrink-0 border border-border/60"
           >
-            <ArrowLeft className="w-5 h-5" />
+            <CaretLeft size={20} weight="bold" />
           </button>
-        ) : (
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-primary to-primary/85 flex items-center justify-center text-primary-foreground shadow-sm shrink-0">
-            <Activity className="w-5 h-5" />
-          </div>
         )}
 
-        <div className="min-w-0">
-          <h1 className="text-base font-bold leading-tight tracking-tight text-foreground truncate">
+        {leftSlot}
+
+        <div className="flex flex-col min-w-0">
+          <h1 className="text-sm font-bold font-heading tracking-tight text-foreground truncate">
             {title}
           </h1>
           {role && (
-            <p className="text-xs font-medium text-muted-foreground truncate">
+            <p className="text-[11px] font-medium text-muted-foreground truncate">
               {role}
             </p>
           )}
         </div>
       </div>
 
-      {/* Zona Derecha: Status Badge, Notificaciones o Ranura Personalizada */}
       <div className="flex items-center gap-2 shrink-0">
-        {rightSlot ? (
-          rightSlot
-        ) : (
-          <>
-            {connectionStatus === "online" && (
-              <Badge
-                variant="outline"
-                className="gap-1 text-xs font-medium border-emerald-500/25 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 py-0.5 px-2"
-              >
-                <Wifi className="w-3 h-3" />
-                <span className="hidden sm:inline">Online</span>
-              </Badge>
-            )}
-
-            {connectionStatus === "offline" && (
-              <Badge
-                variant="outline"
-                className="gap-1 text-xs font-medium border-amber-500/30 bg-amber-500/10 text-amber-600 dark:text-amber-400 py-0.5 px-2"
-              >
-                <WifiOff className="w-3 h-3" />
-                <span>Offline</span>
-              </Badge>
-            )}
-
-            {connectionStatus === "syncing" && (
-              <Badge
-                variant="outline"
-                className="gap-1 text-xs font-medium border-primary/30 bg-primary/10 text-primary py-0.5 px-2 animate-pulse"
-              >
-                <RefreshCw className="w-3 h-3 animate-spin" />
-                <span>Sincronizando</span>
-              </Badge>
-            )}
-
-            <button
-              type="button"
-              onClick={onNotificationsClick}
-              aria-label={
-                notificationCount > 0
-                  ? `Notificaciones: ${notificationCount} nuevas`
-                  : "Notificaciones"
-              }
-              className="relative w-10 h-10 rounded-xl flex items-center justify-center hover:bg-muted text-muted-foreground hover:text-foreground transition-colors active:scale-95"
-            >
-              <Bell className="w-5 h-5" />
-              {notificationCount > 0 && (
-                <span className="absolute top-2 right-2 w-2.5 h-2.5 rounded-full bg-destructive ring-2 ring-background" />
-              )}
-            </button>
-          </>
-        )}
+        {rightSlot ? rightSlot : getStatusBadge()}
       </div>
     </header>
   )
