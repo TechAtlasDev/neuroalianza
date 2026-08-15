@@ -11,8 +11,8 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 47.4% 11.2%;
 
-    /* Azul Neuroalianza: clínico, confiable, moderno */
-    --primary: 221.2 83.2% 53.3%;
+    /* Color Primario: Negro Neutro Sofisticado y Minimalista */
+    --primary: 222.2 47.4% 11.2%;
     --primary-foreground: 210 40% 98%;
 
     --secondary: 214.3 31.8% 93.5%;
@@ -29,7 +29,7 @@
 
     --border: 214.3 31.8% 89.5%;
     --input: 214.3 31.8% 89.5%;
-    --ring: 221.2 83.2% 53.3%;
+    --ring: 222.2 47.4% 11.2%;
 
     --radius: 0.875rem;
   }
@@ -44,7 +44,7 @@
     --popover: 224 71% 6.5%;
     --popover-foreground: 213 31% 94%;
 
-    --primary: 217.2 91.2% 59.8%;
+    --primary: 210 40% 98%;
     --primary-foreground: 224 71% 4%;
 
     --secondary: 217.2 32.6% 17.5%;
