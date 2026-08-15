@@ -1,6 +1,6 @@
-import React, { createContext, useContext, useState } from "react"
+import React, { createContext, useContext, useState, useEffect } from "react"
 import { submitScreeningApi, apiClient } from "@/services/apiClient"
-import { saveScreeningToFirestore, saveReferralToFirestore } from "@/services/firebaseService"
+import { saveScreeningToFirestore, saveReferralToFirestore, getScreeningsFromFirestore } from "@/services/firebaseService"
 
 export interface Patient {
   id: string
@@ -105,6 +105,37 @@ export function CaseProvider({ children }: { children: React.ReactNode }) {
   const [patients, setPatients] = useState<Patient[]>(INITIAL_PATIENTS)
   const [referrals, setReferrals] = useState<ReferralData[]>([])
   const [activePatient, setActivePatient] = useState<Patient | null>(INITIAL_PATIENTS[0])
+
+  // Cargar datos reales desde Firestore DB al iniciar
+  useEffect(() => {
+    getScreeningsFromFirestore().then((docs) => {
+      if (docs && docs.length > 0) {
+        const firestorePatients: Patient[] = docs.map((d: any) => ({
+          id: d.id,
+          name: d.patientName || "Paciente Registrado",
+          ageMonths: d.ageMonths || 18,
+          ageDisplay: `${d.ageMonths || 18} meses`,
+          dni: d.dni || "00000000",
+          guardian: d.guardianName || "Apoderado",
+          phone: d.guardianPhone || "+51 900 000 000",
+          origin: d.healthCenterOrigin || "C.S. San Juan",
+          riskLevel: d.riskLevel || "medio",
+          riskLabel: d.riskLabel || "Riesgo Moderado",
+          daysInCurrentState: 0,
+          status: d.riskLevel === "alto" ? "derivado" : "tamizaje_completado",
+          statusLabel: d.riskLevel === "alto" ? "Derivación a INSN San Borja" : "Control CRED Habitual",
+          lastScreeningScore: `${d.failuresCount || 0}/5 fallas`,
+          lastUpdate: "En Firestore DB",
+        }))
+
+        setPatients((prev) => {
+          const existingIds = new Set(prev.map((p) => p.id))
+          const newUnique = firestorePatients.filter((p) => !existingIds.has(p.id))
+          return [...newUnique, ...prev]
+        })
+      }
+    })
+  }, [])
 
   const addScreeningResult = (
     patientData: Partial<Patient>,
