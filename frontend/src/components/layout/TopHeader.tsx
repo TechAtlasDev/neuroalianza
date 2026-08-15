@@ -39,7 +39,7 @@ export function TopHeader({
         return (
           <span
             data-testid="status-badge"
-            className="flex items-center gap-1 text-md font-medium text-amber-700 bg-amber-500/15 border border-amber-500/30 px-2 py-0.5 rounded-full"
+            className="flex items-center gap-1 text-xs font-medium text-amber-700 bg-amber-500/15 border border-amber-500/30 px-2 py-0.5 rounded-full"
           >
             <WifiSlash size={13} weight="bold" />
             <span>Offline</span>
@@ -49,7 +49,7 @@ export function TopHeader({
         return (
           <span
             data-testid="status-badge"
-            className="flex items-center gap-1 text-md font-medium text-blue-700 bg-blue-500/15 border border-blue-500/30 px-2 py-0.5 rounded-full"
+            className="flex items-center gap-1 text-xs font-medium text-blue-700 bg-blue-500/15 border border-blue-500/30 px-2 py-0.5 rounded-full"
           >
             <ArrowsClockwise size={13} weight="bold" className="animate-spin" />
             <span>Sincronizando</span>
@@ -60,7 +60,7 @@ export function TopHeader({
         return (
           <span
             data-testid="status-badge"
-            className="flex items-center gap-1 text-md font-medium text-emerald-700 bg-emerald-500/15 border border-emerald-500/30 px-2 py-0.5 rounded-full"
+            className="flex items-center gap-1 text-xs font-medium text-emerald-700 bg-emerald-500/15 border border-emerald-500/30 px-2 py-0.5 rounded-full"
           >
             <WifiHigh size={13} weight="bold" />
             <span>Online</span>
@@ -89,11 +89,11 @@ export function TopHeader({
         {leftSlot}
 
         <div className="flex flex-col min-w-0">
-          <h1 className="text-md font-bold font-heading t-tight text-foreground truncate">
+          <h1 className="text-sm font-bold font-heading t-tight text-foreground truncate">
             {title}
           </h1>
           {role && (
-            <p className="text-md font-medium text-muted-foreground truncate">
+            <p className="text-xs font-medium text-muted-foreground truncate">
               {role}
             </p>
           )}

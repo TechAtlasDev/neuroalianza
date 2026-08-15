@@ -97,7 +97,7 @@ export function ClinicalMetricsPage() {
 
         {/* Desglose de Motivos de Inasistencia */}
         <div className="p-4 rounded-2xl bg-card border border-border space-y-3">
-          <h3 className="text-md font-semibold text-muted-foreground uppercase tracking-wider">
+          <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
             Causas Declaradas de Inasistencia
           </h3>
 
@@ -109,7 +109,7 @@ export function ClinicalMetricsPage() {
               { label: "Salud del menor", pct: 9, count: 5 },
             ].map((item) => (
               <div key={item.label} className="space-y-1">
-                <div className="flex justify-between text-md font-medium">
+                <div className="flex justify-between text-xs font-medium">
                   <span className="text-foreground">{item.label}</span>
                   <span className="text-zinc-500">{item.pct}% ({item.count})</span>
                 </div>

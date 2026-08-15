@@ -184,7 +184,7 @@ export function SpecialistDashboard() {
         <div className="p-4 rounded-2xl bg-zinc-100 dark:bg-zinc-900 border border-border space-y-1.5">
           <div className="flex items-center gap-2">
             <ShieldCheck size={18} className="text-white" />
-            <h3 className="text-md font-semibold text-white">
+            <h3 className="text-sm font-semibold text-white">
               Red Integrada de Salud (RIS) & INSN San Borja
             </h3>
           </div>

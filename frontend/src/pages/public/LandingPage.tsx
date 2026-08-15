@@ -29,7 +29,7 @@ export function LandingPage() {
               <span className="text-xl font-bold font-heading t-tight text-foreground">
                 Neuro<span className="text-primary">alianza</span>
               </span>
-              <span className="hidden sm:inline-block ml-2 text-md font-semibold px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20">
+              <span className="hidden sm:inline-block ml-2 text-xs font-semibold px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20">
                 INSN San Borja 2026
               </span>
             </div>
@@ -57,7 +57,7 @@ export function LandingPage() {
         <section className="relative overflow-hidden py-16 sm:py-24 lg:py-32 bg-gradient-to-b from-primary/5 via-background to-background">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-4xl mx-auto text-center space-y-6">
-              <Badge variant="outline" className="gap-2 py-1 px-3.5 border-primary/30 bg-primary/10 text-primary rounded-full text-md font-semibold">
+              <Badge variant="outline" className="gap-2 py-1 px-3.5 border-primary/30 bg-primary/10 text-primary rounded-full text-xs font-semibold">
                 <Sparkles className="w-3.5 h-3.5" />
                 <span>Desafío 04: Neurodesarrollo Infantil · Ventana 0 a 5 años</span>
               </Badge>
@@ -93,19 +93,19 @@ export function LandingPage() {
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-12 text-left">
                 <div className="p-4 rounded-2xl bg-card border border-border/80 shadow-sm">
                   <p className="text-2xl sm:text-3xl font-extrabold text-primary font-heading">0-5 años</p>
-                  <p className="text-md sm:text-md text-muted-foreground mt-0.5">Ventana crítica de máxima plasticidad cerebral</p>
+                  <p className="text-xs text-muted-foreground mt-0.5">Ventana crítica de máxima plasticidad cerebral</p>
                 </div>
                 <div className="p-4 rounded-2xl bg-card border border-border/80 shadow-sm">
                   <p className="text-2xl sm:text-3xl font-extrabold text-primary font-heading">&lt; 3 min</p>
-                  <p className="text-md sm:text-md text-muted-foreground mt-0.5">Tamizaje estandarizado rápido en postas CRED</p>
+                  <p className="text-xs text-muted-foreground mt-0.5">Tamizaje estandarizado rápido en postas CRED</p>
                 </div>
                 <div className="p-4 rounded-2xl bg-card border border-border/80 shadow-sm">
                   <p className="text-2xl sm:text-3xl font-extrabold text-primary font-heading">360°</p>
-                  <p className="text-md sm:text-md text-muted-foreground mt-0.5">Ficha multidisciplinaria para especialistas INSN-SB</p>
+                  <p className="text-xs text-muted-foreground mt-0.5">Ficha multidisciplinaria para especialistas INSN-SB</p>
                 </div>
                 <div className="p-4 rounded-2xl bg-card border border-border/80 shadow-sm">
                   <p className="text-2xl sm:text-3xl font-extrabold text-primary font-heading">100% PWA</p>
-                  <p className="text-md sm:text-md text-muted-foreground mt-0.5">Mobile-First accesible con soporte offline</p>
+                  <p className="text-xs text-muted-foreground mt-0.5">Mobile-First accesible con soporte offline</p>
                 </div>
               </div>
             </div>
@@ -118,7 +118,7 @@ export function LandingPage() {
             <h2 className="text-2xl sm:text-3xl font-bold font-heading text-foreground">
               Tres experiencias adaptadas para cada actor clave
             </h2>
-            <p className="text-muted-foreground text-md sm:text-base">
+            <p className="text-muted-foreground text-sm sm:text-base">
               Selecciona un perfil para experimentar la interfaz móvil optimizada:
             </p>
           </div>
@@ -134,7 +134,7 @@ export function LandingPage() {
                   <Badge variant="secondary" className="mb-2">1.º Nivel de Atención</Badge>
                   <CardTitle className="text-xl font-bold font-heading">Personal de Salud CRED</CardTitle>
                 </div>
-                <CardDescription className="text-md">
+                <CardDescription className="text-xs">
                   Tamizaje rápido estandarizado, semáforo de riesgo clínico y derivación digital inmediata sin papeleos.
                 </CardDescription>
               </CardHeader>
@@ -163,7 +163,7 @@ export function LandingPage() {
                   <Badge variant="secondary" className="mb-2">Familias & Cuidadores</Badge>
                   <CardTitle className="text-xl font-bold font-heading">Portal Familiar</CardTitle>
                 </div>
-                <CardDescription className="text-md">
+                <CardDescription className="text-xs">
                   Ruta asistencial clara, confirmación y recordatorio de citas, y actividades de estimulación guiadas para el hogar.
                 </CardDescription>
               </CardHeader>
@@ -187,7 +187,7 @@ export function LandingPage() {
                   <Badge variant="secondary" className="mb-2">INSN San Borja</Badge>
                   <CardTitle className="text-xl font-bold font-heading">Especialistas 360°</CardTitle>
                 </div>
-                <CardDescription className="text-md">
+                <CardDescription className="text-xs">
                   Ficha Multidisciplinaria integrada (Neurología, Psiquiatría, Genética, Terapia), agenda agrupada y analítica de tiempos.
                 </CardDescription>
               </CardHeader>
@@ -216,7 +216,7 @@ export function LandingPage() {
                 </div>
                 <div className="space-y-1">
                   <h3 className="text-base font-bold text-foreground">Estratificación Temprana en CRED</h3>
-                  <p className="text-md sm:text-md text-muted-foreground leading-relaxed">
+                  <p className="text-xs text-muted-foreground leading-relaxed">
                     Tamizaje rápido con preguntas observacionales clave para detectar riesgo de TEA, retraso psicomotor y trastornos del lenguaje.
                   </p>
                 </div>
@@ -228,7 +228,7 @@ export function LandingPage() {
                 </div>
                 <div className="space-y-1">
                   <h3 className="text-base font-bold text-foreground">Articulación Digital Directa</h3>
-                  <p className="text-md sm:text-md text-muted-foreground leading-relaxed">
+                  <p className="text-xs text-muted-foreground leading-relaxed">
                     Comunicación fluida entre postas periféricas y el INSN-SB con tiempos de espera reducidos y seguimiento trazable.
                   </p>
                 </div>
@@ -240,7 +240,7 @@ export function LandingPage() {
                 </div>
                 <div className="space-y-1">
                   <h3 className="text-base font-bold text-foreground">Acompañamiento Continuo en el Hogar</h3>
-                  <p className="text-md sm:text-md text-muted-foreground leading-relaxed">
+                  <p className="text-xs text-muted-foreground leading-relaxed">
                     Las familias reciben orientaciones personalizadas y micro-videos guiados mientras esperan su cita especializada.
                   </p>
                 </div>
@@ -252,7 +252,7 @@ export function LandingPage() {
                 </div>
                 <div className="space-y-1">
                   <h3 className="text-base font-bold text-foreground">Agenda Multidisciplinaria Inteligente</h3>
-                  <p className="text-md sm:text-md text-muted-foreground leading-relaxed">
+                  <p className="text-xs text-muted-foreground leading-relaxed">
                     Agrupación de citas en un solo día para familias de provincias o zonas alejadas, reduciendo el ausentismo clínico.
                   </p>
                 </div>
@@ -263,7 +263,7 @@ export function LandingPage() {
       </main>
 
       {/* 5. Footer */}
-      <footer className="border-t border-border bg-card py-8 text-center text-md text-muted-foreground">
+      <footer className="border-t border-border bg-card py-8 text-center text-xs text-muted-foreground">
         <div className="container mx-auto px-4 space-y-2">
           <p className="font-medium text-foreground">
             Neuroalianza © 2026 — Desarrollado para la Hackatón INSN San Borja (Desafío 04: Neurodesarrollo)

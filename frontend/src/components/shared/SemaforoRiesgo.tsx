@@ -54,20 +54,20 @@ export function SemaforoRiesgo({
         <div className="flex items-start justify-between gap-2">
           <div className="flex items-center gap-2">
             <Icon size={24} weight="fill" className={`shrink-0 ${config.iconClass}`} />
-            <h3 className="text-md font-bold text-foreground leading-snug">{config.titulo}</h3>
+            <h3 className="text-sm font-bold text-foreground leading-snug">{config.titulo}</h3>
           </div>
-          <Badge variant="outline" className={`shrink-0 font-medium text-md ${config.badgeClass}`}>
+          <Badge variant="outline" className={`shrink-0 font-medium text-xs ${config.badgeClass}`}>
             {config.badgeText}
           </Badge>
         </div>
 
-        <p className="text-md text-muted-foreground leading-relaxed">
+        <p className="text-xs text-muted-foreground leading-relaxed">
           {justificacion}
         </p>
 
         <div className="rounded-xl bg-background/80 p-3 border border-border">
-          <p className="text-md font-semibold text-foreground mb-1">Recomendación de acción:</p>
-          <p className="text-md text-foreground/90 leading-relaxed">
+          <p className="text-xs font-semibold text-foreground mb-1">Recomendación de acción:</p>
+          <p className="text-xs text-foreground/90 leading-relaxed">
             {recomendacion || config.defaultRec}
           </p>
         </div>

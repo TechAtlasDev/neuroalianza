@@ -64,7 +64,7 @@ export function CaseDetailPage() {
               key={tab.id}
               type="button"
               onClick={() => setActiveTab(tab.id)}
-              className={`flex-1 py-2 rounded-xl text-md font-medium transition-all ${activeTab === tab.id
+              className={`flex-1 py-2 rounded-xl text-xs font-medium transition-all ${activeTab === tab.id
                 ? "bg-zinc-950 text-white shadow-sm font-semibold"
                 : "text-white/70 hover:text-foreground"
                 }`}
@@ -80,15 +80,15 @@ export function CaseDetailPage() {
             {/* Nota de Neuropediatría */}
             <div className="p-4 rounded-2xl bg-card border border-border shadow-sm space-y-2">
               <div className="flex items-center justify-between">
-                <span className="text-sm font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-zinc-950 text-white">
+                <span className="text-xs font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-zinc-950 text-white">
                   Neuropediatría
                 </span>
-                <span className="text-md text-muted-foreground">Hoy · 09:30 AM</span>
+                <span className="text-xs text-muted-foreground">Hoy · 09:30 AM</span>
               </div>
-              <p className="text-md font-semibold text-foreground">
+              <p className="text-xs font-semibold text-foreground">
                 Dra. Marcela Valdivia — INSN San Borja
               </p>
-              <p className="text-md text-muted-foreground leading-relaxed">
+              <p className="text-xs text-muted-foreground leading-relaxed">
                 Paciente ingresa con reporte de pérdida de palabras a los 16 meses y contacto visual inconsistente. Se programa evaluación neuropsicológica condensada para coordinar con familia proveniente de provincia.
               </p>
             </div>
@@ -96,15 +96,15 @@ export function CaseDetailPage() {
             {/* Nota de Psicología Infantil */}
             <div className="p-4 rounded-2xl bg-card border border-border shadow-sm space-y-2">
               <div className="flex items-center justify-between">
-                <span className="text-sm font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-zinc-800 text-white">
+                <span className="text-xs font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-zinc-800 text-white">
                   Psicología Infantil
                 </span>
-                <span className="text-md text-muted-foreground">Hace 2 días</span>
+                <span className="text-xs text-muted-foreground">Hace 2 días</span>
               </div>
-              <p className="text-md font-semibold text-foreground">
+              <p className="text-xs font-semibold text-foreground">
                 Lic. Andrea Salas — INSN San Borja
               </p>
-              <p className="text-md text-muted-foreground leading-relaxed">
+              <p className="text-xs text-muted-foreground leading-relaxed">
                 Observación de conducta: escaso seguimiento de instrucciones simples, juego no funcional con autos (giro de ruedas). Se sugiere sesión de orientación a cuidadores.
               </p>
             </div>
@@ -112,15 +112,15 @@ export function CaseDetailPage() {
             {/* Nota de Terapia de Lenguaje */}
             <div className="p-4 rounded-2xl bg-card border border-border shadow-sm space-y-2">
               <div className="flex items-center justify-between">
-                <span className="text-sm font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-zinc-800 text-white">
+                <span className="text-xs font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-zinc-800 text-white">
                   Terapia de Lenguaje
                 </span>
-                <span className="text-md text-muted-foreground">05 Ago, 2026</span>
+                <span className="text-xs text-muted-foreground">05 Ago, 2026</span>
               </div>
-              <p className="text-md font-semibold text-foreground">
+              <p className="text-xs font-semibold text-foreground">
                 Lic. Rodrigo Silva — Red RIS
               </p>
-              <p className="text-md text-muted-foreground leading-relaxed">
+              <p className="text-xs text-muted-foreground leading-relaxed">
                 Evaluación inicial de comunicación: balbuceo escaso, no señala para pedir objetos (usa la mano del adulto como herramienta).
               </p>
             </div>
@@ -132,27 +132,27 @@ export function CaseDetailPage() {
           <div className="space-y-4">
             <div className="p-4 rounded-2xl bg-rose-950/10 border border-rose-600 space-y-2">
               <div className="flex items-center justify-between">
-                <span className="text-md font-bold text-rose-800 dark:text-rose-600">
+                <span className="text-xs font-bold text-rose-800 dark:text-rose-600">
                   M-CHAT-R/F (18 meses)
                 </span>
-                <span className="text-md text-muted-foreground">05 Ago, 2026</span>
+                <span className="text-xs text-muted-foreground">05 Ago, 2026</span>
               </div>
-              <p className="text-md text-foreground font-medium">
+              <p className="text-xs text-foreground font-medium">
                 Puntaje: 4 fallas críticas · Resultado: Alto Riesgo
               </p>
-              <p className="text-md text-muted-foreground leading-relaxed">
+              <p className="text-xs text-muted-foreground leading-relaxed">
                 Aplicado en: {patient.origin} por Lic. Rosa Vega.
               </p>
             </div>
 
             <div className="p-4 rounded-2xl bg-card border border-border space-y-2">
               <div className="flex items-center justify-between">
-                <span className="text-md font-bold text-foreground">
+                <span className="text-xs font-bold text-foreground">
                   Control CRED Hitos Motores (12 meses)
                 </span>
-                <span className="text-md text-muted-foreground">12 Feb, 2026</span>
+                <span className="text-xs text-muted-foreground">12 Feb, 2026</span>
               </div>
-              <p className="text-md text-muted-foreground">
+              <p className="text-xs text-muted-foreground">
                 Marcha con apoyo lograda, motricidad fina adecuada.
               </p>
             </div>
@@ -163,8 +163,8 @@ export function CaseDetailPage() {
         {activeTab === "plan" && (
           <div className="space-y-4">
             <div className="p-4 rounded-2xl bg-zinc-950 text-white border border-zinc-800 space-y-2">
-              <p className="text-md text-zinc-400 font-medium">Objetivos Clínicos Prioritarios</p>
-              <ul className="text-md text-zinc-300 space-y-1.5 list-disc list-inside">
+              <p className="text-xs text-zinc-400 font-medium">Objetivos Clínicos Prioritarios</p>
+              <ul className="text-xs text-zinc-300 space-y-1.5 list-disc list-inside">
                 <li>Fortalecer contacto visual y respuesta al llamado por su nombre.</li>
                 <li>Estimular intención comunicativa mediante señalización con dedo índice.</li>
                 <li>Pautas de juego interactivo cara a cara con la madre en el hogar.</li>
@@ -172,8 +172,8 @@ export function CaseDetailPage() {
             </div>
 
             <div className="p-4 rounded-2xl bg-card border border-border space-y-1.5">
-              <p className="text-md font-semibold text-foreground">Frecuencia Programada</p>
-              <p className="text-md text-muted-foreground">
+              <p className="text-xs font-semibold text-foreground">Frecuencia Programada</p>
+              <p className="text-xs text-muted-foreground">
                 2 sesiones semanales de estimulación temprana + 1 control mensual en INSN SB.
               </p>
             </div>

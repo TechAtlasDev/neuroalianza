@@ -11,7 +11,7 @@ export function NotFoundPage() {
       <h1 className="text-2xl font-bold font-heading text-foreground mb-2">
         Página no encontrada
       </h1>
-      <p className="text-md text-muted-foreground max-w-sm mb-6">
+      <p className="text-sm text-muted-foreground max-w-sm mb-6">
         La ruta a la que intentas acceder no existe o fue movida dentro de la plataforma Neuroalianza.
       </p>
       <div className="flex flex-col sm:flex-row gap-3">
