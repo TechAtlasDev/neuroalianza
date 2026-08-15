@@ -1,6 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { AuthProvider } from "@/context/AuthContext"
 import { CaseProvider } from "@/context/CaseContext"
 import { LandingPage } from "@/pages/public/LandingPage"
+import { LoginPage } from "@/pages/auth/LoginPage"
 import { NotFoundPage } from "@/pages/public/NotFoundPage"
 import { MobileAppLayout } from "@/components/layout/MobileAppLayout"
 import { AppIndexPage } from "@/pages/app/AppIndexPage"
@@ -20,8 +22,9 @@ import { DemoControlPanelPage } from "@/pages/demo/DemoControlPanelPage"
 export function AppRoutes() {
   return (
     <Routes>
-      {/* 1. Ruta Principal: Landing Page Responsiva (Desktop + Móvil) */}
+      {/* 1. Rutas Públicas y Autenticación Firebase */}
       <Route path="/" element={<LandingPage />} />
+      <Route path="/login" element={<LoginPage />} />
 
       {/* 2. Ruta de Aplicación: Layout Modular PWA Mobile-First */}
       <Route path="/app" element={<MobileAppLayout />}>
@@ -62,9 +65,11 @@ export function AppRoutes() {
 export default function App() {
   return (
     <BrowserRouter>
-      <CaseProvider>
-        <AppRoutes />
-      </CaseProvider>
+      <AuthProvider>
+        <CaseProvider>
+          <AppRoutes />
+        </CaseProvider>
+      </AuthProvider>
     </BrowserRouter>
   )
 }
