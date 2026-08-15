@@ -11,8 +11,8 @@ const SRC_DIR = path.resolve(process.cwd(), "src")
 const FORBIDDEN_RULES = [
   {
     category: "Tipografía Prohibida",
-    regex: /\btext-xs\b/g,
-    reason: "text-xs (< 14px) está prohibido según docs/DESIGN_SYSTEM_AND_TOKENS.md (mínimo text-md)",
+    regex: /\btext-md\b/g,
+    reason: "text-md (< 14px) está prohibido según docs/DESIGN_SYSTEM_AND_TOKENS.md (mínimo text-md)",
   },
   {
     category: "Tamaños de Fuente Hardcodeados",

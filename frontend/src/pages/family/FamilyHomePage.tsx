@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Link } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 import {
   MapPin,
   CheckCircle,
@@ -11,6 +11,7 @@ import {
   ShieldCheck,
   Check,
   Info,
+  Compass,
 } from "@phosphor-icons/react"
 import {
   Sheet,
@@ -21,12 +22,13 @@ import {
 } from "@/components/ui/sheet"
 
 export function FamilyHomePage() {
+  const navigate = useNavigate()
   const [isAppointmentSheetOpen, setIsAppointmentSheetOpen] = useState(false)
   const [isActivityModalOpen, setIsActivityModalOpen] = useState(false)
   const [activityCompleted, setActivityCompleted] = useState(false)
 
   return (
-    <div className="-mx-4 -mt-4 flex flex-col">
+    <div className="-mx-4 -mt-4 flex flex-col min-h-screen bg-background">
       {/* 1. Hero Superior Idéntico a las demás pantallas */}
       <section
         className="text-white px-4 pt-7 pb-12 relative overflow-hidden bg-cover bg-bottom bg-no-repeat"
@@ -55,25 +57,25 @@ export function FamilyHomePage() {
       </section>
 
       {/* 2. Contenido Inferior Solapado con Esquinas Redondeadas */}
-      <div className="bg-background rounded-t-3xl -mt-4 px-4 pt-6 pb-8 space-y-6 relative z-20 shadow-lg">
-        {/* Banner Informativo Negro Minimalista e Interactivo */}
+      <div className="bg-background rounded-t-3xl -mt-4 px-4 pt-6 pb-8 space-y-6 relative z-20 flex-1">
+        {/* Banner Informativo Negro Minimalista e Interactivo: Conecta a Mi Ruta */}
         <button
           type="button"
-          onClick={() => setIsAppointmentSheetOpen(true)}
-          className="w-full text-left p-4 rounded-2xl bg-zinc-950 text-white border border-zinc-800 shadow-md hover:bg-zinc-900 active:scale-[0.99] transition-all flex items-start gap-3.5 group cursor-pointer"
+          onClick={() => navigate("/app/familia/ruta")}
+          className="w-full text-left p-4 rounded-2xl bg-zinc-950 text-white border border-zinc-800 hover:bg-zinc-900 active:scale-[0.99] transition-all flex items-start gap-3.5 group cursor-pointer"
         >
           <div className="w-9 h-9 rounded-xl bg-white/15 text-white flex items-center justify-center shrink-0 mt-0.5 border border-white/20">
-            <Info size={20} weight="bold" className="text-white" />
+            <Compass size={20} weight="bold" className="text-white" />
           </div>
           <div className="space-y-1 flex-1">
             <div className="flex items-center justify-between">
               <p className="text-sm font-semibold text-white">
-                Tu próxima atención está programada
+                Tu próxima atención en INSN San Borja
               </p>
               <CaretRight size={16} className="text-white/60 group-hover:text-white group-hover:translate-x-0.5 transition-all shrink-0 ml-1" />
             </div>
             <p className="text-sm text-zinc-300 leading-relaxed">
-              Martes 24 de Febrero · 09:30 AM en INSN San Borja (Neuropediatría). Toca para ver detalles o coordinar.
+              Martes 24 de Febrero · 09:30 AM (Neuropediatría). Toca para ver tu ruta paso a paso.
             </p>
           </div>
         </button>
@@ -84,7 +86,7 @@ export function FamilyHomePage() {
             <h2 className="text-base font-semibold text-foreground">
               Estimulación en Casa
             </h2>
-            <span className="text-sm text-muted-foreground">
+            <span className="text-xs font-medium text-muted-foreground">
               Día 4 de 7
             </span>
           </div>
@@ -92,20 +94,20 @@ export function FamilyHomePage() {
           <div className="p-4 rounded-2xl bg-card border border-border/80 space-y-3">
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="text-base font-semibold text-foreground">
+                <h3 className="text-sm font-semibold text-foreground">
                   Juego de atención con telas
                 </h3>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-xs text-muted-foreground">
                   5 minutos · Fomenta contacto visual y sonrisa compartida
                 </p>
               </div>
               {activityCompleted ? (
-                <span className="px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-600 text-sm font-medium border border-emerald-500/20 flex items-center gap-1 shrink-0">
+                <span className="px-2.5 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium border border-primary/20 flex items-center gap-1 shrink-0">
                   <Check size={14} weight="bold" />
                   <span>Completado</span>
                 </span>
               ) : (
-                <span className="px-2.5 py-0.5 rounded-full bg-muted text-foreground text-sm font-medium border border-border/70 shrink-0">
+                <span className="px-2.5 py-0.5 rounded-full bg-muted text-foreground text-xs font-medium border border-border/70 shrink-0">
                   Pendiente
                 </span>
               )}
@@ -119,7 +121,7 @@ export function FamilyHomePage() {
               <button
                 type="button"
                 onClick={() => setIsActivityModalOpen(true)}
-                className="w-full py-2.5 px-4 rounded-xl bg-black text-white hover:bg-black/90 font-medium text-sm flex items-center justify-center gap-2 active:scale-[0.99] transition-all shadow-sm"
+                className="w-full py-2.5 px-4 rounded-xl bg-zinc-950 text-white hover:bg-zinc-900 font-medium text-sm flex items-center justify-center gap-2 active:scale-[0.99] transition-all shadow-sm"
               >
                 <Play size={16} weight="fill" />
                 <span>{activityCompleted ? "Repetir Ejercicio" : "Comenzar Actividad"}</span>
@@ -134,16 +136,16 @@ export function FamilyHomePage() {
             Tu Red de Cuidado Local
           </h2>
 
-          <div className="p-4 rounded-2xl bg-card border border-border/80 space-y-3">
+          <div className="p-4 rounded-2xl bg-card border border-border/80 space-y-3 shadow-sm">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
-                <Heartbeat size={22} weight="regular" />
+              <div className="w-10 h-10 rounded-xl bg-zinc-100 dark:bg-zinc-800 text-foreground flex items-center justify-center shrink-0 border border-border">
+                <Heartbeat size={22} weight="regular" className="text-white" />
               </div>
               <div>
                 <h3 className="text-sm font-semibold text-foreground">
                   C.S. San Juan de Lurigancho
                 </h3>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-xs text-muted-foreground">
                   Enfermera responsable: Lic. Rosa Vega
                 </p>
               </div>
@@ -154,7 +156,7 @@ export function FamilyHomePage() {
                 href="tel:113"
                 className="flex-1 py-2.5 px-4 rounded-xl bg-muted hover:bg-muted/80 text-foreground font-medium text-sm flex items-center justify-center gap-2 border border-border/70 active:scale-[0.99] transition-all"
               >
-                <PhoneCall size={16} weight="regular" />
+                <PhoneCall size={18} weight="regular" />
                 <span>Contactar Centro (113)</span>
               </a>
 
@@ -169,121 +171,37 @@ export function FamilyHomePage() {
         </section>
 
         {/* Respaldo Comunitario */}
-        <div className="p-4 rounded-2xl bg-muted/30 border border-border/70 space-y-1.5">
+        <div className="p-4 rounded-2xl bg-zinc-100 dark:bg-zinc-900 border border-border space-y-1.5">
           <div className="flex items-center gap-2">
-            <ShieldCheck size={18} weight="regular" className="text-foreground" />
-            <h3 className="text-sm font-semibold text-foreground">
+            <ShieldCheck size={18} className="text-white" />
+            <h3 className="text-sm font-semibold text-white">
               Acompañamiento Continuo
             </h3>
           </div>
-          <p className="text-sm text-muted-foreground leading-relaxed">
+          <p className="text-xs text-zinc-300 leading-relaxed">
             Las actividades realizadas en casa se sincronizan con la ficha clínica para tu próxima evaluación con el neuropediatra.
           </p>
         </div>
       </div>
 
-      {/* Bottom Sheet de Detalle de Cita Médica */}
-      <Sheet open={isAppointmentSheetOpen} onOpenChange={setIsAppointmentSheetOpen}>
-        <SheetContent side="bottom" className="pb-8 pt-4 space-y-5 max-h-[90vh] overflow-y-auto">
-          <div className="w-12 h-1 bg-muted-foreground/30 rounded-full mx-auto" />
-
-          <SheetHeader className="text-left space-y-1.5">
-            <div className="flex items-center gap-2">
-              <span className="px-2.5 py-0.5 rounded-full bg-black text-white text-sm font-medium">
-                Confirmada
-              </span>
-              <span className="text-sm text-muted-foreground">
-                #RIS-2026-891
-              </span>
-            </div>
-            <SheetTitle className="text-lg font-bold text-foreground">
-              Evaluación Especializada de Neuropediatría
-            </SheetTitle>
-            <SheetDescription className="text-sm text-muted-foreground">
-              Instituto Nacional de Salud del Niño San Borja.
-            </SheetDescription>
-          </SheetHeader>
-
-          <div className="space-y-3">
-            <div className="p-4 rounded-2xl bg-muted/40 border border-border/80 space-y-3">
-              <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
-                  <Hospital size={20} weight="regular" />
-                </div>
-                <div>
-                  <p className="text-sm font-semibold text-foreground">
-                    INSN San Borja · Piso 3
-                  </p>
-                  <p className="text-sm text-muted-foreground">
-                    Dra. Carla Morales (Neuropediatra)
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
-                  <MapPin size={20} weight="regular" />
-                </div>
-                <div>
-                  <p className="text-sm font-semibold text-foreground">
-                    Consultorio 304
-                  </p>
-                  <p className="text-sm text-muted-foreground">
-                    Av. Javier Prado Este 3101, Lima
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="p-4 rounded-2xl bg-muted/25 border border-border/70 space-y-2">
-              <p className="text-sm font-semibold text-foreground">
-                Documentos a presentar:
-              </p>
-              <ul className="text-sm text-muted-foreground space-y-1 list-disc list-inside">
-                <li>DNI físico de Mateo y del apoderado.</li>
-                <li>Carné de control CRED actualizado.</li>
-                <li>Hojas de tamizaje M-CHAT-R completadas.</li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="space-y-2 pt-2">
-            <Link
-              to="/app/citas"
-              onClick={() => setIsAppointmentSheetOpen(false)}
-              className="w-full py-3.5 px-4 rounded-2xl bg-black text-white hover:bg-black/90 font-medium text-sm flex items-center justify-center gap-2 active:scale-[0.99] transition-all text-center shadow-sm"
-            >
-              <span>Ver en Mi Ruta de Atención</span>
-              <CaretRight size={16} />
-            </Link>
-          </div>
-        </SheetContent>
-      </Sheet>
-
-      {/* Bottom Sheet de Guía de Actividad */}
+      {/* Modal / Sheet de Actividad de Estimulación */}
       <Sheet open={isActivityModalOpen} onOpenChange={setIsActivityModalOpen}>
-        <SheetContent side="bottom" className="pb-8 pt-4 space-y-5 max-h-[90vh] overflow-y-auto">
+        <SheetContent side="bottom" className="pb-8 pt-4 space-y-4 max-h-[90vh]">
           <div className="w-12 h-1 bg-muted-foreground/30 rounded-full mx-auto" />
-
           <SheetHeader className="text-left space-y-1">
-            <SheetTitle className="text-base font-semibold text-foreground">
-              Juego de atención con telas
+            <SheetTitle className="text-2xl font-semibold text-foreground">
+              Juego de Atención con Telas
             </SheetTitle>
             <SheetDescription className="text-sm text-muted-foreground">
-              Guía práctica de estimulación en casa recomendada por el equipo de terapias.
+              Pautas sencillas de estimulación visual y de reciprocidad social.
             </SheetDescription>
           </SheetHeader>
 
-          <div className="space-y-3">
-            <div className="p-4 rounded-2xl bg-muted/40 border border-border/80 space-y-2">
-              <p className="text-sm font-semibold text-foreground">Paso a paso:</p>
-              <ol className="text-sm text-muted-foreground space-y-2 list-decimal list-inside leading-relaxed">
-                <li>Siéntate frente a Mateo a la altura de sus ojos en un lugar sin ruidos fuertes.</li>
-                <li>Cubre tu rostro con una tela suave y di: "¿Dónde está mamá/papá?".</li>
-                <li>Espera 3 segundos buscando su atención visual.</li>
-                <li>Destápate con una sonrisa amplia diciendo "¡Aquí está!".</li>
-              </ol>
-            </div>
+          <div className="space-y-3 text-sm text-muted-foreground leading-relaxed">
+            <p>1. Siéntate frente a Mateo a su misma altura en un lugar tranquilo.</p>
+            <p>2. Cúbrete la cara con una tela y di: «¿Dónde está mamá/papá?»</p>
+            <p>3. Descúbrete sonriendo con entusiasmo diciendo: «¡Aquí está!»</p>
+            <p>4. Observa si sonríe o anticipa el momento con la mirada.</p>
           </div>
 
           <button
@@ -292,10 +210,10 @@ export function FamilyHomePage() {
               setActivityCompleted(true)
               setIsActivityModalOpen(false)
             }}
-            className="w-full py-3.5 px-4 rounded-2xl bg-black text-white hover:bg-black/90 font-medium text-sm flex items-center justify-center gap-2 active:scale-[0.99] transition-all shadow-sm"
+            className="w-full py-3.5 px-4 rounded-2xl bg-zinc-950 text-white hover:bg-zinc-900 font-medium text-sm flex items-center justify-center gap-2 active:scale-[0.99] transition-all shadow-sm"
           >
-            <CheckCircle size={18} weight="bold" />
-            <span>Marcar Actividad como Completada</span>
+            <Check size={18} weight="bold" />
+            <span>Marcar como Realizado Hoy</span>
           </button>
         </SheetContent>
       </Sheet>

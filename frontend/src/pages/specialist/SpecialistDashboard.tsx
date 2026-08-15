@@ -1,10 +1,15 @@
 import { useState } from "react"
+import { useNavigate, Link } from "react-router-dom"
 import {
   UserCheck,
   VideoCamera,
   CheckCircle,
   ShieldCheck,
   Check,
+  ChartBar,
+  CaretRight,
+  FileText,
+  Hospital,
 } from "@phosphor-icons/react"
 import {
   Sheet,
@@ -13,85 +18,36 @@ import {
   SheetTitle,
   SheetDescription,
 } from "@/components/ui/sheet"
-
-interface CaseItem {
-  id: string
-  patient: string
-  age: string
-  origin: string
-  nurse: string
-  riskLevel: "alto" | "medio"
-  riskLabel: string
-  summary: string
-  hasVideo: boolean
-  status: "pendiente" | "admitido"
-  date: string
-}
-
-const INITIAL_CASES: CaseItem[] = [
-  {
-    id: "case-1",
-    patient: "Mateo Jimenez Ramos",
-    age: "18 meses",
-    origin: "C.S. San Juan de Lurigancho",
-    nurse: "Lic. Rosa Vega",
-    riskLevel: "alto",
-    riskLabel: "Alto Riesgo",
-    summary:
-      "Conductas repetitivas de aleteo, falta de respuesta al nombre y regresión en primeras palabras a los 16 meses.",
-    hasVideo: true,
-    status: "pendiente",
-    date: "Hoy · 08:45 AM",
-  },
-  {
-    id: "case-2",
-    patient: "Sofía Huamán Castro",
-    age: "24 meses",
-    origin: "Puesto de Salud Huaycán",
-    nurse: "Lic. Carmen Mendoza",
-    riskLevel: "medio",
-    riskLabel: "Riesgo Moderado",
-    summary:
-      "Dificultad en marcha independiente, escaso contacto visual sostenido, lenguaje con ecolalia inmediata.",
-    hasVideo: false,
-    status: "pendiente",
-    date: "Hoy · 10:15 AM",
-  },
-]
+import { useCase } from "@/context/CaseContext"
 
 export function SpecialistDashboard() {
-  const [cases, setCases] = useState<CaseItem[]>(INITIAL_CASES)
-  const [selectedCase, setSelectedCase] = useState<CaseItem | null>(null)
-  const [admittedCount, setAdmittedCount] = useState(3)
+  const navigate = useNavigate()
+  const { patients, updatePatientStatus } = useCase()
+  const [selectedCase, setSelectedCase] = useState<any | null>(null)
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false)
   const [showSuccessToast, setShowSuccessToast] = useState(false)
 
-  const handleAdmit = (caseItem: CaseItem) => {
-    setCases((prev) =>
-      prev.map((c) => (c.id === caseItem.id ? { ...c, status: "admitido" } : c))
-    )
-    setAdmittedCount((prev) => prev + 1)
+  const handleAdmit = (patientId: string) => {
+    updatePatientStatus(patientId, "cita_programada", "Cita Neuropediatría Asignada")
     setShowSuccessToast(true)
     setTimeout(() => setShowSuccessToast(false), 3000)
     setSelectedCase(null)
   }
 
+  const admittedCount = patients.filter((p) => p.status === "cita_programada" || p.status === "en_evaluacion").length
+
   return (
-    <div className="-mx-4 -mt-4 flex flex-col">
-      {/* 1. Hero Superior Idéntico a las demás pantallas: Espaciador h-20, py-14 centrado y sin chips extraños */}
+    <div className="-mx-4 -mt-4 flex flex-col min-h-screen bg-background">
+      {/* 1. Hero Superior Idéntico: Espaciador h-20, py-14 centrado */}
       <section
         className="text-white px-4 pt-7 pb-12 relative overflow-hidden bg-cover bg-bottom bg-no-repeat"
         style={{
           backgroundImage: `url('https://res.cloudinary.com/de1xmnmeq/image/upload/v1786781319/212485521-color-azul-rojo-oscuro-degradado-para-fondos-de-pantalla-o-fondos-de-escritorio_kzf24q.jpg')`,
         }}
       >
-        {/* Capa Gradiente de arriba hacia abajo (Transparente a Negro 60%) */}
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/60 pointer-events-none" />
-
-        {/* Barra Superior Espaciadora idéntica a Citas/Salud/Recursos */}
         <div className="flex items-center justify-between relative z-10 h-20" />
 
-        {/* Sección Central Destacada (Texto centrado, tipografía uniforme) */}
         <div className="text-center py-14 space-y-2 relative z-10">
           <p className="text-lg font-normal text-white/90">
             INSN San Borja
@@ -106,11 +62,11 @@ export function SpecialistDashboard() {
       </section>
 
       {/* 2. Contenido Inferior Solapado con Esquinas Redondeadas */}
-      <div className="bg-background rounded-t-3xl -mt-4 px-4 pt-6 pb-8 space-y-6 relative z-20 shadow-lg">
+      <div className="bg-background rounded-t-3xl -mt-4 px-4 pt-6 pb-8 space-y-6 relative z-20 shadow-lg flex-1">
         {/* Notificación de admisión */}
         {showSuccessToast && (
-          <div className="p-3.5 rounded-2xl bg-black text-white flex items-center gap-3 animate-in fade-in slide-in-from-top-2 duration-300">
-            <CheckCircle size={22} weight="fill" className="text-emerald-400 shrink-0" />
+          <div className="p-3.5 rounded-2xl bg-zinc-950 text-white flex items-center gap-3 animate-in fade-in slide-in-from-top-2 duration-300 border border-zinc-800">
+            <CheckCircle size={22} weight="fill" className="text-white shrink-0" />
             <div className="flex-1">
               <p className="text-sm font-semibold">Paciente Admitido</p>
               <p className="text-sm text-zinc-300">Cita 360° coordinada con el centro de salud de origen.</p>
@@ -118,65 +74,86 @@ export function SpecialistDashboard() {
           </div>
         )}
 
+        {/* Acceso a Métricas de Red Minimalista */}
+        <button
+          type="button"
+          onClick={() => navigate("/app/clinico/metricas")}
+          className="w-full p-4 rounded-2xl bg-zinc-950 text-white border border-zinc-800 flex items-center justify-between hover:bg-zinc-900 active:scale-[0.99] transition-all group"
+        >
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center border border-white/10">
+              <ChartBar size={22} weight="bold" className="text-white" />
+            </div>
+            <div className="text-left space-y-0.5">
+              <p className="text-sm font-semibold text-white">Panel de Métricas de Red</p>
+              <p className="text-sm text-zinc-400">Tiempos de espera y causas de inasistencia</p>
+            </div>
+          </div>
+          <CaretRight size={18} className="text-zinc-400 group-hover:text-white group-hover:translate-x-0.5 transition-transform" />
+        </button>
+
         {/* Resumen del Turno Clínico - Minimalista */}
         <div className="grid grid-cols-3 gap-2 text-center">
-          <div className="p-3 rounded-2xl bg-card border border-border/80 space-y-0.5">
-            <p className="text-xl font-bold text-foreground">{cases.length + 3}</p>
+          <div className="p-3 rounded-2xl bg-card border border-border/80 space-y-0.5 shadow-sm">
+            <p className="text-xl font-bold text-foreground">{patients.length}</p>
             <p className="text-sm text-muted-foreground">Derivados</p>
           </div>
-          <div className="p-3 rounded-2xl bg-card border border-border/80 space-y-0.5">
+          <div className="p-3 rounded-2xl bg-card border border-border/80 space-y-0.5 shadow-sm">
             <p className="text-xl font-bold text-foreground">{admittedCount}</p>
             <p className="text-sm text-muted-foreground">Admitidos</p>
           </div>
-          <div className="p-3 rounded-2xl bg-card border border-border/80 space-y-0.5">
+          <div className="p-3 rounded-2xl bg-card border border-border/80 space-y-0.5 shadow-sm">
             <p className="text-xl font-bold text-foreground">100%</p>
             <p className="text-sm text-muted-foreground">Articulación</p>
           </div>
         </div>
 
-        {/* Casos Prioritarios Entrantes - Tarjetas Minimalistas */}
+        {/* Casos Prioritarios Entrantes - Sincronizados */}
         <section className="space-y-3">
           <div className="flex items-center justify-between">
             <h2 className="text-base font-semibold text-foreground">
               Casos Entrantes
             </h2>
             <span className="text-sm text-muted-foreground">
-              Filtro CRED
+              {patients.length} pacientes en red
             </span>
           </div>
 
           <div className="space-y-3">
-            {cases.map((item) => {
-              const isAdmitted = item.status === "admitido"
+            {patients.map((item) => {
+              const isAdmitted = item.status === "cita_programada" || item.status === "en_evaluacion"
 
               return (
                 <div
                   key={item.id}
                   className={`p-4 rounded-2xl border transition-all space-y-3 ${isAdmitted
-                      ? "bg-muted/20 border-border/50 opacity-70"
-                      : "bg-card border-border/80"
+                    ? "bg-muted/20 border-border/50 opacity-75"
+                    : "bg-card border-border/80 shadow-sm"
                     }`}
                 >
                   <div className="flex items-center justify-between">
                     <div>
-                      <h3 className="text-base font-semibold text-foreground">
-                        {item.patient}
+                      <h3
+                        onClick={() => navigate(`/app/clinico/casos/${item.id}`)}
+                        className="text-base font-semibold text-foreground hover:underline cursor-pointer"
+                      >
+                        {item.name}
                       </h3>
                       <p className="text-sm text-muted-foreground">
-                        {item.age} · {item.origin}
+                        {item.ageDisplay} · {item.origin}
                       </p>
                     </div>
 
                     {isAdmitted ? (
-                      <span className="px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-600 text-sm font-medium border border-emerald-500/20 flex items-center gap-1 shrink-0">
+                      <span className="px-2.5 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium border border-primary/20 flex items-center gap-1 shrink-0">
                         <Check size={14} weight="bold" />
                         <span>Admitido</span>
                       </span>
                     ) : (
                       <span
-                        className={`px-2.5 py-0.5 rounded-full text-sm font-medium border ${item.riskLevel === "alto"
-                            ? "bg-red-500/10 text-red-600 dark:text-red-400 border-red-500/20"
-                            : "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20"
+                        className={`px-2.5 py-0.5 rounded-full text-xs font-semibold border ${item.riskLevel === "alto"
+                          ? "bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20"
+                          : "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20"
                           }`}
                       >
                         {item.riskLabel}
@@ -185,93 +162,49 @@ export function SpecialistDashboard() {
                   </div>
 
                   <p className="text-sm text-muted-foreground leading-relaxed">
-                    {item.summary}
+                    Tamizaje CRED reporta {item.lastScreeningScore || "alertas en reciprocidad social y lenguaje"}. Cuidador: {item.guardian}.
                   </p>
 
-                  {!isAdmitted && (
-                    <div className="flex items-center gap-2 pt-1">
+                  <div className="flex items-center gap-2 pt-1">
+                    {!isAdmitted && (
                       <button
                         type="button"
-                        onClick={() => handleAdmit(item)}
-                        className="flex-1 py-2.5 px-4 rounded-xl bg-black text-white hover:bg-black/90 font-medium text-sm flex items-center justify-center gap-2 active:scale-[0.99] transition-all shadow-sm"
+                        onClick={() => handleAdmit(item.id)}
+                        className="flex-1 py-2.5 px-4 rounded-xl bg-zinc-950 text-white hover:bg-zinc-900 font-medium text-sm flex items-center justify-center gap-2 active:scale-[0.99] transition-all shadow-sm"
                       >
-                        <UserCheck size={18} weight="bold" />
-                        <span>Admitir</span>
+                        <UserCheck size={16} weight="bold" />
+                        <span>Admitir y Programar</span>
                       </button>
+                    )}
 
-                      {item.hasVideo && (
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setSelectedCase(item)
-                            setIsVideoModalOpen(true)
-                          }}
-                          className="py-2.5 px-3 rounded-xl bg-muted hover:bg-muted/80 text-foreground font-medium text-sm flex items-center gap-1.5 border border-border/70 active:scale-[0.99] transition-all"
-                        >
-                          <VideoCamera size={18} weight="regular" />
-                          <span>Video</span>
-                        </button>
-                      )}
-                    </div>
-                  )}
+                    <button
+                      type="button"
+                      onClick={() => navigate(`/app/clinico/casos/${item.id}`)}
+                      className="py-2.5 px-3 rounded-xl bg-muted hover:bg-muted/80 text-foreground font-medium text-sm flex items-center gap-1.5 border border-border active:scale-[0.99] transition-all"
+                    >
+                      <FileText size={16} />
+                      <span>Ficha 360°</span>
+                    </button>
+                  </div>
                 </div>
               )
             })}
           </div>
         </section>
 
-        {/* Nota simple minimalista de interoperabilidad */}
-        <div className="p-4 rounded-2xl bg-muted/30 border border-border/70 space-y-1.5">
+        {/* Nota minimalista de interoperabilidad */}
+        <div className="p-4 rounded-2xl bg-zinc-100 dark:bg-zinc-900 border border-border space-y-1.5">
           <div className="flex items-center gap-2">
-            <ShieldCheck size={18} weight="regular" className="text-foreground" />
-            <h3 className="text-sm font-semibold text-foreground">
-              Red Integrada de Salud (RIS)
+            <ShieldCheck size={18} className="text-white" />
+            <h3 className="text-md font-semibold text-white">
+              Red Integrada de Salud (RIS) & INSN San Borja
             </h3>
           </div>
-          <p className="text-sm text-muted-foreground leading-relaxed">
+          <p className="text-sm text-white">
             La admisión notifica en tiempo real al centro de salud de origen para el seguimiento del carné CRED.
           </p>
         </div>
       </div>
-
-      {/* Modal de visualización de evidencia de video */}
-      <Sheet open={isVideoModalOpen} onOpenChange={setIsVideoModalOpen}>
-        <SheetContent side="bottom" className="pb-8 pt-4 space-y-4 max-h-[90vh]">
-          <div className="w-12 h-1 bg-muted-foreground/30 rounded-full mx-auto" />
-          <SheetHeader className="text-left space-y-1">
-            <SheetTitle className="text-base font-semibold text-foreground">
-              Evidencia en Video CRED
-            </SheetTitle>
-            <SheetDescription className="text-sm text-muted-foreground">
-              Grabación breve de conducta tomada durante el tamizaje presencial.
-            </SheetDescription>
-          </SheetHeader>
-
-          <div className="p-6 rounded-2xl bg-black text-white flex flex-col items-center justify-center gap-3 text-center">
-            <VideoCamera size={36} weight="light" className="text-white/70" />
-            <div className="space-y-1">
-              <p className="text-sm font-semibold text-white">
-                Clip de Tamizaje: {selectedCase?.patient}
-              </p>
-              <p className="text-sm text-zinc-400">
-                Duración: 00:45s · M-CHAT-R Item 5
-              </p>
-            </div>
-          </div>
-
-          <button
-            type="button"
-            onClick={() => {
-              if (selectedCase) handleAdmit(selectedCase)
-              setIsVideoModalOpen(false)
-            }}
-            className="w-full py-3.5 px-4 rounded-2xl bg-black text-white hover:bg-black/90 font-medium text-sm flex items-center justify-center gap-2 active:scale-[0.99] transition-all shadow-sm"
-          >
-            <UserCheck size={18} weight="bold" />
-            <span>Admitir Caso</span>
-          </button>
-        </SheetContent>
-      </Sheet>
     </div>
   )
 }

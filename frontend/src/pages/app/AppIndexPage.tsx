@@ -7,7 +7,7 @@ import {
   Plus,
   ArrowsClockwise,
   ListBullets,
-  DotsThree,
+  UsersThree,
   Heartbeat,
   Info,
   CalendarCheck,
@@ -139,13 +139,13 @@ export function AppIndexPage() {
             </span>
           </Link>
 
-          {/* Acción 4: Perfil */}
-          <Link to="/app/perfil" className="flex flex-col items-center gap-2 group">
+          {/* Acción 4: Mi Familia */}
+          <Link to="/app/familia" className="flex flex-col items-center gap-2 group">
             <div className="w-14 h-14 rounded-full bg-white/20 hover:bg-white/25 active:scale-95 backdrop-blur-md flex items-center justify-center text-white border border-white/25 transition-all shadow-sm">
-              <DotsThree size={26} weight="bold" />
+              <UsersThree size={26} weight="bold" />
             </div>
             <span className="text-sm font-normal text-white/90 text-center leading-tight">
-              Más
+              Familia
             </span>
           </Link>
         </div>
