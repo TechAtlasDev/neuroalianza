@@ -52,8 +52,8 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     active_settings = settings or get_settings()
 
     app = FastAPI(
-        title="Neuroalianza Backend API",
-        description="Plataforma de detección y seguimiento para neurodesarrollo infantil (MINSA)",
+        title="Tinkuy Backend API",
+        description="Plataforma de detección y articulación clínica para neurodesarrollo infantil (MINSA / INSN San Borja)",
         version="0.1.0",
         lifespan=lifespan,
     )

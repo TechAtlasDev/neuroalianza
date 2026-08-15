@@ -14,7 +14,7 @@ export interface TopHeaderProps {
 }
 
 export function TopHeader({
-  title = "Neuroalianza",
+  title = "Tinkuy",
   role = "Red Asistencial",
   connectionStatus = "online",
   showBack = false,

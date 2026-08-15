@@ -1,4 +1,4 @@
-# 🧠 Neuroalianza: Ruta Multidisciplinaria para Conectar Salud, Familia y Neurodesarrollo
+# 🧠 Tinkuy: Ruta Multidisciplinaria para Conectar Salud, Familia y Neurodesarrollo
 
 > **Hackatón Instituto Nacional de Salud del Niño San Borja (INSN SB) 2026**  
 > *Servicios involucrados: Neurología Pediátrica · Psiquiatría Infantil · Psicología · Genética · Medicina Física y Rehabilitación*
@@ -7,7 +7,7 @@
 
 ## 📌 1. Visión y Resumen Ejecutivo
 
-**Neuroalianza** es una plataforma digital de articulación clínica y acompañamiento familiar diseñada para transformar la ruta de atención de niños y adolescentes con sospecha o diagnóstico de **trastornos del neurodesarrollo** (Trastorno del Espectro Autista - TEA, TDAH, trastornos de la comunicación/lenguaje, retraso global del desarrollo y discapacidad intelectual).
+**Tinkuy** (palabra quechua que significa *"Encuentro, Unión y Articulación"*) es una plataforma digital de articulación clínica y acompañamiento familiar diseñada para transformar la ruta de atención de niños y adolescentes con sospecha o diagnóstico de **trastornos del neurodesarrollo** (Trastorno del Espectro Autista - TEA, TDAH, trastornos de la comunicación/lenguaje, retraso global del desarrollo y discapacidad intelectual).
 
 El sistema conecta el **primer nivel de atención** (control CRED, postas y centros de salud comunitarios) con los **centros de atención altamente especializada** (como el INSN San Borja) y el **entorno familiar/escolar**, asegurando la detección oportuna durante la ventana crítica de desarrollo (0 a 5 años), facilitando referencias eficientes, coordinando el trabajo del equipo multidisciplinario y reduciendo el abandono del tratamiento terapéutico.
 
