@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState } from "react"
+import { submitScreeningApi, apiClient } from "@/services/apiClient"
 
 export interface Patient {
   id: string
@@ -131,6 +132,19 @@ export function CaseProvider({ children }: { children: React.ReactNode }) {
       lastUpdate: "Recién registrado",
     }
 
+    // Petición asíncrona HTTP al Backend FastAPI
+    submitScreeningApi({
+      patient_name: newPatient.name,
+      age_months: newPatient.ageMonths,
+      dni: newPatient.dni,
+      guardian_name: newPatient.guardian,
+      guardian_phone: newPatient.phone,
+      health_center_origin: newPatient.origin,
+      answers,
+    }).catch((err) => {
+      console.warn("Backend offline o error, operando en modo local:", err.message)
+    })
+
     setPatients((prev) => [newPatient, ...prev])
     setActivePatient(newPatient)
     return newId
@@ -143,6 +157,20 @@ export function CaseProvider({ children }: { children: React.ReactNode }) {
       referralCode: code,
       createdAt: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
     }
+
+    // Petición asíncrona HTTP al Backend FastAPI
+    apiClient("/health-worker/referral", {
+      method: "POST",
+      body: JSON.stringify({
+        patient_id: referral.patientId,
+        findings: referral.findings,
+        priority: referral.priority,
+        notes: referral.notes,
+        target_center: referral.targetCenter,
+      }),
+    }).catch((err) => {
+      console.warn("Backend offline o error, operando en modo local:", err.message)
+    })
 
     setReferrals((prev) => [newReferral, ...prev])
     updatePatientStatus(referral.patientId, "derivado", "Derivado a INSN San Borja")

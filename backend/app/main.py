@@ -14,10 +14,14 @@ from starlette.middleware.base import BaseHTTPMiddleware, RequestResponseEndpoin
 from app.api.errors import register_error_handlers
 from app.api.routes import (
     admin_router,
+    appointments_router,
+    assistant_router,
     family_router,
     health_worker_router,
+    resources_router,
     specialist_router,
     system_router,
+    user_router,
 )
 from app.config import Settings, get_settings
 from app.container import get_container
@@ -69,9 +73,13 @@ def create_app(settings: Settings | None = None) -> FastAPI:
 
     # 3. Routes
     app.include_router(system_router)
+    app.include_router(assistant_router)
     app.include_router(health_worker_router)
     app.include_router(family_router)
     app.include_router(specialist_router)
+    app.include_router(resources_router)
+    app.include_router(appointments_router)
+    app.include_router(user_router)
 
     # Demo routes are only registered in demo mode
     if active_settings.MODE == "demo":
