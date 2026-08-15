@@ -188,7 +188,7 @@ export function SpecialistDashboard() {
                         <span>Admitido</span>
                       </span>
                     ) : (
-                      <span className="px-2.5 py-1 rounded-full bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 text-sm font-medium shrink-0">
+                      <span className="px-2.5 py-1 rounded-full bg-black text-white text-sm font-medium shrink-0">
                         {item.date}
                       </span>
                     )}
@@ -205,7 +205,7 @@ export function SpecialistDashboard() {
                       <button
                         type="button"
                         onClick={() => handleAdmit(item)}
-                        className="flex-1 py-2.5 px-4 rounded-xl bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 hover:bg-zinc-800 font-medium text-sm flex items-center justify-center gap-2 active:scale-[0.99] transition-all"
+                        className="flex-1 py-2.5 px-4 rounded-xl bg-black text-white hover:bg-black/90 font-medium text-sm flex items-center justify-center gap-2 active:scale-[0.99] transition-all shadow-sm"
                       >
                         <UserCheck size={18} weight="bold" />
                         <span>Admitir y Agendar 360°</span>
@@ -259,7 +259,7 @@ export function SpecialistDashboard() {
             </SheetDescription>
           </SheetHeader>
 
-          <div className="p-6 rounded-2xl bg-zinc-950 text-white flex flex-col items-center justify-center gap-3 text-center">
+          <div className="p-6 rounded-2xl bg-black text-white flex flex-col items-center justify-center gap-3 text-center">
             <VideoCamera size={36} weight="light" className="text-white/70" />
             <div className="space-y-1">
               <p className="text-sm font-semibold text-white">
@@ -277,7 +277,7 @@ export function SpecialistDashboard() {
               if (selectedCase) handleAdmit(selectedCase)
               setIsVideoModalOpen(false)
             }}
-            className="w-full py-3.5 px-4 rounded-2xl bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 font-medium text-sm flex items-center justify-center gap-2 active:scale-[0.99] transition-all"
+            className="w-full py-3.5 px-4 rounded-2xl bg-black text-white hover:bg-black/90 font-medium text-sm flex items-center justify-center gap-2 active:scale-[0.99] transition-all shadow-sm"
           >
             <UserCheck size={18} weight="bold" />
             <span>Admitir Caso Directamente</span>
