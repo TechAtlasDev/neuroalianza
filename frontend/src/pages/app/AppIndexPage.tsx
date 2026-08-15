@@ -4,11 +4,7 @@ import {
   Translate,
   Check,
   CaretRight,
-  Brain,
-  Baby,
-  Sparkle,
   Plus,
-  ArrowRight,
   ArrowsClockwise,
   ListBullets,
   DotsThree,
@@ -16,7 +12,6 @@ import {
   Info,
   CalendarCheck,
 } from "@phosphor-icons/react"
-import { Card, CardContent } from "@/components/ui/card"
 import {
   Sheet,
   SheetContent,
@@ -34,28 +29,28 @@ const LANGUAGES = [
   { id: "en", name: "English", native: "English (US)" },
 ]
 
-// Recursos destacados en formato micro-card
+// Recursos destacados con portadas ilustradas
 const FEATURED_RESOURCES = [
   {
     id: "1",
     title: "Estimulación del lenguaje en casa",
     category: "12 - 24 meses",
     readTime: "3 min",
-    icon: Brain,
+    image: "https://res.cloudinary.com/de1xmnmeq/image/upload/v1786777517/images_3_rmd6xc.jpg",
   },
   {
     id: "2",
     title: "Hitos motores y señales de alerta",
     category: "0 - 18 meses",
     readTime: "4 min",
-    icon: Baby,
+    image: "https://res.cloudinary.com/de1xmnmeq/image/upload/v1786778108/images_5_zptn4z.jpg",
   },
   {
     id: "3",
     title: "Guía de rutinas y juego sensorial",
     category: "2 - 5 años",
     readTime: "5 min",
-    icon: Sparkle,
+    image: "https://res.cloudinary.com/de1xmnmeq/image/upload/v1786777435/pastel-mountains-vector-art-05xdup4f0zu2tvqa_km0pbp.jpg",
   },
 ]
 
@@ -67,9 +62,9 @@ export function AppIndexPage() {
     <div className="-mx-4 -mt-4 flex flex-col">
       {/* 1. Hero Superior con Imagen y Capa Gradiente */}
       <section
-        className="text-primary-foreground px-4 pt-7 pb-12 relative overflow-hidden bg-cover bg-center bg-no-repeat"
+        className="text-white px-4 pt-7 pb-12 relative overflow-hidden bg-cover bg-bottom bg-no-repeat"
         style={{
-          backgroundImage: `url('https://res.cloudinary.com/de1xmnmeq/image/upload/v1786776308/paisaje-monta%C3%B1oso-low-poly-al-amanecer-con-degradados-pastel-en-los-picos-fondo-de-pantalla-para-m%C3%B3vil-experimenta-la-serena-378149134_pfiikg.webp')`,
+          backgroundImage: `url('https://res.cloudinary.com/de1xmnmeq/image/upload/v1786775417/Frame_1_2_q3ddi4.png')`,
         }}
       >
         {/* Capa Gradiente de arriba hacia abajo (Transparente a Negro 60%) */}
@@ -97,18 +92,18 @@ export function AppIndexPage() {
           </button>
         </div>
 
-        {/* Sección Central Destacada con Mayor Altura y Presencia */}
-        <div className="text-center py-24 relative z-10">
-          <p className="text-lg font-normal text-white/80">
+        {/* Sección Central Destacada del Hero */}
+        <div className="text-center py-20 relative z-10 space-y-1.5">
+          <p className="text-lg font-normal text-white/85">
             Bienvenido
           </p>
-          <h1 className="text-3xl font-normal text-white">
+          <h1 className="text-3xl font-normal text-white tracking-tight">
             Giovanny Jimenez
           </h1>
         </div>
 
-        {/* Fila de 4 Acciones Rápidas Circulares Más Amplias */}
-        <div className="grid grid-cols-4 gap-3 pt-3 relative z-10 max-w-sm mx-auto">
+        {/* Fila de 4 Acciones Rápidas Circulares Minimalistas */}
+        <div className="grid grid-cols-4 gap-3 pt-2 relative z-10 max-w-sm mx-auto">
           {/* Acción 1: Tamizaje */}
           <Link to="/app/salud" className="flex flex-col items-center gap-2 group">
             <div className="w-14 h-14 rounded-full bg-white/20 hover:bg-white/25 active:scale-95 backdrop-blur-md flex items-center justify-center text-white border border-white/25 transition-all shadow-sm">
@@ -139,7 +134,7 @@ export function AppIndexPage() {
             </span>
           </Link>
 
-          {/* Acción 4: Más */}
+          {/* Acción 4: Perfil */}
           <Link to="/app/perfil" className="flex flex-col items-center gap-2 group">
             <div className="w-14 h-14 rounded-full bg-white/20 hover:bg-white/25 active:scale-95 backdrop-blur-md flex items-center justify-center text-white border border-white/25 transition-all shadow-sm">
               <DotsThree size={26} weight="bold" />
@@ -152,23 +147,23 @@ export function AppIndexPage() {
       </section>
 
       {/* 2. Contenido Inferior Solapado con Esquinas Redondeadas */}
-      <div className="bg-background rounded-t-3xl -mt-4 px-4 pt-5 pb-8 space-y-5 relative z-20 shadow-lg">
+      <div className="bg-background rounded-t-3xl -mt-4 px-4 pt-6 pb-8 space-y-6 relative z-20 shadow-lg">
         {/* Banner Informativo Sutil */}
-        <div className="p-3.5 rounded-2xl bg-muted/50 border border-border/70 flex items-start gap-3">
+        <div className="p-3.5 rounded-2xl bg-muted/40 border border-border/80 flex items-start gap-3">
           <div className="w-8 h-8 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0 mt-0.5">
             <Info size={18} weight="regular" />
           </div>
           <div className="space-y-0.5 flex-1">
-            <p className="text-sm font-normal text-foreground">
+            <p className="text-sm font-medium text-foreground">
               Tu próxima atención está programada
             </p>
-            <p className="text-sm font-normal text-muted-foreground leading-relaxed">
+            <p className="text-sm text-muted-foreground leading-relaxed">
               Si surge alguna dificultad, cuéntanos para coordinar contigo.
             </p>
           </div>
         </div>
 
-        {/* Sección: Resumen de Último Proceso */}
+        {/* Sección: Último Proceso (Ultra Minimalista) */}
         <section className="space-y-2.5">
           <div className="flex items-center justify-between">
             <h2 className="text-base font-semibold text-foreground">
@@ -176,112 +171,109 @@ export function AppIndexPage() {
             </h2>
             <Link
               to="/app/citas"
-              className="text-sm font-normal text-primary hover:underline flex items-center gap-0.5"
+              className="text-sm font-normal text-muted-foreground hover:text-foreground flex items-center gap-0.5"
             >
               <span>Ver ruta</span>
               <CaretRight size={14} />
             </Link>
           </div>
 
-          <Link to="/app/citas" className="block group">
-            <Card className="bg-card border border-border/70 shadow-none hover:border-primary/40 transition-colors">
-              <CardContent className="p-4 space-y-3">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h3 className="text-sm font-semibold text-foreground">
-                      Mateo Quispe Ramos · 18 meses
-                    </h3>
-                    <p className="text-sm font-normal text-muted-foreground">
-                      Tele-interconsulta INSN San Borja
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium border border-primary/20">
-                    <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-                    <span>En proceso</span>
-                  </div>
-                </div>
+          <Link
+            to="/app/citas"
+            className="block p-4 rounded-2xl bg-card border border-border/80 hover:border-primary/40 transition-colors space-y-3"
+          >
+            <div className="flex items-center justify-between">
+              <div>
+                <h3 className="text-sm font-semibold text-foreground">
+                  Mateo Quintanilla
+                </h3>
+                <p className="text-sm text-muted-foreground">
+                  Tele-interconsulta · INSN San Borja
+                </p>
+              </div>
+              <span className="px-2.5 py-0.5 rounded-full bg-primary/10 text-primary text-sm font-medium border border-primary/20">
+                Paso 2 de 4
+              </span>
+            </div>
 
-                {/* Barra de progreso delgada */}
-                <div className="space-y-1.5">
-                  <div className="flex items-center justify-between text-sm font-normal text-muted-foreground">
-                    <span>Paso 2 de 4: Revisión por Neuropediatría</span>
-                    <span>50%</span>
-                  </div>
-                  <div className="w-full h-1 bg-muted rounded-full overflow-hidden">
-                    <div className="h-full bg-primary rounded-full w-1/2" />
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+            {/* Barra de progreso de 4 segmentos minimalista */}
+            <div className="grid grid-cols-4 gap-1.5 pt-1">
+              <div className="h-1.5 rounded-full bg-primary" />
+              <div className="h-1.5 rounded-full bg-primary" />
+              <div className="h-1.5 rounded-full bg-muted" />
+              <div className="h-1.5 rounded-full bg-muted" />
+            </div>
           </Link>
         </section>
 
-        {/* Sección: Recursos Recomendados (Carrusel Horizontal) */}
+        {/* Sección: Recursos Recomendados (Tarjetas con Portada Real) */}
         <section className="space-y-2.5">
           <div className="flex items-center justify-between">
             <h2 className="text-base font-semibold text-foreground">
-              Recursos Recomendados
+              Aprende con Nosotros
             </h2>
             <Link
               to="/app/recursos"
-              className="text-sm font-normal text-primary hover:underline flex items-center gap-0.5"
+              className="text-sm font-normal text-muted-foreground hover:text-foreground flex items-center gap-0.5"
             >
-              <span>Biblioteca</span>
+              <span>Ver todos</span>
               <CaretRight size={14} />
             </Link>
           </div>
 
-          <div className="flex gap-3 overflow-x-auto pb-1 no-scrollbar -mx-4 px-4 snap-x">
-            {FEATURED_RESOURCES.map((resource) => {
-              const Icon = resource.icon
-
-              return (
-                <Link
-                  key={resource.id}
-                  to="/app/recursos"
-                  className="shrink-0 w-44 snap-start block group"
+          {/* Carrusel Horizontal con Imágenes */}
+          <div className="flex gap-3 overflow-x-auto pb-2 no-scrollbar -mx-4 px-4 snap-x">
+            {FEATURED_RESOURCES.map((resource) => (
+              <Link
+                key={resource.id}
+                to="/app/recursos"
+                className="shrink-0 w-48 snap-start rounded-2xl bg-card border border-border/80 overflow-hidden hover:border-primary/40 transition-all flex flex-col group"
+              >
+                {/* Portada */}
+                <div
+                  className="h-28 w-full bg-cover bg-center relative"
+                  style={{ backgroundImage: `url('${resource.image}')` }}
                 >
-                  <Card className="h-full bg-card border border-border/70 shadow-none hover:border-primary/40 transition-colors">
-                    <CardContent className="p-3.5 space-y-2.5 flex flex-col justify-between h-full">
-                      <div className="w-9 h-9 rounded-xl bg-muted/60 text-primary flex items-center justify-center">
-                        <Icon size={20} weight="regular" />
-                      </div>
-                      <div className="space-y-1">
-                        <h3 className="text-sm font-normal text-foreground leading-snug line-clamp-2">
-                          {resource.title}
-                        </h3>
-                        <div className="flex items-center justify-between text-sm font-normal text-muted-foreground pt-0.5">
-                          <span>{resource.category}</span>
-                          <span>{resource.readTime}</span>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </Link>
-              )
-            })}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                  <span className="absolute bottom-2 left-2 text-sm font-medium text-white/90">
+                    {resource.readTime}
+                  </span>
+                </div>
+
+                {/* Info */}
+                <div className="p-3 space-y-1 flex-1 flex flex-col justify-between">
+                  <h3 className="text-sm font-semibold text-foreground leading-snug line-clamp-2">
+                    {resource.title}
+                  </h3>
+                  <p className="text-sm text-muted-foreground pt-1">
+                    {resource.category}
+                  </p>
+                </div>
+              </Link>
+            ))}
           </div>
         </section>
 
-        {/* Sección: Agendamiento Rápido de Cita */}
+        {/* Sección: Agendamiento Rápido de Cita (Limpio) */}
         <section className="pt-1">
-          <Link to="/app/salud" className="block group">
-            <div className="p-4 rounded-2xl border border-primary/25 bg-primary/5 hover:bg-primary/10 transition-colors flex items-center justify-between gap-3">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center shrink-0">
-                  <CalendarCheck size={20} weight="regular" />
-                </div>
-                <div className="space-y-0.5">
-                  <h3 className="text-sm font-semibold text-foreground">
-                    Agendar Cita o Evaluación
-                  </h3>
-                  <p className="text-sm font-normal text-muted-foreground">
-                    Programa un nuevo control o seguimiento CRED
-                  </p>
-                </div>
+          <Link
+            to="/app/salud"
+            className="p-4 rounded-2xl bg-card border border-border/80 hover:border-primary/40 transition-all flex items-center justify-between gap-3 group"
+          >
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
+                <CalendarCheck size={22} weight="regular" />
               </div>
-              <ArrowRight size={18} className="text-primary group-hover:translate-x-0.5 transition-transform shrink-0" />
+              <div className="space-y-0.5">
+                <h3 className="text-sm font-semibold text-foreground">
+                  Agendar Evaluación CRED
+                </h3>
+                <p className="text-sm text-muted-foreground">
+                  Programa tu próximo control de neurodesarrollo
+                </p>
+              </div>
             </div>
+            <CaretRight size={18} className="text-muted-foreground group-hover:text-foreground group-hover:translate-x-0.5 transition-all shrink-0" />
           </Link>
         </section>
       </div>
@@ -290,23 +282,23 @@ export function AppIndexPage() {
       <Sheet open={isLanguageSheetOpen} onOpenChange={setIsLanguageSheetOpen}>
         <SheetContent
           side="bottom"
-          className="pb-8 pt-4 space-y-4 animate-in slide-in-from-bottom duration-300 ease-out"
+          className="pb-8 pt-4 space-y-4 max-h-[90vh] overflow-y-auto"
         >
-          {/* Indicador de arrastre / barra de agarre superior */}
+          {/* Indicador de arrastre */}
           <div className="w-12 h-1 bg-muted-foreground/30 rounded-full mx-auto" />
 
           <SheetHeader className="text-left space-y-1">
             <SheetTitle className="text-base font-semibold text-foreground">
               Seleccionar Idioma
             </SheetTitle>
-            <SheetDescription className="text-sm font-normal text-muted-foreground">
-              Elige el idioma preferido para la atención y contenidos de la aplicación.
+            <SheetDescription className="text-sm text-muted-foreground">
+              Elige el idioma preferido para los contenidos de la aplicación.
             </SheetDescription>
           </SheetHeader>
 
           {/* Lista de Idiomas */}
           <div className="space-y-2 pt-1">
-            {LANGUAGES.map((lang, index) => {
+            {LANGUAGES.map((lang) => {
               const isSelected = selectedLanguage === lang.id
 
               return (
@@ -317,17 +309,17 @@ export function AppIndexPage() {
                     setSelectedLanguage(lang.id)
                     setIsLanguageSheetOpen(false)
                   }}
-                  style={{ animationDelay: `${index * 40}ms` }}
-                  className={`w-full p-3.5 rounded-2xl flex items-center justify-between transition-all active:scale-[0.99] animate-in fade-in slide-in-from-bottom-2 duration-300 ${isSelected
-                    ? "bg-primary/10 text-primary border border-primary/25 shadow-sm"
-                    : "hover:bg-muted text-foreground border border-border/50"
-                    }`}
+                  className={`w-full p-3.5 rounded-2xl flex items-center justify-between transition-all active:scale-[0.99] ${
+                    isSelected
+                      ? "bg-primary/10 text-primary border border-primary/30"
+                      : "hover:bg-muted text-foreground border border-border/70"
+                  }`}
                 >
                   <div className="text-left">
                     <p className={`text-base ${isSelected ? "font-semibold text-primary" : "font-medium text-foreground"}`}>
                       {lang.name}
                     </p>
-                    <p className="text-sm font-normal text-muted-foreground">
+                    <p className="text-sm text-muted-foreground">
                       {lang.native}
                     </p>
                   </div>
