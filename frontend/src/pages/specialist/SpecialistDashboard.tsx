@@ -1,7 +1,6 @@
 import { useState } from "react"
 import {
   UserCheck,
-  Hospital,
   VideoCamera,
   CheckCircle,
   ShieldCheck,
@@ -21,7 +20,7 @@ interface CaseItem {
   age: string
   origin: string
   nurse: string
-  riskLevel: "alto" | "medio" | "bajo"
+  riskLevel: "alto" | "medio"
   riskLabel: string
   summary: string
   hasVideo: boolean
@@ -34,12 +33,12 @@ const INITIAL_CASES: CaseItem[] = [
     id: "case-1",
     patient: "Mateo Quispe Ramos",
     age: "18 meses",
-    origin: "C.S. San Juan de Lurigancho (RIS SJL)",
+    origin: "C.S. San Juan de Lurigancho",
     nurse: "Lic. Rosa Vega",
     riskLevel: "alto",
-    riskLabel: "Alto Riesgo (TEA / Lenguaje)",
+    riskLabel: "Alto Riesgo",
     summary:
-      "Observadas conductas repetitivas de aleteo, falta de respuesta al nombre y regresión en primeras palabras a los 16 meses. M-CHAT-R: 6 fallas.",
+      "Conductas repetitivas de aleteo, falta de respuesta al nombre y regresión en primeras palabras a los 16 meses.",
     hasVideo: true,
     status: "pendiente",
     date: "Hoy · 08:45 AM",
@@ -48,10 +47,10 @@ const INITIAL_CASES: CaseItem[] = [
     id: "case-2",
     patient: "Sofía Huamán Castro",
     age: "24 meses",
-    origin: "Puesto de Salud Huaycán (RIS Ate)",
+    origin: "Puesto de Salud Huaycán",
     nurse: "Lic. Carmen Mendoza",
     riskLevel: "medio",
-    riskLabel: "Riesgo Moderado (Hitos Motores)",
+    riskLabel: "Riesgo Moderado",
     summary:
       "Dificultad en marcha independiente, escaso contacto visual sostenido, lenguaje con ecolalia inmediata.",
     hasVideo: false,
@@ -79,7 +78,7 @@ export function SpecialistDashboard() {
 
   return (
     <div className="-mx-4 -mt-4 flex flex-col">
-      {/* 1. Hero Superior con Imagen y Capa Gradiente */}
+      {/* 1. Hero Superior Idéntico a las demás pantallas: Espaciador h-20, py-14 centrado y sin chips extraños */}
       <section
         className="text-white px-4 pt-7 pb-12 relative overflow-hidden bg-cover bg-bottom bg-no-repeat"
         style={{
@@ -89,30 +88,28 @@ export function SpecialistDashboard() {
         {/* Capa Gradiente de arriba hacia abajo (Transparente a Negro 60%) */}
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/60 pointer-events-none" />
 
-        {/* Espaciador de cabecera limpio */}
+        {/* Barra Superior Espaciadora idéntica a Citas/Salud/Recursos */}
         <div className="flex items-center justify-between relative z-10 h-20" />
 
-        {/* Contenido Central del Hero */}
-        <div className="relative z-10 space-y-2">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 backdrop-blur-md border border-white/25 text-white text-sm">
-            <Hospital size={16} weight="bold" />
-            <span>INSN San Borja · Tele-interconsulta 360°</span>
-          </div>
-
-          <h1 className="text-2xl font-bold text-white tracking-tight">
-            Bandeja Multidisciplinaria
+        {/* Sección Central Destacada (Texto centrado, tipografía uniforme) */}
+        <div className="text-center py-14 space-y-2 relative z-10">
+          <p className="text-lg font-normal text-white/90">
+            INSN San Borja
+          </p>
+          <h1 className="text-3xl font-normal text-white tracking-tight">
+            Tele-interconsulta 360°
           </h1>
-          <p className="text-sm text-white/90 leading-relaxed max-w-sm">
-            Admisión prioritaria de neurodesarrollo para centros de salud del primer nivel (RIS).
+          <p className="text-sm font-normal text-white/80">
+            Admisión y coordinación con especialistas de neuropediatría
           </p>
         </div>
       </section>
 
       {/* 2. Contenido Inferior Solapado con Esquinas Redondeadas */}
       <div className="bg-background rounded-t-3xl -mt-4 px-4 pt-6 pb-8 space-y-6 relative z-20 shadow-lg">
-        {/* Mensaje de éxito al admitir */}
+        {/* Notificación de admisión */}
         {showSuccessToast && (
-          <div className="p-3.5 rounded-2xl bg-zinc-950 text-white flex items-center gap-3 animate-in fade-in slide-in-from-top-2 duration-300">
+          <div className="p-3.5 rounded-2xl bg-black text-white flex items-center gap-3 animate-in fade-in slide-in-from-top-2 duration-300">
             <CheckCircle size={22} weight="fill" className="text-emerald-400 shrink-0" />
             <div className="flex-1">
               <p className="text-sm font-semibold">Paciente Admitido</p>
@@ -121,27 +118,27 @@ export function SpecialistDashboard() {
           </div>
         )}
 
-        {/* Resumen del Turno Clínico */}
+        {/* Resumen del Turno Clínico - Minimalista */}
         <div className="grid grid-cols-3 gap-2 text-center">
-          <div className="p-3 rounded-2xl bg-card border border-border/80 space-y-1">
+          <div className="p-3 rounded-2xl bg-card border border-border/80 space-y-0.5">
             <p className="text-xl font-bold text-foreground">{cases.length + 3}</p>
             <p className="text-sm text-muted-foreground">Derivados</p>
           </div>
-          <div className="p-3 rounded-2xl bg-card border border-border/80 space-y-1">
-            <p className="text-xl font-bold text-primary">{admittedCount}</p>
+          <div className="p-3 rounded-2xl bg-card border border-border/80 space-y-0.5">
+            <p className="text-xl font-bold text-foreground">{admittedCount}</p>
             <p className="text-sm text-muted-foreground">Admitidos</p>
           </div>
-          <div className="p-3 rounded-2xl bg-card border border-border/80 space-y-1">
+          <div className="p-3 rounded-2xl bg-card border border-border/80 space-y-0.5">
             <p className="text-xl font-bold text-foreground">100%</p>
             <p className="text-sm text-muted-foreground">Articulación</p>
           </div>
         </div>
 
-        {/* Casos Prioritarios Entrantes */}
+        {/* Casos Prioritarios Entrantes - Tarjetas Minimalistas */}
         <section className="space-y-3">
           <div className="flex items-center justify-between">
             <h2 className="text-base font-semibold text-foreground">
-              Casos Prioritarios Entrantes
+              Casos Entrantes
             </h2>
             <span className="text-sm text-muted-foreground">
               Filtro CRED
@@ -157,28 +154,17 @@ export function SpecialistDashboard() {
                   key={item.id}
                   className={`p-4 rounded-2xl border transition-all space-y-3 ${
                     isAdmitted
-                      ? "bg-muted/30 border-border/60 opacity-80"
-                      : "bg-card border-border/80 hover:border-primary/40 shadow-sm"
+                      ? "bg-muted/20 border-border/50 opacity-70"
+                      : "bg-card border-border/80"
                   }`}
                 >
-                  <div className="flex items-start justify-between gap-2">
-                    <div className="space-y-1">
-                      <div className="flex items-center gap-2">
-                        <span
-                          className={`px-2.5 py-0.5 rounded-full text-sm font-medium border ${
-                            item.riskLevel === "alto"
-                              ? "bg-red-500/10 text-red-600 dark:text-red-400 border-red-500/20"
-                              : "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20"
-                          }`}
-                        >
-                          {item.riskLabel}
-                        </span>
-                      </div>
+                  <div className="flex items-center justify-between">
+                    <div>
                       <h3 className="text-base font-semibold text-foreground">
-                        {item.patient} · {item.age}
+                        {item.patient}
                       </h3>
                       <p className="text-sm text-muted-foreground">
-                        {item.origin} · {item.nurse}
+                        {item.age} · {item.origin}
                       </p>
                     </div>
 
@@ -188,18 +174,22 @@ export function SpecialistDashboard() {
                         <span>Admitido</span>
                       </span>
                     ) : (
-                      <span className="px-2.5 py-1 rounded-full bg-black text-white text-sm font-medium shrink-0">
-                        {item.date}
+                      <span
+                        className={`px-2.5 py-0.5 rounded-full text-sm font-medium border ${
+                          item.riskLevel === "alto"
+                            ? "bg-red-500/10 text-red-600 dark:text-red-400 border-red-500/20"
+                            : "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20"
+                        }`}
+                      >
+                        {item.riskLabel}
                       </span>
                     )}
                   </div>
 
-                  {/* Resumen clínico */}
-                  <p className="text-sm text-foreground bg-muted/40 p-3 rounded-xl border border-border/60 leading-relaxed">
-                    "{item.summary}"
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    {item.summary}
                   </p>
 
-                  {/* Botones de acción */}
                   {!isAdmitted && (
                     <div className="flex items-center gap-2 pt-1">
                       <button
@@ -208,7 +198,7 @@ export function SpecialistDashboard() {
                         className="flex-1 py-2.5 px-4 rounded-xl bg-black text-white hover:bg-black/90 font-medium text-sm flex items-center justify-center gap-2 active:scale-[0.99] transition-all shadow-sm"
                       >
                         <UserCheck size={18} weight="bold" />
-                        <span>Admitir y Agendar 360°</span>
+                        <span>Admitir</span>
                       </button>
 
                       {item.hasVideo && (
@@ -232,16 +222,16 @@ export function SpecialistDashboard() {
           </div>
         </section>
 
-        {/* Protocolo Tele-Interconsulta */}
-        <div className="p-4 rounded-2xl bg-muted/30 border border-border/70 space-y-2">
+        {/* Nota simple minimalista de interoperabilidad */}
+        <div className="p-4 rounded-2xl bg-muted/30 border border-border/70 space-y-1.5">
           <div className="flex items-center gap-2">
-            <ShieldCheck size={20} weight="regular" className="text-primary" />
+            <ShieldCheck size={18} weight="regular" className="text-foreground" />
             <h3 className="text-sm font-semibold text-foreground">
-              Protocolo de Interoperabilidad RIS-MINSA
+              Red Integrada de Salud (RIS)
             </h3>
           </div>
           <p className="text-sm text-muted-foreground leading-relaxed">
-            La admisión notifica automáticamente al centro de salud de origen y genera la orden de tele-atención en la plataforma nacional.
+            La admisión notifica en tiempo real al centro de salud de origen para el seguimiento del carné CRED.
           </p>
         </div>
       </div>
@@ -266,7 +256,7 @@ export function SpecialistDashboard() {
                 Clip de Tamizaje: {selectedCase?.patient}
               </p>
               <p className="text-sm text-zinc-400">
-                Duración: 00:45s · M-CHAT-R Item 5 (Respuesta al nombre)
+                Duración: 00:45s · M-CHAT-R Item 5
               </p>
             </div>
           </div>
@@ -280,7 +270,7 @@ export function SpecialistDashboard() {
             className="w-full py-3.5 px-4 rounded-2xl bg-black text-white hover:bg-black/90 font-medium text-sm flex items-center justify-center gap-2 active:scale-[0.99] transition-all shadow-sm"
           >
             <UserCheck size={18} weight="bold" />
-            <span>Admitir Caso Directamente</span>
+            <span>Admitir Caso</span>
           </button>
         </SheetContent>
       </Sheet>
