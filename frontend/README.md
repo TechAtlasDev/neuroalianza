@@ -11,6 +11,7 @@ Aplicación web progresiva (**PWA**) Mobile-First para la plataforma **Neuroalia
 
 | Documento | Enlace | Contenido Principal |
 | :--- | :--- | :--- |
+| **Arquitectura Backend & Firebase** | [docs/FIREBASE_BACKEND_SERVICES.md](file:///home/techatlasdev/Proyectos/Sensoria/hackatones/neuroalianza-v1/frontend/docs/FIREBASE_BACKEND_SERVICES.md) | **[CRÍTICO]** Arquitectura escalable de backend con Firebase (Auth, Firestore, Buckets, Rules) bajo patrón estricto de Servicios desacoplados. |
 | **Filosofía y Principios UX** | [PHILOSOPHY.md](file:///home/techatlasdev/Proyectos/Sensoria/hackatones/neuroalianza-v1/frontend/PHILOSOPHY.md) | Enfoque humano para 3 realidades (CRED, Familias, Especialistas), PWA Mobile-First, accesibilidad y ética clínica. |
 | **Guía de Contribución** | [CONTRIBUTING.md](file:///home/techatlasdev/Proyectos/Sensoria/hackatones/neuroalianza-v1/frontend/CONTRIBUTING.md) | Instalación de shadcn/ui por CLI (`npx shadcn@latest add`), tokens semánticos, tipografía $\ge 16\text{px}$ y PRs. |
 | **Reglas para Asistentes AI** | [agents.md](file:///home/techatlasdev/Proyectos/Sensoria/hackatones/neuroalianza-v1/frontend/agents.md) | Reglas normativas: adopción de shadcn/ui, `MobileAppShell`, tokens semánticos y prohibiciones estrictas. |
@@ -85,10 +86,23 @@ src/
 ├── features/                        # Módulos de negocio (screening, referral, appointments, metrics)
 ├── pages/                           # Vistas por zona (/public, /health-worker, /family, /specialist, /demo)
 ├── hooks/                           # Custom Hooks
+├── services/                        # Capa desacoplada de Firebase y API
 └── utils/                           # Utilidad cn (clsx + twMerge)
 ```
 
 ---
 
-## 📄 5. Licencia y Créditos
+## ☁️ 5. Arquitectura de Backend Serverless (Firebase)
+
+La plataforma utiliza la suite de **Firebase** como backend serverless, implementando un patrón estricto de **Capa de Servicios Desacoplada** (`src/services/`):
+
+* **Firebase Authentication:** Manejo de sesiones y roles (`health_worker`, `family`, `specialist`).
+* **Cloud Firestore:** Almacén documental NoSQL en tiempo real con soporte offline nativo (`patients`, `screenings`, `referrals`, `appointments`).
+* **Cloud Storage (Buckets):** Almacenamiento de evidencias y videos caseros de interacción familiar.
+* **Seguridad (Security Rules):** Control de acceso basado en roles (RBAC) conforme a la Ley de Protección de Datos Personales en salud.
+* 📖 *Consulta la guía completa de integración en [docs/FIREBASE_BACKEND_SERVICES.md](file:///home/techatlasdev/Proyectos/Sensoria/hackatones/neuroalianza-v1/frontend/docs/FIREBASE_BACKEND_SERVICES.md).*
+
+---
+
+## 📄 6. Licencia y Créditos
 Desarrollado para el **Hackatón INSN San Borja 2026** por el equipo Neuroalianza.
