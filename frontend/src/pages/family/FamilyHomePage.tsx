@@ -31,7 +31,7 @@ export function FamilyHomePage() {
       <section
         className="text-white px-4 pt-7 pb-12 relative overflow-hidden bg-cover bg-bottom bg-no-repeat"
         style={{
-          backgroundImage: `url('https://res.cloudinary.com/de1xmnmeq/image/upload/v1786776308/paisaje-monta%C3%B1oso-low-poly-al-amanecer-con-degradados-pastel-en-los-picos-fondo-de-pantalla-para-m%C3%B3vil-experimenta-la-serena-378149134_pfiikg.webp')`,
+          backgroundImage: `url('https://res.cloudinary.com/de1xmnmeq/image/upload/v1786782196/images_kwu9oi.jpg')`,
         }}
       >
         {/* Capa Gradiente de arriba hacia abajo (Transparente a Negro 60%) */}
