@@ -98,34 +98,30 @@ export function BottomNavBar({
   const rightItems = items.slice(2)
 
   return (
-    <div className={`relative w-full ${className}`}>
-      {/* Botón Flotante de IA (Esquina superior derecha sobre la barra) */}
+    <div className={`sticky bottom-0 z-30 w-full ${className}`}>
+      {/* Botón Flotante de IA (Outline blanco limpio, sin animaciones ni badges) */}
       {showAiFab && (
         <div className="absolute -top-14 right-4 z-40 pointer-events-auto">
           <button
             type="button"
             onClick={onAiClick || (() => navigate("/app/demo"))}
             aria-label="Asistente de Inteligencia Artificial"
-            className="group relative flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-tr from-indigo-600 via-primary to-cyan-500 text-white shadow-lg shadow-primary/30 hover:scale-105 active:scale-95 transition-all duration-200 ring-2 ring-background border border-white/20"
+            className="flex items-center justify-center w-12 h-12 rounded-full bg-slate-900 text-white shadow-md hover:bg-slate-800 active:scale-95 transition-transform duration-150 border border-slate-700/60"
           >
             <Sparkle
               size={24}
-              weight="fill"
-              className="text-amber-300 animate-pulse group-hover:rotate-12 transition-transform duration-300"
+              weight="regular"
+              className="text-white"
             />
-            {/* Badge indicador de IA */}
-            <span className="absolute -top-1 -right-1 bg-amber-400 text-amber-950 text-[9px] font-black px-1.5 py-0.5 rounded-full uppercase tracking-wider shadow-sm">
-              IA
-            </span>
           </button>
         </div>
       )}
 
-      {/* Barra de Navegación Inferior (PWA Bar) */}
+      {/* Barra de Navegación Inferior Estática con Glassmorphism Sutil */}
       <nav
         data-testid="bottom-nav-bar"
         aria-label="Navegación principal de la aplicación"
-        className="w-full bg-card/95 backdrop-blur-md border-t border-border/80 px-2 py-1 shadow-lg shadow-black/5"
+        className="w-full bg-card/75 backdrop-blur-xl border-t border-border/50 px-2 py-1 shadow-lg shadow-black/5"
       >
         <div className="flex items-center justify-between max-w-md mx-auto relative h-14">
           {/* Bloque Izquierdo: Home y Recursos */}
@@ -142,7 +138,7 @@ export function BottomNavBar({
                   onClick={() => handleNavClick(item)}
                   aria-label={item.label}
                   aria-current={active ? "page" : undefined}
-                  className={`relative flex flex-col items-center justify-center w-16 h-12 bg-transparent transition-colors duration-200 active:scale-95 ${
+                  className={`relative flex flex-col items-center justify-center w-16 h-12 bg-transparent transition-colors duration-150 active:scale-95 ${
                     active
                       ? "text-primary"
                       : "text-muted-foreground hover:text-foreground"
@@ -151,7 +147,7 @@ export function BottomNavBar({
                   <IconComponent
                     size={24}
                     weight={active ? "fill" : "regular"}
-                    className="transition-transform duration-200"
+                    className="transition-colors duration-150"
                   />
                   <span
                     className={`text-[11px] tracking-tight mt-0.5 ${
@@ -170,7 +166,7 @@ export function BottomNavBar({
             })}
           </div>
 
-          {/* Botón Central (+) Elevado / Prominente */}
+          {/* Botón Central (+) Elevado */}
           {showCenterButton && (
             <div className="relative -top-4 flex items-center justify-center px-2">
               <button
@@ -178,12 +174,11 @@ export function BottomNavBar({
                 data-testid="nav-center-action"
                 onClick={handleCenterClick}
                 aria-label="Nueva acción o tamizaje rápido"
-                className="group relative flex items-center justify-center w-14 h-14 rounded-full bg-primary text-primary-foreground shadow-lg shadow-primary/40 hover:bg-primary/90 active:scale-95 transition-all duration-200 ring-4 ring-background border-2 border-white/20"
+                className="group relative flex items-center justify-center w-14 h-14 rounded-full bg-primary text-primary-foreground shadow-lg shadow-primary/30 hover:bg-primary/90 active:scale-95 transition-transform duration-150 ring-4 ring-background border border-white/20"
               >
                 <Plus
-                  size={28}
+                  size={26}
                   weight="bold"
-                  className="transition-transform duration-300 group-hover:rotate-90"
                 />
               </button>
             </div>
@@ -203,7 +198,7 @@ export function BottomNavBar({
                   onClick={() => handleNavClick(item)}
                   aria-label={item.label}
                   aria-current={active ? "page" : undefined}
-                  className={`relative flex flex-col items-center justify-center w-16 h-12 bg-transparent transition-colors duration-200 active:scale-95 ${
+                  className={`relative flex flex-col items-center justify-center w-16 h-12 bg-transparent transition-colors duration-150 active:scale-95 ${
                     active
                       ? "text-primary"
                       : "text-muted-foreground hover:text-foreground"
@@ -212,7 +207,7 @@ export function BottomNavBar({
                   <IconComponent
                     size={24}
                     weight={active ? "fill" : "regular"}
-                    className="transition-transform duration-200"
+                    className="transition-colors duration-150"
                   />
                   <span
                     className={`text-[11px] tracking-tight mt-0.5 leading-none text-center ${
